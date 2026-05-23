@@ -209,10 +209,22 @@ kotlin {
         binaries.framework { baseName = "Indexmap"; xcf.add(this) }
     }
     iosSimulatorArm64 {
-        binaries.framework { baseName = "Indexmap"; xcf.add(this) }
+        binaries.framework {
+            baseName = "Indexmap"
+            isStatic = true
+            xcf.add(this)
+        }
     }
     iosX64 {
-        binaries.framework { baseName = "Indexmap"; xcf.add(this) }
+        binaries.framework {
+            baseName = "Indexmap"
+            // Paired with iosSimulatorArm64 into the iOS Simulator fat
+            // framework. Both arms of the iOS Simulator pair must agree on
+            // static/dynamic — `iosSimulatorArm64` is static for the Swift
+            // Export SPM bridge, so `iosX64` matches.
+            isStatic = true
+            xcf.add(this)
+        }
     }
 
     tvosArm64 {
