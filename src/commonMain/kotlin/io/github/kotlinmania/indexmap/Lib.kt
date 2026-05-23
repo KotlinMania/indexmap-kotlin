@@ -139,9 +139,17 @@ internal class Bucket<K, V>(
 public data class Layout(val size: ULong, val align: ULong)
 
 // The error type for try-reserve methods on IndexMap and IndexSet.
-public class TryReserveError internal constructor(internal val kind: TryReserveErrorKind) : Throwable() {
+//
+// Upstream Rust returns `Result<(), TryReserveError>` from `try_reserve` —
+// the error is a returned value, never thrown. The Kotlin port mirrors that:
+// `TryReserveError` is a plain value class, not a `Throwable` subclass.
+// Extending Throwable would expose `kotlin.Throwable` (with its
+// `Array<StackTraceElement>` reach) across the Swift Export boundary,
+// dragging in the plugin-generated `KotlinStdlib.kt` bridge whose
+// `Any?` → `Array<Any?>` unchecked casts trip `allWarningsAsErrors`.
+public class TryReserveError internal constructor(internal val kind: TryReserveErrorKind) {
 
-    override val message: String
+    public val message: String
         get() {
             val reason = when (kind) {
                 is TryReserveErrorKind.Std -> return kind.display
