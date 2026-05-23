@@ -209,7 +209,11 @@ kotlin {
         binaries.framework { baseName = "Indexmap"; xcf.add(this) }
     }
     iosSimulatorArm64 {
-        binaries.framework { baseName = "Indexmap"; xcf.add(this) }
+        binaries.framework {
+            baseName = "Indexmap"
+            isStatic = true
+            xcf.add(this)
+        }
     }
     iosX64 {
         binaries.framework { baseName = "Indexmap"; xcf.add(this) }
