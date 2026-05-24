@@ -106,4 +106,3 @@ do not treat them as the next implementation target by default.
 | Source | Expected target | Deps | Source path | Expected path |
 |--------|-----------------|------|-------------|---------------|
 | `rayon.mod` | `rayon.Mod` | 0 | `rayon/mod.rs` | `rayon/Mod.kt` |
-
