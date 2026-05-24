@@ -1,6 +1,5 @@
 {
   "type": "port",
-  "parity_mode": false,
   "name": "indexmap-kotlin",
   "source": {
     "path": "tmp/indexmap/src",
