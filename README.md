@@ -86,7 +86,7 @@ See [RELEASES.md](https://github.com/indexmap-rs/indexmap/blob/main/RELEASES.md)
 
 ```kotlin
 dependencies {
-    implementation("io.github.kotlinmania:indexmap-kotlin:0.1.0")
+    implementation("io.github.kotlinmania:indexmap-kotlin:0.1.1")
 }
 ```
 
