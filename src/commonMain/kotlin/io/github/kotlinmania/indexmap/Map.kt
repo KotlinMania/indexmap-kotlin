@@ -1,5 +1,9 @@
+@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
+
 // port-lint: source map.rs
 package io.github.kotlinmania.indexmap
+
+import kotlin.native.HiddenFromObjC
 
 // A hash table where the iteration order of the key-value pairs is independent
 // of the hash values of the keys.
@@ -7,6 +11,7 @@ package io.github.kotlinmania.indexmap
 // The key-value pairs have a consistent order determined by insertion and
 // removal calls on the map. The order does not depend on the keys or on their
 // hash values.
+@HiddenFromObjC
 public class IndexMap<K, V> private constructor(
     private val entries: MutableList<Bucket<K, V>>,
 ) : Iterable<Pair<K, V>> {

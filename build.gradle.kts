@@ -543,7 +543,7 @@ tasks.register("setupAndroidSdk") {
 tasks.register("test") {
     group = "verification"
     description =
-        "Runs the host-portable test suite (macOS + JS + WasmJS + Android unit). " +
+        "Runs the host-portable test suite (macOS + JS + WasmJS + Android unit + Swift Export). " +
         "Non-host native targets (mingwX64, linuxX64) only run on their own host."
 
     val defaultTestTasks = listOf(
@@ -556,6 +556,56 @@ tasks.register("test") {
     )
 
     dependsOn(defaultTestTasks.mapNotNull { taskName -> tasks.findByName(taskName) })
+}
+
+val swiftExportTest = tasks.register("swiftExportTest") {
+    group = "verification"
+    description = "Builds the Swift Export package and runs the SwiftPM smoke-test harness."
+    outputs.upToDateWhen { false }
+    onlyIf {
+        val isMacHost = System.getProperty("os.name").lowercase().contains("mac")
+        if (!isMacHost) {
+            logger.lifecycle("swiftExportTest: skipped because Swift Export requires a macOS host")
+        }
+        isMacHost
+    }
+
+    doLast {
+        val swiftTestDir = layout.buildDirectory.dir("swift-test").get().asFile.absolutePath
+        val swiftExportEnvironment = mapOf(
+            "BUILT_PRODUCTS_DIR" to swiftTestDir,
+            "TARGET_BUILD_DIR" to swiftTestDir,
+            "SDK_NAME" to "macosx",
+            "CONFIGURATION" to "Debug",
+            "ARCHS" to "arm64",
+            "FRAMEWORKS_FOLDER_PATH" to "Frameworks",
+            "MACOSX_DEPLOYMENT_TARGET" to "14.0",
+            "DEPLOYMENT_TARGET_SETTING_NAME" to "MACOSX_DEPLOYMENT_TARGET",
+        )
+
+        androidSdkExecOperations.exec {
+            commandLine(
+                layout.projectDirectory.file("gradlew").asFile.absolutePath,
+                "--no-daemon",
+                "embedSwiftExportForXcode",
+                "--no-configuration-cache",
+                "--console=plain",
+            )
+            environment(swiftExportEnvironment)
+        }
+        androidSdkExecOperations.exec {
+            workingDir = layout.projectDirectory.dir("swift-test-harness").asFile
+            commandLine("swift", "test")
+        }
+    }
+}
+
+tasks.named("test") {
+    dependsOn(swiftExportTest)
+}
+
+tasks.named("check") {
+    dependsOn("test")
 }
 
 val fullTargetBuildTaskNames = setOf(
