@@ -1,6 +1,7 @@
-// port-lint: source map.rs
+// port-lint: tests map.rs
 package io.github.kotlinmania.indexmap
 
+import io.github.kotlinmania.indexmap.map.SearchResult
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -114,5 +115,88 @@ class MapTest {
         assertTrue(map.isEmpty())
         assertNull(map.first())
         assertNull(map.last())
+    }
+
+    @Test
+    fun orderedEntryHelpersSearchSortAndPartition() {
+        val map = IndexMap.from(listOf(3 to "c", 1 to "a", 2 to "b"))
+
+        assertEquals(listOf(3, 1, 2), map.intoKeys())
+        assertEquals(listOf("c", "a", "b"), map.intoValues())
+        assertEquals(listOf(3 to "c", 1 to "a", 2 to "b"), map.intoEntries())
+
+        map.sortKeys(naturalOrder())
+        assertEquals(listOf(1, 2, 3), map.keys())
+        assertTrue(map.isSorted(naturalOrder()))
+        assertTrue(map.isSortedByKey({ key, _ -> key }, naturalOrder()))
+        assertEquals(SearchResult.found(1), map.binarySearchKeys(2, naturalOrder()))
+        assertEquals(SearchResult.insertion(3), map.binarySearchByKey(4, { key, _ -> key }, naturalOrder()))
+        assertEquals(2, map.partitionPoint { key, _ -> key < 3 })
+
+        assertEquals(3 to null, map.insertSorted(4, "d", naturalOrder()))
+        assertEquals(listOf(1, 2, 3, 4), map.keys())
+        assertEquals(2 to "c", map.insertSortedBy(3, "C") { leftKey, _, rightKey, _ -> leftKey.compareTo(rightKey) })
+        assertEquals("C", map[3])
+    }
+
+    @Test
+    fun removalRetainReverseAndEntriesPreserveOrder() {
+        val map = IndexMap.from(listOf(1 to "a", 2 to "b", 3 to "c", 4 to "d"))
+
+        assertEquals(Triple(1, 2, "b"), map.shiftRemoveFull(2))
+        assertEquals(listOf(1, 3, 4), map.keys())
+        assertEquals(Triple(1, 3, "c"), map.swapRemoveFull(3))
+        assertEquals(listOf(1, 4), map.keys())
+        assertEquals(4 to "d", map.popIf { key, _ -> key == 4 })
+        assertNull(map.popIf { key, _ -> key == 4 })
+
+        map.extend(listOf(5 to "e", 6 to "f", 7 to "g"))
+        map.retain { key, _ -> key % 2 == 1 }
+        assertEquals(listOf(1, 5, 7), map.keys())
+        assertEquals(0 to (1 to "a"), map.firstEntry())
+        assertEquals(2 to (7 to "g"), map.lastEntry())
+
+        map.reverse()
+        assertEquals(listOf(7, 5, 1), map.keys())
+        assertTrue(map.eq(IndexMap.from(listOf(7 to "g", 5 to "e", 1 to "a"))))
+    }
+
+    @Test
+    fun cloneDrainSplitSpliceAndAppendMirrorOrderedEntries() {
+        val map = IndexMap.withCapacityAndHasher<Int, String, String>(4, "hash")
+        map.extend(listOf(1 to "a", 2 to "b", 3 to "c", 4 to "d"))
+        map.reserve(2)
+        map.reserveExact(1)
+        map.shrinkTo(2)
+        map.shrinkToFit()
+
+        val clone = map.clone()
+        assertTrue(map !== clone)
+        assertTrue(map.eq(clone))
+        assertEquals("kotlin.hashCode", map.hasher())
+        assertEquals(map.toString(), map.fmt())
+        assertNull(map.tryReserve(1))
+        assertNull(map.tryReserveExact(1))
+        assertEquals("a", map.index(0))
+        assertEquals(1 to (2 to "b"), map.getIndexEntry(1))
+
+        assertEquals(1, map.replaceIndex(0, 10))
+        assertEquals(listOf(10, 2, 3, 4), map.keys())
+        assertEquals(listOf(2 to "b", 3 to "c"), map.drain(1, 3))
+        assertEquals(listOf(10, 4), map.keys())
+
+        val tail = map.splitOff(1)
+        assertEquals(listOf(10), map.keys())
+        assertEquals(listOf(4), tail.keys())
+
+        assertEquals(listOf(10 to "a"), map.splice(0, 1, listOf(5 to "e", 6 to "f")))
+        assertEquals(listOf(5, 6), map.keys())
+        assertEquals(listOf(6 to "f"), map.extractIf { key, _ -> key == 6 })
+
+        map.append(tail)
+        assertTrue(tail.isEmpty())
+        assertEquals(listOf(5, 4), map.keys())
+        assertEquals(listOf(5, 4), IndexMap.fromIter(map.asEntries()).keys())
+        assertEquals(listOf(5, 4), IndexMap.withHasher<Int, String, String>("hash").also { it.extend(map.asEntries()) }.keys())
     }
 }

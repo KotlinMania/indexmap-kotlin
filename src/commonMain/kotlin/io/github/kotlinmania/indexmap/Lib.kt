@@ -1,4 +1,4 @@
-// port-lint: source src/lib.rs
+// port-lint: source lib.rs
 package io.github.kotlinmania.indexmap
 
 // IndexMap is a hash table where the iteration order of the key-value pairs
@@ -70,22 +70,22 @@ package io.github.kotlinmania.indexmap
 // - The convenience builders indexmapOf() and indexsetOf() are unavailable
 //   without `std`. Use indexmapWithDefault() and indexsetWithDefault() instead.
 
-// Upstream module declarations from `src/lib.rs`:
-//   mod arbitrary
-//   mod inner
-//   mod macros
-//   mod borsh        (feature = "borsh")
-//   mod serde        (feature = "serde")
-//   mod sval         (feature = "sval")
-//   mod util
-//   pub mod map
-//   pub mod set
-//   mod rayon        (feature = "rayon")
+// Upstream crate layout:
+//   arbitrary support
+//   shared table internals
+//   constructor macros
+//   Borsh support when enabled
+//   serde support when enabled
+//   Sval support when enabled
+//   range utilities
+//   ordered map module
+//   ordered set module
+//   parallel iterator support when enabled
 //
-// Upstream public re-exports from `src/lib.rs`:
-//   pub use crate::map::IndexMap;
-//   pub use crate::set::IndexSet;
-//   pub use equivalent::Equivalent;
+// Crate-root export ledger:
+//   IndexMap is owned by the ordered map module.
+//   IndexSet is owned by the ordered set module.
+//   Equivalent is owned by the equivalent crate.
 // Per workspace mod.rs / lib.rs re-export rules, these names are not minted as
 // central typealiases here. Callers import the original symbols directly from
 // their owning packages.
@@ -140,8 +140,8 @@ public data class Layout(val size: ULong, val align: ULong)
 
 // The error type for try-reserve methods on IndexMap and IndexSet.
 //
-// Upstream Rust returns `Result<(), TryReserveError>` from `try_reserve` —
-// the error is a returned value, never thrown. The Kotlin port mirrors that:
+// The upstream reserve helper reports this value on allocation failure; the
+// error is a returned value, never thrown. The Kotlin port mirrors that:
 // `TryReserveError` is a plain value class, not a `Throwable` subclass.
 // Extending Throwable would expose `kotlin.Throwable` (with its
 // `Array<StackTraceElement>` reach) across the Swift Export boundary,

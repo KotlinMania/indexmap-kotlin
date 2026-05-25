@@ -1,4 +1,4 @@
-// port-lint: source src/util.rs
+// port-lint: tests util.rs
 package io.github.kotlinmania.indexmap
 
 import kotlin.test.Test
