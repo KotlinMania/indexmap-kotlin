@@ -1,4 +1,4 @@
-// port-lint: source src/util.rs
+// port-lint: source util.rs
 package io.github.kotlinmania.indexmap
 
 internal sealed interface Bound<out T> {

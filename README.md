@@ -86,7 +86,7 @@ See [RELEASES.md](https://github.com/indexmap-rs/indexmap/blob/main/RELEASES.md)
 
 ```kotlin
 dependencies {
-    implementation("io.github.kotlinmania:indexmap-kotlin:0.1.1")
+    implementation("io.github.kotlinmania:indexmap-kotlin:0.1.2")
 }
 ```
 
@@ -109,7 +109,7 @@ dependencies {
 
 ### Porting guidelines
 
-See [AGENTS.md](AGENTS.md) and [CLAUDE.md](CLAUDE.md) for translator discipline, port-lint header convention, and Rust → Kotlin idiom mapping.
+See [AGENTS.md](AGENTS.md) for translator discipline, port-lint header convention, and Rust → Kotlin idiom mapping.
 
 ### License
 
