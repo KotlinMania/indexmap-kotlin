@@ -5,6 +5,9 @@ package io.github.kotlinmania.indexmap
 
 import io.github.kotlinmania.indexmap.map.SearchResult
 import io.github.kotlinmania.indexmap.map.Slice
+import io.github.kotlinmania.indexmap.map.Entry
+import io.github.kotlinmania.indexmap.map.IndexedEntry
+import io.github.kotlinmania.indexmap.map.MutableKeys
 import kotlin.native.HiddenFromObjC
 
 // A hash table where the iteration order of the key-value pairs is independent
@@ -16,7 +19,7 @@ import kotlin.native.HiddenFromObjC
 @HiddenFromObjC
 public class IndexMap<K, V> private constructor(
     private val entries: MutableList<Bucket<K, V>>,
-) : Iterable<Pair<K, V>> {
+) : Iterable<Pair<K, V>>, MutableKeys<K, V> {
 
     public constructor() : this(mutableListOf())
 
@@ -181,6 +184,10 @@ public class IndexMap<K, V> private constructor(
     public fun getIndexEntry(index: Int): Pair<Int, Pair<K, V>>? =
         getIndex(index)?.let { index to it }
 
+    // Get an indexed entry handle by index.
+    public fun indexedEntry(index: Int): IndexedEntry<K, V>? =
+        if (index in entries.indices) IndexedEntry(this, index) else null
+
     // Get the first key-value pair.
     public fun first(): Pair<K, V>? = entries.firstOrNull()?.keyValue()
 
@@ -206,6 +213,16 @@ public class IndexMap<K, V> private constructor(
 
         entries += Bucket(hashValueFor(key), key, value)
         return entries.lastIndex to null
+    }
+
+    // Get an entry handle for in-place ordered-map insertion or update.
+    public fun entry(key: K): Entry<K, V> {
+        val existing = getIndexOf(key)
+        return if (existing != null) {
+            Entry.Occupied(io.github.kotlinmania.indexmap.map.OccupiedEntry(this, existing))
+        } else {
+            Entry.Vacant(io.github.kotlinmania.indexmap.map.VacantEntry(this, key, entries.size))
+        }
     }
 
     // Insert a key-value pair at its ordered position among sorted keys.
@@ -387,6 +404,16 @@ public class IndexMap<K, V> private constructor(
                 entries.removeAt(index)
             }
         }
+    }
+
+    override fun getFullMut2(key: K): Triple<Int, K, V>? = getFull(key)
+
+    override fun getIndexMut2(index: Int): Pair<K, V>? = getIndex(index)
+
+    override fun iterMut2(): List<Pair<K, V>> = asEntries()
+
+    override fun retain2(keep: (K, V) -> Boolean) {
+        retain(keep)
     }
 
     // Drain a range of entries and return them in removal order.
