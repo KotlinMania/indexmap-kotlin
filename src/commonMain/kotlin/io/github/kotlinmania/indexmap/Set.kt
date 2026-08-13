@@ -1,6 +1,7 @@
 @file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
 
 // port-lint: source set.rs
+
 package io.github.kotlinmania.indexmap
 
 import io.github.kotlinmania.indexmap.map.SearchResult
@@ -16,7 +17,6 @@ import kotlin.native.HiddenFromObjC
 public class IndexSet<T> private constructor(
     private val map: IndexMap<T, Unit>,
 ) : Iterable<T> {
-
     public constructor() : this(IndexMap.new())
 
     public companion object {

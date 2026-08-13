@@ -1,6 +1,7 @@
 @file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
 
 // port-lint: source map/entry.rs
+
 package io.github.kotlinmania.indexmap.map
 
 import io.github.kotlinmania.indexmap.IndexMap
@@ -11,7 +12,8 @@ import kotlin.native.HiddenFromObjC
 @HiddenFromObjC
 public sealed class Entry<K, V> : MutableEntryKey<K> {
     public abstract fun index(): Int
-    override abstract fun key(): K
+
+    abstract override fun key(): K
 
     public fun insertEntry(value: V): OccupiedEntry<K, V> =
         when (this) {
@@ -51,8 +53,11 @@ public sealed class Entry<K, V> : MutableEntryKey<K> {
         public val entry: OccupiedEntry<K, V>,
     ) : Entry<K, V>() {
         override fun index(): Int = entry.index()
+
         override fun key(): K = entry.key()
+
         override fun replaceKey(newKey: K): K = entry.replaceKey(newKey)
+
         override fun toString(): String = "Entry($entry)"
     }
 
@@ -60,8 +65,11 @@ public sealed class Entry<K, V> : MutableEntryKey<K> {
         public val entry: VacantEntry<K, V>,
     ) : Entry<K, V>() {
         override fun index(): Int = entry.index()
+
         override fun key(): K = entry.key()
+
         override fun replaceKey(newKey: K): K = entry.replaceKey(newKey)
+
         override fun toString(): String = "Entry($entry)"
     }
 }
