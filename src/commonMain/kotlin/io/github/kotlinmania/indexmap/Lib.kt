@@ -94,7 +94,9 @@ package io.github.kotlinmania.indexmap
 
 // Hash value newtype. Not larger than ULong, since anything larger isn't used
 // for selecting position anyway.
-internal class HashValue(internal val raw: ULong) {
+internal class HashValue(
+    internal val raw: ULong,
+) {
     internal fun get(): ULong = raw
 
     override fun equals(other: Any?): Boolean =
@@ -120,13 +122,21 @@ internal class Bucket<K, V>(
 
     // field accessors -- used for `f` instead of closures in `.map(f)`
     internal fun keyRef(): K = key
+
     internal fun valueRef(): V = value
+
     internal fun valueMut(): V = value
+
     internal fun consumeKey(): K = key
+
     internal fun consumeValue(): V = value
+
     internal fun keyValue(): Pair<K, V> = key to value
+
     internal fun refs(): Pair<K, V> = key to value
+
     internal fun refMut(): Pair<K, V> = key to value
+
     internal fun muts(): Pair<K, V> = key to value
 
     override fun toString(): String = "Bucket(hash=$hash, key=$key, value=$value)"
@@ -136,7 +146,10 @@ internal class Bucket<K, V>(
 // In upstream Rust this is `alloc::alloc::Layout`. The Kotlin port preserves
 // the (size, align) carrier so the error kind stays faithful to upstream;
 // no allocator semantics are implied beyond the data carrier.
-public data class Layout(val size: ULong, val align: ULong)
+public data class Layout(
+    val size: ULong,
+    val align: ULong,
+)
 
 // The error type for try-reserve methods on IndexMap and IndexSet.
 //
@@ -147,17 +160,19 @@ public data class Layout(val size: ULong, val align: ULong)
 // `Array<StackTraceElement>` reach) across the Swift Export boundary,
 // dragging in the plugin-generated `KotlinStdlib.kt` bridge whose
 // `Any?` → `Array<Any?>` unchecked casts trip `allWarningsAsErrors`.
-public class TryReserveError internal constructor(internal val kind: TryReserveErrorKind) {
-
+public class TryReserveError internal constructor(
+    internal val kind: TryReserveErrorKind,
+) {
     public val message: String
         get() {
-            val reason = when (kind) {
-                is TryReserveErrorKind.Std -> return kind.display
-                TryReserveErrorKind.CapacityOverflow ->
-                    " because the computed capacity exceeded the collection's maximum"
-                is TryReserveErrorKind.AllocError ->
-                    " because the memory allocator returned an error"
-            }
+            val reason =
+                when (kind) {
+                    is TryReserveErrorKind.Std -> return kind.display
+                    TryReserveErrorKind.CapacityOverflow ->
+                        " because the computed capacity exceeded the collection's maximum"
+                    is TryReserveErrorKind.AllocError ->
+                        " because the memory allocator returned an error"
+                }
             return "memory allocation failed$reason"
         }
 
@@ -190,9 +205,15 @@ internal sealed class TryReserveErrorKind {
     // The host standard library's kind is currently opaque to us, otherwise we
     // could unify this. The Kotlin port keeps the underlying error's display
     // form so the resulting message remains identical.
-    internal data class Std(val display: String) : TryReserveErrorKind()
+    internal data class Std(
+        val display: String,
+    ) : TryReserveErrorKind()
+
     internal data object CapacityOverflow : TryReserveErrorKind()
-    internal data class AllocError(val layout: Layout) : TryReserveErrorKind()
+
+    internal data class AllocError(
+        val layout: Layout,
+    ) : TryReserveErrorKind()
 }
 
 // Mirror of the hashbrown try-reserve error shape used by `fromHashbrown`.
@@ -200,7 +221,10 @@ internal sealed class TryReserveErrorKind {
 // converter inspects.
 internal sealed class HashbrownTryReserveError {
     internal data object CapacityOverflow : HashbrownTryReserveError()
-    internal data class AllocError(val layout: Layout) : HashbrownTryReserveError()
+
+    internal data class AllocError(
+        val layout: Layout,
+    ) : HashbrownTryReserveError()
 }
 
 // NOTE: This is copied from the slice module in the host standard library.
@@ -215,10 +239,13 @@ public enum class GetDisjointMutError {
     IndexOutOfBounds,
 
     // Two indices provided were overlapping.
-    OverlappingIndices;
+    OverlappingIndices,
 
-    override fun toString(): String = when (this) {
-        IndexOutOfBounds -> "an index is out of bounds"
-        OverlappingIndices -> "there were overlapping indices"
-    }
+    ;
+
+    override fun toString(): String =
+        when (this) {
+            IndexOutOfBounds -> "an index is out of bounds"
+            OverlappingIndices -> "there were overlapping indices"
+        }
 }

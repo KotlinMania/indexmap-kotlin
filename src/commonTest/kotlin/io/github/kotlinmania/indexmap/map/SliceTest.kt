@@ -92,10 +92,11 @@ class SliceTest {
     fun sliceOwnedIteratorsAndComparisonHelpers() {
         val slice = sampleMap().asSlice()
         val clone = slice.clone()
-        val pairComparator = Comparator<Pair<Int, String>> { left, right ->
-            val keyOrder = left.first.compareTo(right.first)
-            if (keyOrder != 0) keyOrder else left.second.compareTo(right.second)
-        }
+        val pairComparator =
+            Comparator<Pair<Int, String>> { left, right ->
+                val keyOrder = left.first.compareTo(right.first)
+                if (keyOrder != 0) keyOrder else left.second.compareTo(right.second)
+            }
 
         assertEquals(listOf(1, 2, 3, 4), slice.intoKeys())
         assertEquals(listOf("one", "two", "three", "four"), slice.intoValues())

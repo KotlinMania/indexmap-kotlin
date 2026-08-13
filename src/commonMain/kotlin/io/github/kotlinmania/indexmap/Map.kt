@@ -1,13 +1,14 @@
 @file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
 
 // port-lint: source map.rs
+
 package io.github.kotlinmania.indexmap
 
-import io.github.kotlinmania.indexmap.map.SearchResult
-import io.github.kotlinmania.indexmap.map.Slice
 import io.github.kotlinmania.indexmap.map.Entry
 import io.github.kotlinmania.indexmap.map.IndexedEntry
 import io.github.kotlinmania.indexmap.map.MutableKeys
+import io.github.kotlinmania.indexmap.map.SearchResult
+import io.github.kotlinmania.indexmap.map.Slice
 import kotlin.native.HiddenFromObjC
 
 // A hash table where the iteration order of the key-value pairs is independent
@@ -19,8 +20,8 @@ import kotlin.native.HiddenFromObjC
 @HiddenFromObjC
 public class IndexMap<K, V> private constructor(
     private val entries: MutableList<Bucket<K, V>>,
-) : Iterable<Pair<K, V>>, MutableKeys<K, V> {
-
+) : Iterable<Pair<K, V>>,
+    MutableKeys<K, V> {
     public constructor() : this(mutableListOf())
 
     public companion object {
@@ -219,9 +220,15 @@ public class IndexMap<K, V> private constructor(
     public fun entry(key: K): Entry<K, V> {
         val existing = getIndexOf(key)
         return if (existing != null) {
-            Entry.Occupied(io.github.kotlinmania.indexmap.map.OccupiedEntry(this, existing))
+            Entry.Occupied(
+                io.github.kotlinmania.indexmap.map
+                    .OccupiedEntry(this, existing),
+            )
         } else {
-            Entry.Vacant(io.github.kotlinmania.indexmap.map.VacantEntry(this, key, entries.size))
+            Entry.Vacant(
+                io.github.kotlinmania.indexmap.map
+                    .VacantEntry(this, key, entries.size),
+            )
         }
     }
 
@@ -512,7 +519,8 @@ public class IndexMap<K, V> private constructor(
 
     // Return the sorted key-value pairs without modifying the map.
     public fun sortedBy(compare: (K, V, K, V) -> Int): List<Pair<K, V>> =
-        entries.map { it.clone() }
+        entries
+            .map { it.clone() }
             .sortedWith { left, right -> compare(left.key, left.value, right.key, right.value) }
             .map { it.keyValue() }
 

@@ -1,6 +1,7 @@
 @file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
 
 // port-lint: source map/slice.rs
+
 package io.github.kotlinmania.indexmap.map
 
 import io.github.kotlinmania.indexmap.Bucket
@@ -10,9 +11,13 @@ import io.github.kotlinmania.indexmap.trySimplifyRange
 import kotlin.native.HiddenFromObjC
 
 // The result of searching an ordered entry slice.
-public data class SearchResult(val index: Int, val found: Boolean) {
+public data class SearchResult(
+    val index: Int,
+    val found: Boolean,
+) {
     public companion object {
         public fun found(index: Int): SearchResult = SearchResult(index, true)
+
         public fun insertion(index: Int): SearchResult = SearchResult(index, false)
     }
 }
@@ -24,7 +29,6 @@ public class Slice<K, V> internal constructor(
     private val start: Int,
     private val endExclusive: Int,
 ) : Iterable<Pair<K, V>> {
-
     init {
         require(start in 0..entries.size) {
             "slice start index $start out of range for entries of length ${entries.size}"

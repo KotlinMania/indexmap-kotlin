@@ -3,8 +3,8 @@ package io.github.kotlinmania.indexmap
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
@@ -59,5 +59,6 @@ class UtilTest {
 private fun rangeBounds(start: Bound<Int>, end: Bound<Int>): RangeBounds<Int> =
     object : RangeBounds<Int> {
         override fun startBound(): Bound<Int> = start
+
         override fun endBound(): Bound<Int> = end
     }
