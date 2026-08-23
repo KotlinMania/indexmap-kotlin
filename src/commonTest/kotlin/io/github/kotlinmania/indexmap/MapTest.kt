@@ -199,4 +199,38 @@ class MapTest {
         assertEquals(listOf(5, 4), IndexMap.fromIter(map.asEntries()).keys())
         assertEquals(listOf(5, 4), IndexMap.withHasher<Int, String, String>("hash").also { it.extend(map.asEntries()) }.keys())
     }
+
+    @Test
+    fun mapMutatingAccessorsAndSliceHelpersWork() {
+        val map = IndexMap.from(listOf(1 to "a", 2 to "b", 3 to "c"))
+
+        assertEquals("a", map.getMut(1))
+        assertEquals(1 to "a", map.getKeyValueMut(1))
+        assertEquals(Triple(0, 1, "a"), map.getFullMut(1))
+        assertEquals("a", map.indexMut(0))
+        assertEquals(1 to "a", map.getIndexMut(0))
+        assertEquals(1 to "a", map.firstMut())
+        assertEquals(3 to "c", map.lastMut())
+        assertEquals(listOf("a", "b", "c"), map.valuesMut())
+
+        val entries = map.iterMut().asSequence().toList()
+        assertEquals(listOf(1 to "a", 2 to "b", 3 to "c"), entries)
+
+        val mutSlice = map.asMutSlice()
+        assertEquals(3, mutSlice.len())
+        val boxedSlice = map.intoBoxedSlice()
+        assertEquals(3, boxedSlice.len())
+
+        val subRange = map.getRangeMut(0, 2)
+        assertEquals(listOf(1 to "a", 2 to "b"), subRange?.toList())
+
+        val disjoint = map.getDisjointMut(intArrayOf(0, 2))
+        assertEquals(listOf(1 to "a", 3 to "c"), disjoint)
+        val disjointIndices = map.getDisjointIndicesMut(intArrayOf(1))
+        assertEquals(listOf(2 to "b"), disjointIndices)
+
+        assertEquals(3, map.asEntriesMut().size)
+        val withResult = map.withEntries { it.size }
+        assertEquals(3, withResult)
+    }
 }

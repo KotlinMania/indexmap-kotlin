@@ -5,12 +5,12 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 8/26 (30.8%)
-- **Function parity:** 249/856 matched (target 359) — 29.1%
+- **Function parity:** 297/856 matched (target 417) — 34.7%
 - **Class/type parity:** 12/95 matched (target 34) — 12.6%
-- **Combined symbol parity:** 261/951 matched (target 393) — 27.4%
-- **Average inline-code cosine:** 0.34 (function body across 8 matched files)
+- **Combined symbol parity:** 309/951 matched (target 451) — 32.5%
+- **Average inline-code cosine:** 0.38 (function body across 8 matched files)
 - **Average documentation cosine:** 0.00 (doc text across 8 matched files)
-- **Cheat-zeroed Files:** 2
+- **Cheat-zeroed Files:** 1
 - **Critical Issues:** 7 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
@@ -30,11 +30,11 @@ Every matched file is listed below with function and type symbol parity.
 ### 1. map.slice
 
 - **Target:** `map.Slice`
-- **Similarity:** 0.21
+- **Similarity:** 0.29
 - **Dependents:** 5
-- **Priority Score:** 5296808.0
-- **Functions:** 38/64 matched (target 57)
-- **Missing functions:** `from_slice`, `from_mut_slice`, `from_boxed`, `into_boxed`, `new_mut`, `get_index_mut`, `get_range_mut`, `first_mut`, `last_mut`, `split_at_mut`, `split_at_mut_checked`, `split_first_mut`, `split_last_mut`, `iter_mut`, `values_mut`, `get_disjoint_mut`, `get_disjoint_opt_mut`, `into_iter`, `index_mut`, `check`, `slice_index_mut`, `check_mut`, `slice_new_mut`, `slice_get_index_mut`, `slice_split_first_mut`, `slice_split_last_mut`
+- **Priority Score:** 5116807.0
+- **Functions:** 56/64 matched (target 76)
+- **Missing functions:** `into_iter`, `check`, `slice_index_mut`, `check_mut`, `slice_new_mut`, `slice_get_index_mut`, `slice_split_first_mut`, `slice_split_last_mut`
 - **Types:** 1/4 matched (target 3)
 - **Missing types:** `IntoIter`, `Item`, `Output`
 - **Tests:** 5/12 matched
@@ -54,52 +54,30 @@ Every matched file is listed below with function and type symbol parity.
 - **Proposed provenance header:** `// port-lint: source rayon/map.rs` (current: `// port-lint: source map.rs`)
 - **Lint issues:** 1
 
-### 3. map
-
-- **Target:** `indexmap.Map`
-- **Similarity:** 0.38
-- **Dependents:** 0
-- **Priority Score:** 181006.2
-- **Functions:** 92/108 matched (target 107)
-- **Missing functions:** `as_entries_mut`, `with_entries`, `iter_mut`, `values_mut`, `get_mut`, `get_key_value_mut`, `get_full_mut`, `get_disjoint_mut`, `as_mut_slice`, `into_boxed_slice`, `get_index_mut`, `get_disjoint_indices_mut`, `get_range_mut`, `first_mut`, `last_mut`, `index_mut`
-- **Types:** 1/2 matched
-- **Missing types:** `Output`
-
-### 4. set
-
-- **Target:** `indexmap.Set`
-- **Similarity:** 0.51
-- **Dependents:** 0
-- **Priority Score:** 140004.9
-- **Functions:** 86/97 matched (target 100)
-- **Missing functions:** `into_entries`, `as_entries`, `with_entries`, `take`, `as_slice`, `into_boxed_slice`, `index`, `bitand`, `bitor`, `bitxor`, `sub`
-- **Types:** 1/3 matched (target 2)
-- **Missing types:** `Bucket`, `Output`
-
-### 5. map.entry
+### 3. map.entry
 
 - **Target:** `map.Entry`
-- **Similarity:** 0.40
+- **Similarity:** 0.43
 - **Dependents:** 0
-- **Priority Score:** 102906.0
-- **Functions:** 17/27 matched (target 49)
-- **Missing functions:** `or_default`, `fmt`, `new`, `into_core`, `get_bucket`, `get_bucket_mut`, `into_bucket`, `key_mut`, `from`, `assert_send_sync`
+- **Priority Score:** 82905.7
+- **Functions:** 19/27 matched (target 56)
+- **Missing functions:** `new`, `into_core`, `get_bucket`, `get_bucket_mut`, `into_bucket`, `key_mut`, `from`, `assert_send_sync`
 - **Types:** 2/2 matched (target 6)
 - **Missing types:** _none_
 - **Tests:** 0/1 matched
 
-### 6. map.mutable
+### 4. map.mutable
 
-- **Target:** `map.Mutable [ZERO]`
-- **Similarity:** 0.00
+- **Target:** `map.Mutable`
+- **Similarity:** 0.09
 - **Dependents:** 0
-- **Priority Score:** 81010.0
-- **Functions:** 0/5 matched (target 0)
-- **Missing functions:** `get_full_mut2`, `get_index_mut2`, `iter_mut2`, `retain2`, `key_mut`
+- **Priority Score:** 71009.1
+- **Functions:** 1/5 matched (target 1)
+- **Missing functions:** `get_full_mut2`, `get_index_mut2`, `iter_mut2`, `retain2`
 - **Types:** 2/5 matched (target 2)
 - **Missing types:** `Key`, `Value`, `Sealed`
 
-### 7. lib
+### 5. lib
 
 - **Target:** `indexmap.Lib`
 - **Similarity:** 0.57
@@ -109,6 +87,28 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `key`, `value`, `fmt`
 - **Types:** 5/5 matched (target 11)
 - **Missing types:** _none_
+
+### 6. set
+
+- **Target:** `indexmap.Set`
+- **Similarity:** 0.57
+- **Dependents:** 0
+- **Priority Score:** 30004.3
+- **Functions:** 97/97 matched (target 114)
+- **Missing functions:** _none_
+- **Types:** 1/3 matched (target 2)
+- **Missing types:** `Bucket`, `Output`
+
+### 7. map
+
+- **Target:** `indexmap.Map`
+- **Similarity:** 0.42
+- **Dependents:** 0
+- **Priority Score:** 21005.8
+- **Functions:** 108/108 matched (target 124)
+- **Missing functions:** _none_
+- **Types:** 1/2 matched
+- **Missing types:** `Output`
 
 ### 8. util
 

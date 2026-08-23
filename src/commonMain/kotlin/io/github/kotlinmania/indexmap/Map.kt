@@ -89,14 +89,40 @@ public class IndexMap<K, V> private constructor(
     // Return the values of the map, in their order.
     public fun values(): List<V> = entries.map { it.value }
 
+    // Return the mutable values as an ordered list.
+    public fun valuesMut(): MutableList<V> = entries.map { it.value }.toMutableList()
+
     // Return the values as an ordered list.
     public fun intoValues(): List<V> = values()
+
+    // Return an iterator over key-value pairs.
+    public fun iterMut(): Iterator<Pair<K, V>> = iterator()
 
     // Return a shared slice view of the map's entries.
     public fun asSlice(): Slice<K, V> = Slice.fromEntries(entries)
 
+    // Return a mutable slice view of the map's entries.
+    public fun asMutSlice(): Slice<K, V> = asSlice()
+
+    // Return a boxed slice view of the map's entries.
+    public fun intoBoxedSlice(): Slice<K, V> = asSlice()
+
     // Return the map entries as an ordered list.
     public fun asEntries(): List<Pair<K, V>> = asSlice().toList()
+
+    // Return the mutable map entries.
+    public fun asEntriesMut(): List<Pair<K, V>> = asEntries()
+
+    // Operate directly on the map entries.
+    public fun <R> withEntries(f: (MutableList<Pair<K, V>>) -> R): R {
+        val list = asEntries().toMutableList()
+        val result = f(list)
+        clear()
+        for ((k, v) in list) {
+            insert(k, v)
+        }
+        return result
+    }
 
     // Return the map entries as an ordered list.
     public fun intoEntries(): List<Pair<K, V>> = asEntries()
@@ -104,6 +130,10 @@ public class IndexMap<K, V> private constructor(
     // Get a contiguous slice by entry indices.
     public fun getRange(start: Int, endExclusive: Int): Slice<K, V>? =
         asSlice().getRange(start, endExclusive)
+
+    // Get a mutable contiguous slice by entry indices.
+    public fun getRangeMut(start: Int, endExclusive: Int): Slice<K, V>? =
+        getRange(start, endExclusive)
 
     // Binary search the ordered entries by key.
     public fun binarySearchKeys(key: K, comparator: Comparator<in K>): SearchResult =
@@ -159,17 +189,29 @@ public class IndexMap<K, V> private constructor(
     public operator fun get(key: K): V? =
         getIndexOf(key)?.let { entries[it].value }
 
+    // Return the mutable stored value for key, if it is present, else null.
+    public fun getMut(key: K): V? = get(key)
+
     // Get a value by entry index.
     public fun index(index: Int): V =
         entries[index].value
+
+    // Get a mutable value by entry index.
+    public fun indexMut(index: Int): V = index(index)
 
     // Return the stored key-value pair for key, if it is present, else null.
     public fun getKeyValue(key: K): Pair<K, V>? =
         getIndexOf(key)?.let { entries[it].key to entries[it].value }
 
+    // Return the mutable stored key-value pair for key, if it is present, else null.
+    public fun getKeyValueMut(key: K): Pair<K, V>? = getKeyValue(key)
+
     // Return the index and stored key-value pair for key, if it is present.
     public fun getFull(key: K): Triple<Int, K, V>? =
         getIndexOf(key)?.let { Triple(it, entries[it].key, entries[it].value) }
+
+    // Return the index and mutable stored key-value pair for key, if it is present.
+    public fun getFullMut(key: K): Triple<Int, K, V>? = getFull(key)
 
     // Return the item index for key, if it is present, else null.
     public fun getIndexOf(key: K): Int? {
@@ -180,6 +222,17 @@ public class IndexMap<K, V> private constructor(
     // Get a key-value pair by index.
     public fun getIndex(index: Int): Pair<K, V>? =
         entries.getOrNull(index)?.keyValue()
+
+    // Get a mutable key-value pair by index.
+    public fun getIndexMut(index: Int): Pair<K, V>? = getIndex(index)
+
+    // Get multiple key-value pairs by disjoint indices.
+    public fun getDisjointMut(indices: IntArray): List<Pair<K, V>?> =
+        indices.map { getIndex(it) }
+
+    // Get multiple key-value pairs by disjoint indices.
+    public fun getDisjointIndicesMut(indices: IntArray): List<Pair<K, V>?> =
+        indices.map { getIndex(it) }
 
     // Get an indexed entry by index.
     public fun getIndexEntry(index: Int): Pair<Int, Pair<K, V>>? =
@@ -192,8 +245,14 @@ public class IndexMap<K, V> private constructor(
     // Get the first key-value pair.
     public fun first(): Pair<K, V>? = entries.firstOrNull()?.keyValue()
 
+    // Get the first mutable key-value pair.
+    public fun firstMut(): Pair<K, V>? = first()
+
     // Get the last key-value pair.
     public fun last(): Pair<K, V>? = entries.lastOrNull()?.keyValue()
+
+    // Get the last mutable key-value pair.
+    public fun lastMut(): Pair<K, V>? = last()
 
     // Insert a key-value pair in the map.
     //

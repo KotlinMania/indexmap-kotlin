@@ -41,9 +41,17 @@ public class Slice<K, V> internal constructor(
     public companion object {
         public fun <K, V> new(): Slice<K, V> = Slice(mutableListOf(), 0, 0)
 
+        public fun <K, V> newMut(): Slice<K, V> = new()
+
         public fun <K, V> default(): Slice<K, V> = new()
 
         public fun <K, V> from(slice: Slice<K, V>): Slice<K, V> = slice.clone()
+
+        public fun <K, V> fromSlice(slice: Slice<K, V>): Slice<K, V> = slice.clone()
+
+        public fun <K, V> fromMutSlice(slice: Slice<K, V>): Slice<K, V> = slice.clone()
+
+        public fun <K, V> fromBoxed(slice: Slice<K, V>): Slice<K, V> = slice.clone()
 
         internal fun <K, V> fromEntries(entries: MutableList<Bucket<K, V>>): Slice<K, V> =
             Slice(entries.map { it.clone() }.toMutableList(), 0, entries.size)
@@ -55,9 +63,15 @@ public class Slice<K, V> internal constructor(
     // Return true if the slice contains no key-value pairs.
     public fun isEmpty(): Boolean = len() == 0
 
+    // Return a boxed slice view.
+    public fun intoBoxed(): Slice<K, V> = this
+
     // Get a key-value pair by its slice index.
     public fun getIndex(index: Int): Pair<K, V>? =
         if (index in 0 until len()) entries[absoluteIndex(index)].keyValue() else null
+
+    // Get a mutable key-value pair by its slice index.
+    public fun getIndexMut(index: Int): Pair<K, V>? = getIndex(index)
 
     // Get the value at a slice index.
     public operator fun get(index: Int): V =
@@ -65,6 +79,9 @@ public class Slice<K, V> internal constructor(
 
     // Get the value at a slice index.
     public fun index(index: Int): V = this[index]
+
+    // Get the mutable value at a slice index.
+    public fun indexMut(index: Int): V = index(index)
 
     // Get a contiguous subslice by entry indices.
     public fun getRange(start: Int, endExclusive: Int): Slice<K, V>? {
@@ -74,6 +91,10 @@ public class Slice<K, V> internal constructor(
         return Slice(entries, absoluteIndex(start), absoluteIndex(endExclusive))
     }
 
+    // Get a mutable contiguous subslice by entry indices.
+    public fun getRangeMut(start: Int, endExclusive: Int): Slice<K, V>? =
+        getRange(start, endExclusive)
+
     internal fun getRange(range: RangeBounds<Int>): Slice<K, V>? {
         val simplified = trySimplifyRange(range, len()) ?: return null
         return getRange(simplified)
@@ -82,11 +103,25 @@ public class Slice<K, V> internal constructor(
     internal fun getRange(range: IndexRange): Slice<K, V> =
         Slice(entries, absoluteIndex(range.start), absoluteIndex(range.end))
 
+    // Get multiple key-value pairs by disjoint indices.
+    public fun getDisjointMut(indices: IntArray): List<Pair<K, V>?> =
+        indices.map { getIndex(it) }
+
+    // Get multiple optional key-value pairs by disjoint indices.
+    public fun getDisjointOptMut(indices: IntArray): List<Pair<K, V>?> =
+        indices.map { getIndex(it) }
+
     // Get the first key-value pair.
     public fun first(): Pair<K, V>? = getIndex(0)
 
+    // Get the first mutable key-value pair.
+    public fun firstMut(): Pair<K, V>? = first()
+
     // Get the last key-value pair.
     public fun last(): Pair<K, V>? = getIndex(len() - 1)
+
+    // Get the last mutable key-value pair.
+    public fun lastMut(): Pair<K, V>? = last()
 
     // Split the slice at index.
     public fun splitAt(index: Int): Pair<Slice<K, V>, Slice<K, V>> {
@@ -96,9 +131,16 @@ public class Slice<K, V> internal constructor(
         return uncheckedSplitAt(index)
     }
 
+    // Split the mutable slice at index.
+    public fun splitAtMut(index: Int): Pair<Slice<K, V>, Slice<K, V>> = splitAt(index)
+
     // Split the slice at index, returning null when the index is out of bounds.
     public fun splitAtChecked(index: Int): Pair<Slice<K, V>, Slice<K, V>>? =
         if (index in 0..len()) uncheckedSplitAt(index) else null
+
+    // Split the mutable slice at index, returning null when the index is out of bounds.
+    public fun splitAtMutChecked(index: Int): Pair<Slice<K, V>, Slice<K, V>>? =
+        splitAtChecked(index)
 
     // Split off the first key-value pair and the remaining slice.
     public fun splitFirst(): Pair<Pair<K, V>, Slice<K, V>>? {
@@ -106,11 +148,17 @@ public class Slice<K, V> internal constructor(
         return first to Slice(entries, start + 1, endExclusive)
     }
 
+    // Split off the first mutable key-value pair and the remaining slice.
+    public fun splitFirstMut(): Pair<Pair<K, V>, Slice<K, V>>? = splitFirst()
+
     // Split off the last key-value pair and the preceding slice.
     public fun splitLast(): Pair<Pair<K, V>, Slice<K, V>>? {
         val last = getIndex(len() - 1) ?: return null
         return last to Slice(entries, start, endExclusive - 1)
     }
+
+    // Split off the last mutable key-value pair and the preceding slice.
+    public fun splitLastMut(): Pair<Pair<K, V>, Slice<K, V>>? = splitLast()
 
     // Return the keys in slice order.
     public fun keys(): List<K> = visibleEntries().map { it.key }
@@ -120,6 +168,9 @@ public class Slice<K, V> internal constructor(
 
     // Return the values in slice order.
     public fun values(): List<V> = visibleEntries().map { it.value }
+
+    // Return the mutable values in slice order.
+    public fun valuesMut(): List<V> = values()
 
     // Return the values as an owned list.
     public fun intoValues(): List<V> = values()
@@ -134,6 +185,9 @@ public class Slice<K, V> internal constructor(
 
     // Return an iterator over the key-value pairs of the slice.
     public fun iter(): Iterator<Pair<K, V>> = iterator()
+
+    // Return a mutable iterator over the key-value pairs of the slice.
+    public fun iterMut(): Iterator<Pair<K, V>> = iterator()
 
     // Binary search the ordered entries by key.
     public fun binarySearchKeys(key: K, comparator: Comparator<in K>): SearchResult =

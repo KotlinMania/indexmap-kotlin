@@ -141,8 +141,36 @@ class SetTest {
         assertEquals(listOf(5), set.intersection(other))
         assertEquals(listOf(3, 1, 8), set.symmetricDifference(other))
         assertEquals(listOf(3, 5, 1, 8), set.union(other))
+        assertEquals(IndexSet.from(listOf(3, 1)), set.sub(other))
+        assertEquals(IndexSet.from(listOf(3, 1)), set - other)
+        assertEquals(IndexSet.from(listOf(5)), set.bitand(other))
+        assertEquals(IndexSet.from(listOf(3, 5, 1, 8)), set.bitor(other))
+        assertEquals(IndexSet.from(listOf(3, 5, 1, 8)), set + other)
+        assertEquals(IndexSet.from(listOf(3, 1, 8)), set.bitxor(other))
         assertTrue(IndexSet.from(listOf(5)).isSubset(set))
         assertTrue(set.isSuperset(IndexSet.from(listOf(5))))
         assertFalse(set.isDisjoint(other))
+    }
+
+    @Test
+    fun setSliceEntriesAndTakeMethodsWorkAsExpected() {
+        val set = IndexSet.from(listOf(10, 20, 30))
+        assertEquals(listOf(10, 20, 30), set.asSlice())
+        assertEquals(listOf(10, 20, 30), set.intoBoxedSlice())
+        assertEquals(listOf(10, 20, 30), set.asEntries())
+        assertEquals(listOf(10, 20, 30), set.intoEntries())
+        assertEquals(20, set.index(1))
+
+        val modifiedCount =
+            set.withEntries { entries ->
+                entries.add(40)
+                entries.size
+            }
+        assertEquals(4, modifiedCount)
+        assertEquals(listOf(10, 20, 30, 40), set.asList())
+
+        assertEquals(30, set.take(30))
+        assertNull(set.take(99))
+        assertFalse(set.contains(30))
     }
 }
