@@ -5,8 +5,14 @@
 package io.github.kotlinmania.indexmap
 
 import io.github.kotlinmania.indexmap.map.SearchResult
+import io.github.kotlinmania.indexmap.set.Difference
+import io.github.kotlinmania.indexmap.set.Intersection
+import io.github.kotlinmania.indexmap.set.IntoIter
+import io.github.kotlinmania.indexmap.set.Iter
 import io.github.kotlinmania.indexmap.set.MutableValues
 import io.github.kotlinmania.indexmap.set.Slice
+import io.github.kotlinmania.indexmap.set.SymmetricDifference
+import io.github.kotlinmania.indexmap.set.Union
 import kotlin.native.HiddenFromObjC
 
 // A hash set where the iteration order of the values is independent of their
@@ -16,8 +22,8 @@ import kotlin.native.HiddenFromObjC
 // calls on the set. The order does not depend on the values or on their hash
 // values. Internally this mirrors upstream by using IndexMap<T, Unit>.
 @HiddenFromObjC
-public class IndexSet<T> private constructor(
-    private val map: IndexMap<T, Unit>,
+public class IndexSet<T> internal constructor(
+    internal val map: IndexMap<T, Unit>,
 ) : Iterable<T>,
     MutableValues<T> {
     public constructor() : this(IndexMap.new())
@@ -69,7 +75,24 @@ public class IndexSet<T> private constructor(
     override fun iterator(): Iterator<T> = map.keys().iterator()
 
     // Return an iterator over the values of the set, in their order.
-    public fun iter(): Iterator<T> = iterator()
+    public fun iter(): Iter<T> = Iter(map.entries)
+
+    // Return an owning iterator over the values of the set.
+    public fun intoIter(): IntoIter<T> = IntoIter(map.entries.map { it.clone() })
+
+    // Return an iterator producing elements in the difference of sets.
+    public fun differenceIter(other: IndexSet<T>): Difference<T> = Difference(iter(), other)
+
+    // Return an iterator producing elements in the intersection of sets.
+    public fun intersectionIter(other: IndexSet<T>): Intersection<T> = Intersection(iter(), other)
+
+    // Return an iterator producing elements in the symmetric difference of sets.
+    public fun symmetricDifferenceIter(other: IndexSet<T>): SymmetricDifference<T> =
+        SymmetricDifference(differenceIter(other), other.differenceIter(this))
+
+    // Return an iterator producing elements in the union of sets.
+    public fun unionIter(other: IndexSet<T>): Union<T> =
+        Union(iter(), other.differenceIter(this))
 
     // Return the set values as an ordered list.
     public fun asList(): List<T> = map.keys()

@@ -4,14 +4,14 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 8/26 (30.8%)
-- **Function parity:** 297/856 matched (target 417) — 34.7%
-- **Class/type parity:** 12/95 matched (target 34) — 12.6%
-- **Combined symbol parity:** 309/951 matched (target 451) — 32.5%
-- **Average inline-code cosine:** 0.38 (function body across 8 matched files)
-- **Average documentation cosine:** 0.00 (doc text across 8 matched files)
-- **Cheat-zeroed Files:** 1
-- **Critical Issues:** 7 files with <0.60 function similarity
+- **Files Present:** 12/26 (46.2%)
+- **Function parity:** 337/752 matched (target 643) — 44.8%
+- **Class/type parity:** 35/95 matched (target 60) — 36.8%
+- **Combined symbol parity:** 372/847 matched (target 703) — 43.9%
+- **Average inline-code cosine:** 0.30 (function body across 12 matched files)
+- **Average documentation cosine:** 0.00 (doc text across 12 matched files)
+- **Cheat-zeroed Files:** 2
+- **Critical Issues:** 11 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
@@ -54,7 +54,19 @@ Every matched file is listed below with function and type symbol parity.
 - **Proposed provenance header:** `// port-lint: source rayon/map.rs` (current: `// port-lint: source map.rs`)
 - **Lint issues:** 1
 
-### 3. map.entry
+### 3. set.slice
+
+- **Target:** `set.Slice`
+- **Similarity:** 0.23
+- **Dependents:** 0
+- **Priority Score:** 123907.8
+- **Functions:** 26/35 matched (target 46)
+- **Missing functions:** `into_entries`, `iter`, `into_iter`, `fmt`, `eq`, `partial_cmp`, `cmp`, `hash`, `check`
+- **Types:** 1/4 matched (target 2)
+- **Missing types:** `IntoIter`, `Item`, `Output`
+- **Tests:** 1/2 matched
+
+### 4. map.entry
 
 - **Target:** `map.Entry`
 - **Similarity:** 0.43
@@ -66,7 +78,29 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/1 matched
 
-### 4. map.mutable
+### 5. map.iter
+
+- **Target:** `map.Iter`
+- **Similarity:** 0.18
+- **Dependents:** 0
+- **Priority Score:** 82808.2
+- **Functions:** 8/14 matched (target 103)
+- **Missing functions:** `into_iter`, `new`, `fmt`, `index`, `drop`, `size_hint`
+- **Types:** 12/14 matched (target 13)
+- **Missing types:** `Item`, `Output`
+
+### 6. set.iter
+
+- **Target:** `set.Iter`
+- **Similarity:** 0.17
+- **Dependents:** 0
+- **Priority Score:** 82308.3
+- **Functions:** 6/12 matched (target 55)
+- **Missing functions:** `into_iter`, `new`, `fmt`, `size_hint`, `fold`, `rfold`
+- **Types:** 9/11 matched (target 10)
+- **Missing types:** `Item`, `UnitValue`
+
+### 7. map.mutable
 
 - **Target:** `map.Mutable`
 - **Similarity:** 0.09
@@ -77,7 +111,18 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/5 matched (target 2)
 - **Missing types:** `Key`, `Value`, `Sealed`
 
-### 5. lib
+### 8. set.mutable
+
+- **Target:** `set.Mutable [ZERO]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 50610.0
+- **Functions:** 0/3 matched (target 0)
+- **Missing functions:** `get_full_mut2`, `get_index_mut2`, `retain2`
+- **Types:** 1/3 matched (target 1)
+- **Missing types:** `Value`, `Sealed`
+
+### 9. lib
 
 - **Target:** `indexmap.Lib`
 - **Similarity:** 0.57
@@ -88,29 +133,29 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 5/5 matched (target 11)
 - **Missing types:** _none_
 
-### 6. set
+### 10. set
 
 - **Target:** `indexmap.Set`
 - **Similarity:** 0.57
 - **Dependents:** 0
 - **Priority Score:** 30004.3
-- **Functions:** 97/97 matched (target 114)
+- **Functions:** 97/97 matched (target 135)
 - **Missing functions:** _none_
 - **Types:** 1/3 matched (target 2)
 - **Missing types:** `Bucket`, `Output`
 
-### 7. map
+### 11. map
 
 - **Target:** `indexmap.Map`
-- **Similarity:** 0.42
+- **Similarity:** 0.43
 - **Dependents:** 0
-- **Priority Score:** 21005.8
-- **Functions:** 108/108 matched (target 124)
+- **Priority Score:** 21005.7
+- **Functions:** 108/108 matched (target 125)
 - **Missing functions:** _none_
 - **Types:** 1/2 matched
 - **Missing types:** `Output`
 
-### 8. util
+### 12. util
 
 - **Target:** `indexmap.Util`
 - **Similarity:** 0.68

@@ -6,6 +6,9 @@ package io.github.kotlinmania.indexmap
 
 import io.github.kotlinmania.indexmap.map.Entry
 import io.github.kotlinmania.indexmap.map.IndexedEntry
+import io.github.kotlinmania.indexmap.map.IntoIter
+import io.github.kotlinmania.indexmap.map.Iter
+import io.github.kotlinmania.indexmap.map.IterMut
 import io.github.kotlinmania.indexmap.map.MutableKeys
 import io.github.kotlinmania.indexmap.map.SearchResult
 import io.github.kotlinmania.indexmap.map.Slice
@@ -32,17 +35,13 @@ public class IndexMap<K, V> private constructor(
 
         // Create a new map with capacity for n key-value pairs.
         public fun <K, V> withCapacity(n: Int): IndexMap<K, V> =
-            IndexMap(ArrayList(n.coerceAtLeast(0)))
+            IndexMap(ArrayList(n))
 
-        public fun <K, V, S> withHasher(hasher: S): IndexMap<K, V> {
-            hasher.hashCode()
-            return new()
-        }
+        public fun <K, V, S> withHasher(hasher: S): IndexMap<K, V> =
+            IndexMap()
 
-        public fun <K, V, S> withCapacityAndHasher(n: Int, hasher: S): IndexMap<K, V> {
-            hasher.hashCode()
-            return withCapacity(n)
-        }
+        public fun <K, V, S> withCapacityAndHasher(n: Int, hasher: S): IndexMap<K, V> =
+            IndexMap(ArrayList(n))
 
         public fun <K, V> from(entries: Iterable<Pair<K, V>>): IndexMap<K, V> =
             new<K, V>().also { it.extend(entries) }
@@ -64,7 +63,8 @@ public class IndexMap<K, V> private constructor(
 
     public fun hasher(): String = "kotlin.hashCode"
 
-    public fun clone(): IndexMap<K, V> = from(asEntries())
+    public fun clone(): IndexMap<K, V> =
+        IndexMap(entries.map { it.clone() }.toMutableList())
 
     public fun cloneFrom(other: IndexMap<K, V>) {
         clear()
@@ -78,7 +78,10 @@ public class IndexMap<K, V> private constructor(
         entries.map { it.key to it.value }.iterator()
 
     // Return an iterator over the key-value pairs of the map, in their order.
-    public fun iter(): Iterator<Pair<K, V>> = iterator()
+    public fun iter(): Iter<K, V> = Iter(entries)
+
+    // Return an owning iterator over the key-value pairs of the map.
+    public fun intoIter(): IntoIter<K, V> = IntoIter(entries.map { it.clone() })
 
     // Return the keys of the map, in their order.
     public fun keys(): List<K> = entries.map { it.key }
@@ -96,7 +99,7 @@ public class IndexMap<K, V> private constructor(
     public fun intoValues(): List<V> = values()
 
     // Return an iterator over key-value pairs.
-    public fun iterMut(): Iterator<Pair<K, V>> = iterator()
+    public fun iterMut(): IterMut<K, V> = IterMut(entries)
 
     // Return a shared slice view of the map's entries.
     public fun asSlice(): Slice<K, V> = Slice.fromEntries(entries)
