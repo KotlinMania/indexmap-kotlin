@@ -206,6 +206,13 @@ public class IndexSet<T> internal constructor(
         return index to (existing == null)
     }
 
+    // Insert the value into the set at its ordered position by a derived key using natural ordering.
+    public fun <K : Comparable<K>> insertSortedByKey(
+        value: T,
+        selector: (T) -> K,
+    ): Pair<Int, Boolean> =
+        insertSortedByKey(value, selector, naturalOrder())
+
     // Insert the value before the value at index, or at the end.
     public fun insertBefore(index: Int, value: T): Pair<Int, Boolean> {
         val (storedIndex, existing) = map.insertBefore(index, value, Unit)
@@ -314,6 +321,11 @@ public class IndexSet<T> internal constructor(
         map.sortByKey({ key, _ -> selector(key) }, comparator)
     }
 
+    // Sort the set's values in place using a key extraction function and natural ordering.
+    public fun <K : Comparable<K>> sortByKey(selector: (T) -> K) {
+        sortByKey(selector, naturalOrder())
+    }
+
     public fun sortUnstable(comparator: Comparator<in T>) {
         sort(comparator)
     }
@@ -329,8 +341,16 @@ public class IndexSet<T> internal constructor(
         sortByKey(selector, comparator)
     }
 
+    public fun <K : Comparable<K>> sortUnstableByKey(selector: (T) -> K) {
+        sortByKey(selector)
+    }
+
     public fun <K> sortByCachedKey(selector: (T) -> K, comparator: Comparator<in K>) {
         sortByKey(selector, comparator)
+    }
+
+    public fun <K : Comparable<K>> sortByCachedKey(selector: (T) -> K) {
+        sortByKey(selector)
     }
 
     // Search over a sorted set for a value.
@@ -349,6 +369,13 @@ public class IndexSet<T> internal constructor(
     ): SearchResult =
         map.binarySearchByKey(key, { value, _ -> selector(value) }, comparator)
 
+    // Search over a sorted set with a key extraction function using natural ordering.
+    public fun <K : Comparable<K>> binarySearchByKey(
+        key: K,
+        selector: (T) -> K,
+    ): SearchResult =
+        binarySearchByKey(key, selector, naturalOrder())
+
     // Return true if the values of this set are sorted.
     public fun isSorted(comparator: Comparator<in T>): Boolean = map.isSorted(comparator)
 
@@ -359,6 +386,10 @@ public class IndexSet<T> internal constructor(
     // Return true if this set is sorted using the given sort-key function.
     public fun <K> isSortedByKey(selector: (T) -> K, comparator: Comparator<in K>): Boolean =
         map.isSortedByKey({ key, _ -> selector(key) }, comparator)
+
+    // Return true if this set is sorted using the given sort-key function and natural ordering.
+    public fun <K : Comparable<K>> isSortedByKey(selector: (T) -> K): Boolean =
+        isSortedByKey(selector, naturalOrder())
 
     // Return the partition point according to the predicate.
     public fun partitionPoint(predicate: (T) -> Boolean): Int =
@@ -372,6 +403,10 @@ public class IndexSet<T> internal constructor(
     // Return a list of values in the given index range.
     public fun getRange(start: Int, endExclusive: Int): List<T>? =
         map.getRange(start, endExclusive)?.keys()
+
+    // Return a list of values in the given index range.
+    public fun getRange(range: IntRange): List<T>? =
+        map.getRange(range)?.keys()
 
     // Remove the value by index by swapping in the last value.
     public fun swapRemoveIndex(index: Int): T? = map.swapRemoveIndex(index)?.first
@@ -392,6 +427,10 @@ public class IndexSet<T> internal constructor(
     // Drain a range of values and return them in removal order.
     public fun drain(start: Int = 0, endExclusive: Int = len()): List<T> =
         map.drain(start, endExclusive).map { it.first }
+
+    // Drain a range of values and return them in removal order.
+    public fun drain(range: IntRange): List<T> =
+        if (range.isEmpty()) emptyList() else drain(range.first, range.last + 1)
 
     // Remove values accepted by a predicate and return them in original order.
     public fun extractIf(predicate: (T) -> Boolean): List<T> =
@@ -472,4 +511,25 @@ public class IndexSet<T> internal constructor(
 
     private fun containsAny(value: Any?): Boolean =
         map.keys().any { it == value }
+}
+
+// Return true if the values of this set are sorted by natural ordering.
+public fun <T : Comparable<T>> IndexSet<T>.isSorted(): Boolean =
+    isSorted(naturalOrder())
+
+// Search over a sorted set for a value using natural ordering.
+public fun <T : Comparable<T>> IndexSet<T>.binarySearch(value: T): SearchResult =
+    binarySearch(value, naturalOrder())
+
+// Insert the value into the set at its ordered position using natural ordering.
+public fun <T : Comparable<T>> IndexSet<T>.insertSorted(value: T): Pair<Int, Boolean> =
+    insertSorted(value, naturalOrder())
+
+// Sort the set's values by natural ordering.
+public fun <T : Comparable<T>> IndexSet<T>.sort() {
+    sort(naturalOrder())
+}
+
+public fun <T : Comparable<T>> IndexSet<T>.sortUnstable() {
+    sortUnstable(naturalOrder())
 }

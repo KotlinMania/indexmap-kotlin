@@ -138,6 +138,14 @@ public class IndexMap<K, V> private constructor(
     public fun getRangeMut(start: Int, endExclusive: Int): Slice<K, V>? =
         getRange(start, endExclusive)
 
+    // Get a contiguous slice by integer range.
+    public fun getRange(range: IntRange): Slice<K, V>? =
+        asSlice().getRange(range)
+
+    // Get a mutable contiguous slice by integer range.
+    public fun getRangeMut(range: IntRange): Slice<K, V>? =
+        getRange(range)
+
     // Binary search the ordered entries by key.
     public fun binarySearchKeys(key: K, comparator: Comparator<in K>): SearchResult =
         asSlice().binarySearchKeys(key, comparator)
@@ -154,6 +162,13 @@ public class IndexMap<K, V> private constructor(
     ): SearchResult =
         asSlice().binarySearchByKey(key, selector, comparator)
 
+    // Binary search the ordered entries by a derived key using natural ordering.
+    public fun <T : Comparable<T>> binarySearchByKey(
+        key: T,
+        selector: (K, V) -> T,
+    ): SearchResult =
+        asSlice().binarySearchByKey(key, selector)
+
     // Return true if the keys are sorted.
     public fun isSorted(comparator: Comparator<in K>): Boolean =
         asSlice().isSorted(comparator)
@@ -168,6 +183,10 @@ public class IndexMap<K, V> private constructor(
         comparator: Comparator<in T>,
     ): Boolean =
         asSlice().isSortedByKey(selector, comparator)
+
+    // Return true if the entries are sorted by a derived key using natural ordering.
+    public fun <T : Comparable<T>> isSortedByKey(selector: (K, V) -> T): Boolean =
+        asSlice().isSortedByKey(selector)
 
     // Return the split point where the predicate stops matching.
     public fun partitionPoint(predicate: (K, V) -> Boolean): Int =
@@ -229,6 +248,17 @@ public class IndexMap<K, V> private constructor(
     // Get a mutable key-value pair by index.
     public fun getIndexMut(index: Int): Pair<K, V>? = getIndex(index)
 
+    // Get multiple values by disjoint keys with duplicate check.
+    public fun getDisjointMut(keys: List<K>): List<V?> {
+        val seen = mutableSetOf<K>()
+        for (k in keys) {
+            if (!seen.add(k)) {
+                throw IllegalArgumentException("duplicate keys found")
+            }
+        }
+        return keys.map { get(it) }
+    }
+
     // Get multiple key-value pairs by disjoint indices.
     public fun getDisjointMut(indices: IntArray): List<Pair<K, V>?> =
         indices.map { getIndex(it) }
@@ -236,6 +266,10 @@ public class IndexMap<K, V> private constructor(
     // Get multiple key-value pairs by disjoint indices.
     public fun getDisjointIndicesMut(indices: IntArray): List<Pair<K, V>?> =
         indices.map { getIndex(it) }
+
+    // Get multiple key-value pairs by disjoint indices with bounds and duplicate checking.
+    public fun getDisjointIndicesMut(indices: List<Int>): Pair<List<Pair<K, V>>?, GetDisjointMutError?> =
+        asSlice().getDisjointIndicesMut(indices)
 
     // Get an indexed entry by index.
     public fun getIndexEntry(index: Int): Pair<Int, Pair<K, V>>? =
@@ -317,6 +351,14 @@ public class IndexMap<K, V> private constructor(
         val index = binarySearchByKey(searchKey, selector, comparator).index
         return insertBefore(index, key, value)
     }
+
+    // Insert a key-value pair at its ordered position by a derived key using natural ordering.
+    public fun <T : Comparable<T>> insertSortedByKey(
+        key: K,
+        value: V,
+        selector: (K, V) -> T,
+    ): Pair<Int, V?> =
+        insertSortedByKey(key, value, selector, naturalOrder())
 
     // Replace the key at an index while preserving the stored value.
     public fun replaceIndex(index: Int, key: K): K {
@@ -498,6 +540,10 @@ public class IndexMap<K, V> private constructor(
         return removed
     }
 
+    // Drain a range of entries and return them in removal order.
+    public fun drain(range: IntRange): List<Pair<K, V>> =
+        if (range.isEmpty()) emptyList() else drain(range.first, range.last + 1)
+
     // Remove entries accepted by a predicate and return them in original order.
     public fun extractIf(predicate: (K, V) -> Boolean): List<Pair<K, V>> {
         val removed = mutableListOf<Pair<K, V>>()
@@ -569,7 +615,7 @@ public class IndexMap<K, V> private constructor(
         entries.reverse()
     }
 
-    // Sort the key-value pairs by key.
+    // Sort the key-value pairs by key using a comparator.
     public fun sortKeys(comparator: Comparator<in K>) {
         entries.sortWith { left, right -> comparator.compare(left.key, right.key) }
     }
@@ -591,6 +637,18 @@ public class IndexMap<K, V> private constructor(
         entries.sortWith { left, right -> comparator.compare(selector(left.key, left.value), selector(right.key, right.value)) }
     }
 
+    // Sort the key-value pairs by a derived key using natural ordering.
+    public fun <T : Comparable<T>> sortByKey(selector: (K, V) -> T) {
+        sortByKey(selector, naturalOrder())
+    }
+
+    // Return the sorted key-value pairs by a derived key using natural ordering.
+    public fun <T : Comparable<T>> sortedByKey(selector: (K, V) -> T): List<Pair<K, V>> =
+        entries
+            .map { it.clone() }
+            .sortedWith { left, right -> naturalOrder<T>().compare(selector(left.key, left.value), selector(right.key, right.value)) }
+            .map { it.keyValue() }
+
     public fun sortUnstableKeys(comparator: Comparator<in K>) {
         sortKeys(comparator)
     }
@@ -606,8 +664,16 @@ public class IndexMap<K, V> private constructor(
         sortByKey(selector, comparator)
     }
 
+    public fun <T : Comparable<T>> sortUnstableByKey(selector: (K, V) -> T) {
+        sortByKey(selector)
+    }
+
     public fun <T> sortByCachedKey(selector: (K, V) -> T, comparator: Comparator<in T>) {
         sortByKey(selector, comparator)
+    }
+
+    public fun <T : Comparable<T>> sortByCachedKey(selector: (K, V) -> T) {
+        sortByKey(selector)
     }
 
     // Return the first key-value pair with its index.
@@ -631,7 +697,23 @@ public class IndexMap<K, V> private constructor(
         other.clear()
     }
 
-    public fun eq(other: IndexMap<K, V>): Boolean = asEntries() == other.asEntries()
+    public fun eq(other: IndexMap<K, V>): Boolean = this == other
+
+    override fun equals(other: Any?): Boolean {
+        if (other !is IndexMap<*, *>) return false
+        if (len() != other.len()) return false
+        for (entry in entries) {
+            val otherEntry = other.entries.firstOrNull { it.key == entry.key } ?: return false
+            if (otherEntry.value != entry.value) return false
+        }
+        return true
+    }
+
+    override fun hashCode(): Int =
+        entries.fold(0) { hash, entry -> hash + ((entry.key?.hashCode() ?: 0) xor (entry.value?.hashCode() ?: 0)) }
+
+    override fun toString(): String =
+        entries.joinToString(prefix = "{", postfix = "}") { "${it.key}: ${it.value}" }
 
     internal fun hash(key: K): HashValue = hashValueFor(key)
 
@@ -639,4 +721,25 @@ public class IndexMap<K, V> private constructor(
         val hash = key?.hashCode() ?: 0
         return HashValue(hash.toLong().toULong())
     }
+}
+
+// Return true if the keys are sorted by natural key ordering.
+public fun <K : Comparable<K>, V> IndexMap<K, V>.isSorted(): Boolean =
+    isSorted(naturalOrder())
+
+// Binary search the ordered entries by key using natural ordering.
+public fun <K : Comparable<K>, V> IndexMap<K, V>.binarySearchKeys(key: K): SearchResult =
+    binarySearchKeys(key, naturalOrder())
+
+// Insert a key-value pair at its ordered position using natural key ordering.
+public fun <K : Comparable<K>, V> IndexMap<K, V>.insertSorted(key: K, value: V): Pair<Int, V?> =
+    insertSorted(key, value, naturalOrder())
+
+// Sort the key-value pairs by key using natural ordering.
+public fun <K : Comparable<K>, V> IndexMap<K, V>.sortKeys() {
+    sortKeys(naturalOrder())
+}
+
+public fun <K : Comparable<K>, V> IndexMap<K, V>.sortUnstableKeys() {
+    sortUnstableKeys(naturalOrder())
 }

@@ -5,6 +5,7 @@
 package io.github.kotlinmania.indexmap.map
 
 import io.github.kotlinmania.indexmap.Bucket
+import io.github.kotlinmania.indexmap.GetDisjointMutError
 import io.github.kotlinmania.indexmap.IndexRange
 import io.github.kotlinmania.indexmap.RangeBounds
 import io.github.kotlinmania.indexmap.trySimplifyRange
@@ -95,6 +96,17 @@ public class Slice<K, V> internal constructor(
     public fun getRangeMut(start: Int, endExclusive: Int): Slice<K, V>? =
         getRange(start, endExclusive)
 
+    // Get a contiguous subslice by integer range.
+    public fun getRange(range: IntRange): Slice<K, V>? =
+        if (range.isEmpty()) {
+            if (range.first in 0..len()) Slice(entries, absoluteIndex(range.first), absoluteIndex(range.first)) else null
+        } else {
+            getRange(range.first, range.last + 1)
+        }
+
+    // Get a mutable contiguous subslice by integer range.
+    public fun getRangeMut(range: IntRange): Slice<K, V>? = getRange(range)
+
     internal fun getRange(range: RangeBounds<Int>): Slice<K, V>? {
         val simplified = trySimplifyRange(range, len()) ?: return null
         return getRange(simplified)
@@ -110,6 +122,37 @@ public class Slice<K, V> internal constructor(
     // Get multiple optional key-value pairs by disjoint indices.
     public fun getDisjointOptMut(indices: IntArray): List<Pair<K, V>?> =
         indices.map { getIndex(it) }
+
+    // Get multiple key-value pairs by disjoint indices with bounds and uniqueness checking.
+    public fun getDisjointIndicesMut(indices: List<Int>): Pair<List<Pair<K, V>>?, GetDisjointMutError?> {
+        val len = len()
+        val seen = mutableSetOf<Int>()
+        for (idx in indices) {
+            if (idx !in 0 until len) {
+                return null to GetDisjointMutError.IndexOutOfBounds
+            }
+            if (!seen.add(idx)) {
+                return null to GetDisjointMutError.OverlappingIndices
+            }
+        }
+        return indices.map { getIndex(it)!! } to null
+    }
+
+    public fun getDisjointOptMut(indices: List<Int?>): Pair<List<Pair<K, V>?>?, GetDisjointMutError?> {
+        val len = len()
+        val seen = mutableSetOf<Int>()
+        for (idx in indices) {
+            if (idx != null) {
+                if (idx !in 0 until len) {
+                    return null to GetDisjointMutError.IndexOutOfBounds
+                }
+                if (!seen.add(idx)) {
+                    return null to GetDisjointMutError.OverlappingIndices
+                }
+            }
+        }
+        return indices.map { if (it != null) getIndex(it) else null } to null
+    }
 
     // Get the first key-value pair.
     public fun first(): Pair<K, V>? = getIndex(0)
@@ -243,6 +286,17 @@ public class Slice<K, V> internal constructor(
             comparator.compare(selector(leftKey, leftValue), selector(rightKey, rightValue)) <= 0
         }
 
+    // Return true if the slice is sorted by a derived key using natural ordering.
+    public fun <T : Comparable<T>> isSortedByKey(selector: (K, V) -> T): Boolean =
+        isSortedByKey(selector, naturalOrder())
+
+    // Binary search by a derived key using natural ordering.
+    public fun <T : Comparable<T>> binarySearchByKey(
+        key: T,
+        selector: (K, V) -> T,
+    ): SearchResult =
+        binarySearchByKey(key, selector, naturalOrder())
+
     // Return the split point where the predicate stops matching.
     public fun partitionPoint(predicate: (K, V) -> Boolean): Int {
         var low = 0
@@ -299,3 +353,11 @@ public class Slice<K, V> internal constructor(
 
     private fun absoluteIndex(index: Int): Int = start + index
 }
+
+// Return true if the slice is sorted by natural key ordering.
+public fun <K : Comparable<K>, V> Slice<K, V>.isSorted(): Boolean =
+    isSorted(naturalOrder())
+
+// Binary search the ordered entries by key using natural ordering.
+public fun <K : Comparable<K>, V> Slice<K, V>.binarySearchKeys(key: K): SearchResult =
+    binarySearchKeys(key, naturalOrder())

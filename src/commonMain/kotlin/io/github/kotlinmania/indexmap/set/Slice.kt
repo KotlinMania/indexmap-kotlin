@@ -107,6 +107,14 @@ public class Slice<T> internal constructor(
         return Slice(entries, absoluteIndex(start), absoluteIndex(endExclusive))
     }
 
+    // Get a contiguous subslice by integer range.
+    public fun getRange(range: IntRange): Slice<T>? =
+        if (range.isEmpty()) {
+            if (range.first in 0..len()) Slice(entries, absoluteIndex(range.first), absoluteIndex(range.first)) else null
+        } else {
+            getRange(range.first, range.last + 1)
+        }
+
     internal fun getRange(range: RangeBounds<Int>): Slice<T>? {
         val simplified = trySimplifyRange(range, len()) ?: return null
         return getRange(simplified)
@@ -159,6 +167,13 @@ public class Slice<T> internal constructor(
             comparator.compare(keySelector(item), target)
         }
 
+    // Search over a sorted set slice by a key extraction function using natural ordering.
+    public fun <K : Comparable<K>> binarySearchByKey(
+        target: K,
+        keySelector: (T) -> K,
+    ): SearchResult =
+        binarySearchByKey(target, keySelector, naturalOrder())
+
     // Checks if the values of this slice are sorted.
     public fun isSorted(comparator: Comparator<T>): Boolean {
         for (i in 0 until len() - 1) {
@@ -193,6 +208,10 @@ public class Slice<T> internal constructor(
         }
         return true
     }
+
+    // Checks if this slice is sorted using the given sort-key function and natural ordering.
+    public fun <K : Comparable<K>> isSortedByKey(keySelector: (T) -> K): Boolean =
+        isSortedByKey(keySelector, naturalOrder())
 
     // Returns the partition point according to the given predicate.
     public fun partitionPoint(predicate: (T) -> Boolean): Int {
@@ -253,3 +272,11 @@ public class Slice<T> internal constructor(
 
     private fun absoluteIndex(relativeIndex: Int): Int = start + relativeIndex
 }
+
+// Checks if the values of this slice are sorted by natural ordering.
+public fun <T : Comparable<T>> Slice<T>.isSorted(): Boolean =
+    isSorted(naturalOrder())
+
+// Search over a sorted set slice for a value using natural ordering.
+public fun <T : Comparable<T>> Slice<T>.binarySearch(target: T): SearchResult =
+    binarySearch(target, naturalOrder())
