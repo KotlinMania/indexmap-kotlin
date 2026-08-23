@@ -19,7 +19,7 @@ import kotlin.native.HiddenFromObjC
 // hash values.
 @HiddenFromObjC
 public class IndexMap<K, V> private constructor(
-    private val entries: MutableList<Bucket<K, V>>,
+    internal val entries: MutableList<Bucket<K, V>>,
 ) : Iterable<Pair<K, V>>,
     MutableKeys<K, V> {
     public constructor() : this(mutableListOf())
