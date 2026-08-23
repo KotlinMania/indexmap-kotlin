@@ -5,6 +5,8 @@
 package io.github.kotlinmania.indexmap
 
 import io.github.kotlinmania.indexmap.map.SearchResult
+import io.github.kotlinmania.indexmap.set.MutableValues
+import io.github.kotlinmania.indexmap.set.Slice
 import kotlin.native.HiddenFromObjC
 
 // A hash set where the iteration order of the values is independent of their
@@ -16,7 +18,8 @@ import kotlin.native.HiddenFromObjC
 @HiddenFromObjC
 public class IndexSet<T> private constructor(
     private val map: IndexMap<T, Unit>,
-) : Iterable<T> {
+) : Iterable<T>,
+    MutableValues<T> {
     public constructor() : this(IndexMap.new())
 
     public companion object {
@@ -77,6 +80,12 @@ public class IndexSet<T> private constructor(
     // Return the set values as an ordered list slice.
     public fun asSlice(): List<T> = asList()
 
+    // Return the set entries as a set Slice view.
+    public fun asSetSlice(): Slice<T> = Slice.fromEntries(map.entries)
+
+    // Return the set entries as a mutable set Slice view.
+    public fun asMutSlice(): Slice<T> = asSetSlice()
+
     // Return the set values as an ordered list slice.
     public fun intoBoxedSlice(): List<T> = asList()
 
@@ -85,6 +94,16 @@ public class IndexSet<T> private constructor(
 
     // Return the set entries.
     public fun intoEntries(): List<T> = asList()
+
+    override fun getFullMut2(value: T): Pair<Int, T>? =
+        map.getFullMut2(value)?.let { it.first to it.second }
+
+    override fun getIndexMut2(index: Int): T? =
+        map.getIndexMut2(index)?.first
+
+    override fun retain2(keep: (T) -> Boolean) {
+        map.retain2 { key, _ -> keep(key) }
+    }
 
     // Operate on the underlying set entries.
     public fun <R> withEntries(f: (MutableList<T>) -> R): R {
