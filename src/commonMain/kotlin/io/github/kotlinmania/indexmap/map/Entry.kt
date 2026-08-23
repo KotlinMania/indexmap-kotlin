@@ -30,6 +30,8 @@ public sealed class Entry<K, V> : MutableEntryKey<K> {
             is Vacant -> entry.insert(default)
         }
 
+    public fun orDefault(default: V): V = orInsert(default)
+
     public fun orInsertWith(create: () -> V): V =
         when (this) {
             is Occupied -> entry.get()
@@ -49,6 +51,8 @@ public sealed class Entry<K, V> : MutableEntryKey<K> {
         return this
     }
 
+    public open fun fmt(): String = toString()
+
     public class Occupied<K, V> internal constructor(
         public val entry: OccupiedEntry<K, V>,
     ) : Entry<K, V>() {
@@ -57,6 +61,8 @@ public sealed class Entry<K, V> : MutableEntryKey<K> {
         override fun key(): K = entry.key()
 
         override fun replaceKey(newKey: K): K = entry.replaceKey(newKey)
+
+        override fun fmt(): String = toString()
 
         override fun toString(): String = "Entry($entry)"
     }
@@ -69,6 +75,8 @@ public sealed class Entry<K, V> : MutableEntryKey<K> {
         override fun key(): K = entry.key()
 
         override fun replaceKey(newKey: K): K = entry.replaceKey(newKey)
+
+        override fun fmt(): String = toString()
 
         override fun toString(): String = "Entry($entry)"
     }
@@ -119,6 +127,8 @@ public class OccupiedEntry<K, V> internal constructor(
     override fun replaceKey(newKey: K): K =
         map.replaceIndex(index(), newKey)
 
+    public fun fmt(): String = toString()
+
     private fun pair(): Pair<K, V> =
         map.getIndex(index()) ?: error("occupied entry no longer exists")
 
@@ -151,6 +161,8 @@ public class VacantEntry<K, V> internal constructor(
         entryKey = newKey
         return old
     }
+
+    public fun fmt(): String = toString()
 
     override fun toString(): String = "VacantEntry($entryKey)"
 }
@@ -199,6 +211,8 @@ public class IndexedEntry<K, V> internal constructor(
 
     override fun replaceKey(newKey: K): K =
         map.replaceIndex(index(), newKey)
+
+    public fun fmt(): String = toString()
 
     private fun pair(): Pair<K, V> =
         map.getIndex(index()) ?: error("indexed entry no longer exists")

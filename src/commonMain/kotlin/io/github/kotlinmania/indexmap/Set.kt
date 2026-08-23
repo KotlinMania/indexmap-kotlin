@@ -74,8 +74,32 @@ public class IndexSet<T> private constructor(
     // Return the set values as an ordered list.
     public fun intoList(): List<T> = asList()
 
+    // Return the set values as an ordered list slice.
+    public fun asSlice(): List<T> = asList()
+
+    // Return the set values as an ordered list slice.
+    public fun intoBoxedSlice(): List<T> = asList()
+
+    // Return the set entries.
+    public fun asEntries(): List<T> = asList()
+
+    // Return the set entries.
+    public fun intoEntries(): List<T> = asList()
+
+    // Operate on the underlying set entries.
+    public fun <R> withEntries(f: (MutableList<T>) -> R): R {
+        val list = asList().toMutableList()
+        val result = f(list)
+        clear()
+        extend(list)
+        return result
+    }
+
     // Return a value by index.
     public operator fun get(index: Int): T = map.getIndex(index)!!.first
+
+    // Return a value by index.
+    public fun index(index: Int): T = get(index)
 
     // Return a value by index, if it exists.
     public fun getIndex(index: Int): T? = map.getIndex(index)?.first
@@ -197,6 +221,9 @@ public class IndexSet<T> private constructor(
 
     // Remove the value by shifting following values down.
     public fun shiftRemove(value: T): Boolean = map.shiftRemove(value) != null
+
+    // Remove and return the value.
+    public fun take(value: T): T? = swapTake(value)
 
     // Remove and return the value by swapping in the last value.
     public fun swapTake(value: T): T? = map.swapRemoveEntry(value)?.first
@@ -375,6 +402,22 @@ public class IndexSet<T> private constructor(
     // Return all values in self, followed by values unique to other.
     public fun union(other: IndexSet<T>): List<T> =
         asList() + other.asList().filter { !contains(it) }
+
+    // Returns the set intersection as a new IndexSet.
+    public fun bitand(other: IndexSet<T>): IndexSet<T> = IndexSet.from(intersection(other))
+
+    // Returns the set union as a new IndexSet.
+    public fun bitor(other: IndexSet<T>): IndexSet<T> = IndexSet.from(union(other))
+
+    // Returns the set symmetric difference as a new IndexSet.
+    public fun bitxor(other: IndexSet<T>): IndexSet<T> = IndexSet.from(symmetricDifference(other))
+
+    // Returns the set difference as a new IndexSet.
+    public fun sub(other: IndexSet<T>): IndexSet<T> = IndexSet.from(difference(other))
+
+    public operator fun plus(other: IndexSet<T>): IndexSet<T> = bitor(other)
+
+    public operator fun minus(other: IndexSet<T>): IndexSet<T> = sub(other)
 
     public fun eq(other: IndexSet<T>): Boolean = this == other
 

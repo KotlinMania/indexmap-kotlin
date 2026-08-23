@@ -112,7 +112,44 @@ class SliceTest {
         assertEquals(0, slice.cmp(clone, pairComparator))
         assertEquals(0, slice.partialCmp(clone, pairComparator))
         assertEquals(Slice.default<Int, String>(), Slice.new())
+        assertEquals(Slice.newMut<Int, String>(), Slice.new())
         assertEquals(slice, Slice.from(slice))
+        assertEquals(slice, Slice.fromSlice(slice))
+        assertEquals(slice, Slice.fromMutSlice(slice))
+        assertEquals(slice, Slice.fromBoxed(slice))
+    }
+
+    @Test
+    fun sliceMutatingViewsAndDisjointAccess() {
+        val slice = sampleMap().asSlice()
+
+        assertEquals(slice, slice.intoBoxed())
+        assertEquals(1 to "one", slice.getIndexMut(0))
+        assertEquals("one", slice.indexMut(0))
+        assertEquals(1 to "one", slice.firstMut())
+        assertEquals(4 to "four", slice.lastMut())
+        assertEquals(listOf("one", "two", "three", "four"), slice.valuesMut())
+
+        val splitMut = slice.splitAtMut(2)
+        assertEquals(listOf(1 to "one", 2 to "two"), splitMut.first.toList())
+        assertEquals(listOf(3 to "three", 4 to "four"), splitMut.second.toList())
+
+        val splitMutChecked = slice.splitAtMutChecked(2)
+        assertEquals(listOf(1 to "one", 2 to "two"), splitMutChecked?.first?.toList())
+        assertNull(slice.splitAtMutChecked(10))
+
+        val splitFirstMut = slice.splitFirstMut()
+        assertEquals(1 to "one", splitFirstMut?.first)
+        assertEquals(listOf(2 to "two", 3 to "three", 4 to "four"), splitFirstMut?.second?.toList())
+
+        val splitLastMut = slice.splitLastMut()
+        assertEquals(4 to "four", splitLastMut?.first)
+        assertEquals(listOf(1 to "one", 2 to "two", 3 to "three"), splitLastMut?.second?.toList())
+
+        assertEquals(listOf(1 to "one", 2 to "two", 3 to "three", 4 to "four"), slice.iterMut().asSequence().toList())
+        assertEquals(listOf(1 to "one", 3 to "three"), slice.getDisjointMut(intArrayOf(0, 2)))
+        assertEquals(listOf(2 to "two"), slice.getDisjointOptMut(intArrayOf(1)))
+        assertEquals(listOf(2 to "two", 3 to "three"), slice.getRangeMut(1, 3)?.toList())
     }
 
     @Test

@@ -23,5 +23,7 @@ public interface MutableKeys<K, V> {
 public interface MutableEntryKey<K> {
     public fun key(): K
 
+    public fun keyMut(): K = key()
+
     public fun replaceKey(newKey: K): K
 }
