@@ -75,9 +75,10 @@ class LibTest {
 
     @Test
     fun tryReserveErrorAllocErrorMessage() {
-        val error = TryReserveError.fromHashbrown(
-            HashbrownTryReserveError.AllocError(Layout(size = 16UL, align = 8UL)),
-        )
+        val error =
+            TryReserveError.fromHashbrown(
+                HashbrownTryReserveError.AllocError(Layout(size = 16UL, align = 8UL)),
+            )
         assertEquals(
             "memory allocation failed because the memory allocator returned an error",
             error.message,
