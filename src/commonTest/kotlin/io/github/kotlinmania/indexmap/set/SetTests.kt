@@ -718,7 +718,7 @@ class SetTests {
         val result1 = set.getRange(0 until 3)
         assertEquals(listOf(1, 2, 3), result1)
 
-        val result2 = set.getRange(0 until 0)
+        val result2 = set.getRange(IntRange(0, -1))
         assertEquals(0, result2?.size)
 
         val result3 = set.getRange(2, 1)

@@ -397,7 +397,7 @@ class MapTests {
 
     @Test
     fun drainRange() {
-        for (range in listOf(0 until 0, 10 until 90, 80 until 90, 20 until 30)) {
+        for (range in listOf(IntRange(0, -1), 10 until 90, 80 until 90, 20 until 30)) {
             val vec = (0 until 100).toMutableList()
             val map = IndexMap.new<Int, Unit>()
             for (i in 0 until 100) {
@@ -552,7 +552,7 @@ class MapTests {
         indexMap.insert(4, 40)
         indexMap.insert(5, 50)
 
-        val result1 = indexMap.getRange(2 until 2)
+        val result1 = indexMap.getRange(IntRange(2, 1))
         assertTrue(result1!!.isEmpty())
 
         val result2 = indexMap.getRange(4, 2)
