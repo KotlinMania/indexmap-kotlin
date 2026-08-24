@@ -232,6 +232,9 @@ public class Slice<T> internal constructor(
     public fun toList(): List<T> =
         (0 until len()).map { get(it) }
 
+    // Return the slice values as an owned list.
+    public fun intoEntries(): List<T> = toList()
+
     // Return an iterator over the values of the set slice.
     override fun iterator(): Iterator<T> =
         object : Iterator<T> {
@@ -245,9 +248,37 @@ public class Slice<T> internal constructor(
             }
         }
 
+    // Return an iterator over the values of the set slice.
+    public fun iter(): Iterator<T> = iterator()
+
+    // Return an owning iterator over the values of the set slice.
+    public fun intoIter(): Iterator<T> = iterator()
+
     // Clone this slice view.
     public fun clone(): Slice<T> =
         Slice(entries.map { it.clone() }.toMutableList(), start, endExclusive)
+
+    public fun fmt(): String = toString()
+
+    public fun eq(other: Slice<T>): Boolean = this == other
+
+    public fun partialCmp(other: Slice<T>, comparator: Comparator<in T>): Int =
+        cmp(other, comparator)
+
+    public fun cmp(other: Slice<T>, comparator: Comparator<in T>): Int {
+        val left = toList()
+        val right = other.toList()
+        val commonLength = minOf(left.size, right.size)
+        for (index in 0 until commonLength) {
+            val order = comparator.compare(left[index], right[index])
+            if (order != 0) {
+                return order
+            }
+        }
+        return left.size.compareTo(right.size)
+    }
+
+    public fun hash(): Int = hashCode()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

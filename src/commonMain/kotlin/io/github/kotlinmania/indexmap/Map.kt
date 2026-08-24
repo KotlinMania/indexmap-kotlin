@@ -10,6 +10,9 @@ import io.github.kotlinmania.indexmap.map.IntoIter
 import io.github.kotlinmania.indexmap.map.Iter
 import io.github.kotlinmania.indexmap.map.IterMut
 import io.github.kotlinmania.indexmap.map.MutableKeys
+import io.github.kotlinmania.indexmap.map.RawEntryApiV1
+import io.github.kotlinmania.indexmap.map.RawEntryBuilder
+import io.github.kotlinmania.indexmap.map.RawEntryBuilderMut
 import io.github.kotlinmania.indexmap.map.SearchResult
 import io.github.kotlinmania.indexmap.map.Slice
 import kotlin.native.HiddenFromObjC
@@ -24,7 +27,8 @@ import kotlin.native.HiddenFromObjC
 public class IndexMap<K, V> private constructor(
     internal val entries: MutableList<Bucket<K, V>>,
 ) : Iterable<Pair<K, V>>,
-    MutableKeys<K, V> {
+    MutableKeys<K, V>,
+    RawEntryApiV1<K, V> {
     public constructor() : this(mutableListOf())
 
     public companion object {
@@ -327,6 +331,10 @@ public class IndexMap<K, V> private constructor(
             )
         }
     }
+
+    override fun rawEntryV1(): RawEntryBuilder<K, V> = RawEntryBuilder(this)
+
+    override fun rawEntryMutV1(): RawEntryBuilderMut<K, V> = RawEntryBuilderMut(this)
 
     // Insert a key-value pair at its ordered position among sorted keys.
     public fun insertSorted(key: K, value: V, comparator: Comparator<in K>): Pair<Int, V?> {
