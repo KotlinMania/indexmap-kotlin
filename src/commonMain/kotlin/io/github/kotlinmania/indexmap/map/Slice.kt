@@ -229,6 +229,9 @@ public class Slice<K, V> internal constructor(
     // Return an iterator over the key-value pairs of the slice.
     public fun iter(): Iterator<Pair<K, V>> = iterator()
 
+    // Return an owning iterator over the key-value pairs of the slice.
+    public fun intoIter(): Iterator<Pair<K, V>> = iterator()
+
     // Return a mutable iterator over the key-value pairs of the slice.
     public fun iterMut(): Iterator<Pair<K, V>> = iterator()
 
