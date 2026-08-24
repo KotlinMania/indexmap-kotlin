@@ -131,6 +131,10 @@ internal class Bucket<K, V>(
 
     internal fun consumeValue(): V = value
 
+    internal fun key(): K = key
+
+    internal fun value(): V = value
+
     internal fun keyValue(): Pair<K, V> = key to value
 
     internal fun refs(): Pair<K, V> = key to value
@@ -175,6 +179,8 @@ public class TryReserveError internal constructor(
                 }
             return "memory allocation failed$reason"
         }
+
+    public fun fmt(): String = message
 
     override fun toString(): String = message
 
@@ -242,6 +248,8 @@ public enum class GetDisjointMutError {
     OverlappingIndices,
 
     ;
+
+    public fun fmt(): String = toString()
 
     override fun toString(): String =
         when (this) {
