@@ -1,4 +1,4 @@
-import XCTest
+import Testing
 import Indexmap
 
 // Smoke test for the Kotlin → Swift Export → SPM → swift test pipeline.
@@ -28,8 +28,10 @@ import Indexmap
 // Add more meaningful per-API tests below as the Swift Export surface
 // grows. For now the import + a single passing assertion is the
 // canary that the pipeline is green for this repo.
-final class IndexmapExportTests: XCTestCase {
+@Suite("Indexmap Swift Export Tests")
+struct IndexmapExportTests {
+    @Test("Swift module loads and exports cleanly")
     func testSwiftModuleLoads() throws {
-        XCTAssertTrue(true, "Indexmap swift module imported cleanly")
+        #expect(Bool(true), "Indexmap swift module imported cleanly")
     }
 }
