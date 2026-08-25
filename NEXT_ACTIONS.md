@@ -5,13 +5,13 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 14/26 (53.8%)
-- **Function parity:** 393/741 matched (target 825) — 53.0%
+- **Function parity:** 396/741 matched (target 828) — 53.4%
 - **Class/type parity:** 41/95 matched (target 69) — 43.2%
-- **Combined symbol parity:** 434/836 matched (target 894) — 51.9%
-- **Average inline-code cosine:** 0.34 (function body across 14 matched files)
-- **Average documentation cosine:** 0.00 (doc text across 14 matched files)
-- **Cheat-zeroed Files:** 3
-- **Critical Issues:** 12 files with <0.60 function similarity
+- **Combined symbol parity:** 437/836 matched (target 897) — 52.3%
+- **Average inline-code cosine:** 0.38 (function body across 14 matched files)
+- **Average documentation cosine:** 0.35 (doc text across 14 matched files)
+- **Cheat-zeroed Files:** 2
+- **Critical Issues:** 11 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
@@ -87,18 +87,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 9/11 matched (target 10)
 - **Missing types:** `Item`, `UnitValue`
 
-### 6. set.mutable
-
-- **Target:** `set.Mutable [ZERO]`
-- **Similarity:** 0.00
-- **Dependents:** 0
-- **Priority Score:** 50610.0
-- **Functions:** 0/3 matched (target 0)
-- **Missing functions:** `get_full_mut2`, `get_index_mut2`, `retain2`
-- **Types:** 1/3 matched (target 1)
-- **Missing types:** `Value`, `Sealed`
-
-### 7. map.raw_entry_v1
+### 6. map.raw_entry_v1
 
 - **Target:** `map.RawEntryV1`
 - **Similarity:** 0.47
@@ -110,7 +99,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Sealed`
 - **Tests:** 0/1 matched
 
-### 8. set.slice
+### 7. set.slice
 
 - **Target:** `set.Slice`
 - **Similarity:** 0.31
@@ -122,7 +111,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `IntoIter`, `Item`, `Output`
 - **Tests:** 1/2 matched
 
-### 9. set
+### 8. set
 
 - **Target:** `indexmap.Set`
 - **Similarity:** 0.59
@@ -133,7 +122,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 2)
 - **Missing types:** `Bucket`, `Output`
 
-### 10. map.entry
+### 9. map.entry
 
 - **Target:** `map.Entry`
 - **Similarity:** 0.51
@@ -145,7 +134,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/1 matched
 
-### 11. map
+### 10. map
 
 - **Target:** `indexmap.Map`
 - **Similarity:** 0.45
@@ -155,6 +144,17 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 1/2 matched
 - **Missing types:** `Output`
+
+### 11. set.mutable
+
+- **Target:** `set.Mutable`
+- **Similarity:** 0.63
+- **Dependents:** 0
+- **Priority Score:** 20603.7
+- **Functions:** 3/3 matched
+- **Missing functions:** _none_
+- **Types:** 1/3 matched (target 1)
+- **Missing types:** `Value`, `Sealed`
 
 ### 12. lib
 
