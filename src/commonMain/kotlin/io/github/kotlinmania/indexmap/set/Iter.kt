@@ -8,7 +8,9 @@ import io.github.kotlinmania.indexmap.Bucket
 import io.github.kotlinmania.indexmap.IndexSet
 import kotlin.native.HiddenFromObjC
 
-// An iterator over the items of an IndexSet.
+/**
+ * An iterator over the items of an IndexSet.
+ */
 @HiddenFromObjC
 public class Iter<T> internal constructor(
     internal val entries: List<Bucket<T, Unit>>,
@@ -21,6 +23,9 @@ public class Iter<T> internal constructor(
         public fun <T> default(): Iter<T> = Iter(emptyList())
     }
 
+    /**
+     * Returns a slice of the remaining entries in the iterator.
+     */
     public fun asSlice(): Slice<T> =
         if (index < backIndex) {
             Slice.fromEntries(entries.subList(index, backIndex).toMutableList())
@@ -56,7 +61,9 @@ public class Iter<T> internal constructor(
     override fun toString(): String = asSlice().toList().toString()
 }
 
-// An owning iterator over the items of an IndexSet.
+/**
+ * An owning iterator over the items of an IndexSet.
+ */
 @HiddenFromObjC
 public class IntoIter<T> internal constructor(
     private val entries: List<Bucket<T, Unit>>,
@@ -69,6 +76,9 @@ public class IntoIter<T> internal constructor(
         public fun <T> default(): IntoIter<T> = IntoIter(emptyList())
     }
 
+    /**
+     * Returns a slice of the remaining entries in the iterator.
+     */
     public fun asSlice(): Slice<T> =
         if (index < backIndex) {
             Slice.fromEntries(entries.subList(index, backIndex).toMutableList())
@@ -104,13 +114,18 @@ public class IntoIter<T> internal constructor(
     override fun toString(): String = asSlice().toList().toString()
 }
 
-// A draining iterator over the items of an IndexSet.
+/**
+ * A draining iterator over the items of an IndexSet.
+ */
 @HiddenFromObjC
 public class Drain<T> internal constructor(
     private val drained: List<Bucket<T, Unit>>,
     private var index: Int = 0,
     private var backIndex: Int = drained.size,
 ) : Iterator<T> {
+    /**
+     * Returns a slice of the remaining entries in the iterator.
+     */
     public fun asSlice(): Slice<T> =
         if (index < backIndex) {
             Slice.fromEntries(drained.subList(index, backIndex).toMutableList())
@@ -144,7 +159,9 @@ public class Drain<T> internal constructor(
     override fun toString(): String = asSlice().toList().toString()
 }
 
-// A lazy iterator producing elements in the difference of IndexSets.
+/**
+ * A lazy iterator producing elements in the difference of IndexSets.
+ */
 @HiddenFromObjC
 public class Difference<T> internal constructor(
     private val entries: List<Bucket<T, Unit>>,
@@ -196,7 +213,9 @@ public class Difference<T> internal constructor(
     public fun fmt(): String = toString()
 }
 
-// A lazy iterator producing elements in the intersection of IndexSets.
+/**
+ * A lazy iterator producing elements in the intersection of IndexSets.
+ */
 @HiddenFromObjC
 public class Intersection<T> internal constructor(
     private val entries: List<Bucket<T, Unit>>,
@@ -249,7 +268,9 @@ public class Intersection<T> internal constructor(
     public fun fmt(): String = toString()
 }
 
-// A lazy iterator producing elements in the symmetric difference of IndexSets.
+/**
+ * A lazy iterator producing elements in the symmetric difference of IndexSets.
+ */
 @HiddenFromObjC
 public class SymmetricDifference<T> internal constructor(
     private val diff1: Difference<T>,
@@ -275,7 +296,9 @@ public class SymmetricDifference<T> internal constructor(
     public fun fmt(): String = toString()
 }
 
-// A lazy iterator producing elements in the union of IndexSets.
+/**
+ * A lazy iterator producing elements in the union of IndexSets.
+ */
 @HiddenFromObjC
 public class Union<T> internal constructor(
     private val iter1: Iter<T>,
@@ -300,7 +323,9 @@ public class Union<T> internal constructor(
     public fun fmt(): String = toString()
 }
 
-// A splicing iterator for IndexSet.
+/**
+ * A splicing iterator for IndexSet.
+ */
 @HiddenFromObjC
 public class Splice<T> internal constructor(
     private val set: IndexSet<T>,
@@ -340,7 +365,9 @@ public class Splice<T> internal constructor(
     public fun fmt(): String = toString()
 }
 
-// An extracting iterator for IndexSet.
+/**
+ * An extracting iterator for IndexSet.
+ */
 @HiddenFromObjC
 public class ExtractIf<T> internal constructor(
     private val set: IndexSet<T>,
@@ -361,3 +388,4 @@ public class ExtractIf<T> internal constructor(
         return extracted.next()
     }
 }
+

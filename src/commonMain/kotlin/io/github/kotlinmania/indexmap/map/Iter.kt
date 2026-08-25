@@ -8,7 +8,9 @@ import io.github.kotlinmania.indexmap.Bucket
 import io.github.kotlinmania.indexmap.IndexMap
 import kotlin.native.HiddenFromObjC
 
-// An iterator over the entries of an IndexMap.
+/**
+ * An iterator over the entries of an IndexMap.
+ */
 @HiddenFromObjC
 public class Iter<K, V> internal constructor(
     private val entries: List<Bucket<K, V>>,
@@ -21,6 +23,9 @@ public class Iter<K, V> internal constructor(
         public fun <K, V> default(): Iter<K, V> = Iter(emptyList())
     }
 
+    /**
+     * Returns a slice of the remaining entries in the iterator.
+     */
     public fun asSlice(): Slice<K, V> =
         if (index < backIndex) {
             Slice.fromEntries(entries.subList(index, backIndex).toMutableList())
@@ -56,7 +61,9 @@ public class Iter<K, V> internal constructor(
     override fun toString(): String = asSlice().toList().toString()
 }
 
-// A mutable iterator over the entries of an IndexMap.
+/**
+ * A mutable iterator over the entries of an IndexMap.
+ */
 @HiddenFromObjC
 public class IterMut<K, V> internal constructor(
     private val entries: MutableList<Bucket<K, V>>,
@@ -69,6 +76,9 @@ public class IterMut<K, V> internal constructor(
         public fun <K, V> default(): IterMut<K, V> = IterMut(mutableListOf())
     }
 
+    /**
+     * Returns a slice of the remaining entries in the iterator.
+     */
     public fun asSlice(): Slice<K, V> =
         if (index < backIndex) {
             Slice.fromEntries(entries.subList(index, backIndex))
@@ -104,7 +114,9 @@ public class IterMut<K, V> internal constructor(
     override fun toString(): String = asSlice().toList().toString()
 }
 
-// A mutable iterator over the entries of an IndexMap with key mutations.
+/**
+ * A mutable iterator over the entries of an IndexMap with key mutations.
+ */
 @HiddenFromObjC
 public class IterMut2<K, V> internal constructor(
     private val entries: MutableList<Bucket<K, V>>,
@@ -117,6 +129,9 @@ public class IterMut2<K, V> internal constructor(
         public fun <K, V> default(): IterMut2<K, V> = IterMut2(mutableListOf())
     }
 
+    /**
+     * Returns a slice of the remaining entries in the iterator.
+     */
     public fun asSlice(): Slice<K, V> =
         if (index < backIndex) {
             Slice.fromEntries(entries.subList(index, backIndex))
@@ -152,7 +167,9 @@ public class IterMut2<K, V> internal constructor(
     override fun toString(): String = asSlice().toList().toString()
 }
 
-// An owning iterator over the entries of an IndexMap.
+/**
+ * An owning iterator over the entries of an IndexMap.
+ */
 @HiddenFromObjC
 public class IntoIter<K, V> internal constructor(
     private val entries: List<Bucket<K, V>>,
@@ -165,6 +182,9 @@ public class IntoIter<K, V> internal constructor(
         public fun <K, V> default(): IntoIter<K, V> = IntoIter(emptyList())
     }
 
+    /**
+     * Returns a slice of the remaining entries in the iterator.
+     */
     public fun asSlice(): Slice<K, V> =
         if (index < backIndex) {
             Slice.fromEntries(entries.subList(index, backIndex).toMutableList())
@@ -202,13 +222,18 @@ public class IntoIter<K, V> internal constructor(
     override fun toString(): String = asSlice().toList().toString()
 }
 
-// A draining iterator over the entries of an IndexMap.
+/**
+ * A draining iterator over the entries of an IndexMap.
+ */
 @HiddenFromObjC
 public class Drain<K, V> internal constructor(
     private val drained: List<Bucket<K, V>>,
     private var index: Int = 0,
     private var backIndex: Int = drained.size,
 ) : Iterator<Pair<K, V>> {
+    /**
+     * Returns a slice of the remaining entries in the iterator.
+     */
     public fun asSlice(): Slice<K, V> =
         if (index < backIndex) {
             Slice.fromEntries(drained.subList(index, backIndex).toMutableList())
@@ -242,7 +267,9 @@ public class Drain<K, V> internal constructor(
     override fun toString(): String = asSlice().toList().toString()
 }
 
-// An iterator over the keys of an IndexMap.
+/**
+ * An iterator over the keys of an IndexMap.
+ */
 @HiddenFromObjC
 public class Keys<K, V> internal constructor(
     private val entries: List<Bucket<K, V>>,
@@ -292,7 +319,9 @@ public class Keys<K, V> internal constructor(
     }
 }
 
-// An owning iterator over the keys of an IndexMap.
+/**
+ * An owning iterator over the keys of an IndexMap.
+ */
 @HiddenFromObjC
 public class IntoKeys<K, V> internal constructor(
     private val keys: List<K>,
@@ -342,7 +371,9 @@ public class IntoKeys<K, V> internal constructor(
     }
 }
 
-// An iterator over the values of an IndexMap.
+/**
+ * An iterator over the values of an IndexMap.
+ */
 @HiddenFromObjC
 public class Values<K, V> internal constructor(
     private val entries: List<Bucket<K, V>>,
@@ -392,7 +423,9 @@ public class Values<K, V> internal constructor(
     }
 }
 
-// A mutable iterator over the values of an IndexMap.
+/**
+ * A mutable iterator over the values of an IndexMap.
+ */
 @HiddenFromObjC
 public class ValuesMut<K, V> internal constructor(
     private val entries: MutableList<Bucket<K, V>>,
@@ -440,7 +473,9 @@ public class ValuesMut<K, V> internal constructor(
     }
 }
 
-// An owning iterator over the values of an IndexMap.
+/**
+ * An owning iterator over the values of an IndexMap.
+ */
 @HiddenFromObjC
 public class IntoValues<K, V> internal constructor(
     private val values: List<V>,
@@ -490,7 +525,9 @@ public class IntoValues<K, V> internal constructor(
     }
 }
 
-// A splicing iterator for IndexMap.
+/**
+ * A splicing iterator for IndexMap.
+ */
 @HiddenFromObjC
 public class Splice<K, V> internal constructor(
     private val map: IndexMap<K, V>,
@@ -530,7 +567,9 @@ public class Splice<K, V> internal constructor(
     public fun fmt(): String = toString()
 }
 
-// An extracting iterator for IndexMap.
+/**
+ * An extracting iterator for IndexMap.
+ */
 @HiddenFromObjC
 public class ExtractIf<K, V> internal constructor(
     private val map: IndexMap<K, V>,
@@ -551,3 +590,4 @@ public class ExtractIf<K, V> internal constructor(
         return extracted.next()
     }
 }
+

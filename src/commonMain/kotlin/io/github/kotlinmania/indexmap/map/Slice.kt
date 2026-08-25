@@ -11,7 +11,9 @@ import io.github.kotlinmania.indexmap.RangeBounds
 import io.github.kotlinmania.indexmap.trySimplifyRange
 import kotlin.native.HiddenFromObjC
 
-// The result of searching an ordered entry slice.
+/**
+ * The result of searching an ordered entry slice.
+ */
 public data class SearchResult(
     val index: Int,
     val found: Boolean,
@@ -23,7 +25,12 @@ public data class SearchResult(
     }
 }
 
-// A view over the contiguous key-value entry slice of an IndexMap.
+/**
+ * A dynamically-sized slice of key-value pairs in an IndexMap.
+ *
+ * This supports indexed operations much like a slice,
+ * but not any hashed operations on the map keys.
+ */
 @HiddenFromObjC
 public class Slice<K, V> internal constructor(
     private val entries: MutableList<Bucket<K, V>>,
@@ -40,10 +47,13 @@ public class Slice<K, V> internal constructor(
     }
 
     public companion object {
+        /** Returns an empty slice. */
         public fun <K, V> new(): Slice<K, V> = Slice(mutableListOf(), 0, 0)
 
+        /** Returns an empty mutable slice. */
         public fun <K, V> newMut(): Slice<K, V> = new()
 
+        /** Returns an empty slice. */
         public fun <K, V> default(): Slice<K, V> = new()
 
         public fun <K, V> from(slice: Slice<K, V>): Slice<K, V> = slice.clone()
@@ -58,33 +68,45 @@ public class Slice<K, V> internal constructor(
             Slice(entries.map { it.clone() }.toMutableList(), 0, entries.size)
     }
 
-    // Return the number of key-value pairs in the slice.
+    /** Return the number of key-value pairs in the slice. */
     public fun len(): Int = endExclusive - start
 
-    // Return true if the slice contains no key-value pairs.
+    /** Return true if the slice contains no key-value pairs. */
     public fun isEmpty(): Boolean = len() == 0
 
-    // Return a boxed slice view.
+    /** Return a boxed slice view. */
     public fun intoBoxed(): Slice<K, V> = this
 
-    // Get a key-value pair by its slice index.
+    /**
+     * Get a key-value pair by index.
+     *
+     * Valid indices are `0 <= index < len()`.
+     */
     public fun getIndex(index: Int): Pair<K, V>? =
         if (index in 0 until len()) entries[absoluteIndex(index)].keyValue() else null
 
-    // Get a mutable key-value pair by its slice index.
+    /**
+     * Get a key-value pair by index, with mutable access to the value.
+     *
+     * Valid indices are `0 <= index < len()`.
+     */
     public fun getIndexMut(index: Int): Pair<K, V>? = getIndex(index)
 
-    // Get the value at a slice index.
+    /** Get the value at a slice index. */
     public operator fun get(index: Int): V =
         entries[absoluteIndex(index)].value
 
-    // Get the value at a slice index.
+    /** Get the value at a slice index. */
     public fun index(index: Int): V = this[index]
 
-    // Get the mutable value at a slice index.
+    /** Get the mutable value at a slice index. */
     public fun indexMut(index: Int): V = index(index)
 
-    // Get a contiguous subslice by entry indices.
+    /**
+     * Returns a slice of key-value pairs in the given range of indices.
+     *
+     * Valid indices are `0 <= index < len()`.
+     */
     public fun getRange(start: Int, endExclusive: Int): Slice<K, V>? {
         if (start < 0 || endExclusive < start || endExclusive > len()) {
             return null
@@ -92,11 +114,17 @@ public class Slice<K, V> internal constructor(
         return Slice(entries, absoluteIndex(start), absoluteIndex(endExclusive))
     }
 
-    // Get a mutable contiguous subslice by entry indices.
+    /**
+     * Returns a mutable slice of key-value pairs in the given range of indices.
+     *
+     * Valid indices are `0 <= index < len()`.
+     */
     public fun getRangeMut(start: Int, endExclusive: Int): Slice<K, V>? =
         getRange(start, endExclusive)
 
-    // Get a contiguous subslice by integer range.
+    /**
+     * Returns a slice of key-value pairs in the given range of indices.
+     */
     public fun getRange(range: IntRange): Slice<K, V>? =
         if (range.isEmpty()) {
             if (range.first in 0..len()) Slice(entries, absoluteIndex(range.first), absoluteIndex(range.first)) else null
@@ -104,8 +132,11 @@ public class Slice<K, V> internal constructor(
             getRange(range.first, range.last + 1)
         }
 
-    // Get a mutable contiguous subslice by integer range.
+    /**
+     * Returns a mutable slice of key-value pairs in the given range of indices.
+     */
     public fun getRangeMut(range: IntRange): Slice<K, V>? = getRange(range)
+
 
     internal fun getRange(range: RangeBounds<Int>): Slice<K, V>? {
         val simplified = trySimplifyRange(range, len()) ?: return null
@@ -115,15 +146,23 @@ public class Slice<K, V> internal constructor(
     internal fun getRange(range: IndexRange): Slice<K, V> =
         Slice(entries, absoluteIndex(range.start), absoluteIndex(range.end))
 
-    // Get multiple key-value pairs by disjoint indices.
+    /**
+     * Get an array of key-value pairs by indices.
+     *
+     * Valid indices are `0 <= index < len()` and each index needs to be unique.
+     */
     public fun getDisjointMut(indices: IntArray): List<Pair<K, V>?> =
         indices.map { getIndex(it) }
 
-    // Get multiple optional key-value pairs by disjoint indices.
+    /**
+     * Get multiple optional key-value pairs by disjoint indices.
+     */
     public fun getDisjointOptMut(indices: IntArray): List<Pair<K, V>?> =
         indices.map { getIndex(it) }
 
-    // Get multiple key-value pairs by disjoint indices with bounds and uniqueness checking.
+    /**
+     * Get multiple key-value pairs by disjoint indices with bounds and uniqueness checking.
+     */
     public fun getDisjointIndicesMut(indices: List<Int>): Pair<List<Pair<K, V>>?, GetDisjointMutError?> {
         val len = len()
         val seen = mutableSetOf<Int>()
@@ -154,19 +193,23 @@ public class Slice<K, V> internal constructor(
         return indices.map { if (it != null) getIndex(it) else null } to null
     }
 
-    // Get the first key-value pair.
+    /** Get the first key-value pair. */
     public fun first(): Pair<K, V>? = getIndex(0)
 
-    // Get the first mutable key-value pair.
+    /** Get the first key-value pair, with mutable access to the value. */
     public fun firstMut(): Pair<K, V>? = first()
 
-    // Get the last key-value pair.
+    /** Get the last key-value pair. */
     public fun last(): Pair<K, V>? = getIndex(len() - 1)
 
-    // Get the last mutable key-value pair.
+    /** Get the last key-value pair, with mutable access to the value. */
     public fun lastMut(): Pair<K, V>? = last()
 
-    // Split the slice at index.
+    /**
+     * Divides one slice into two at an index.
+     *
+     * Throws IllegalArgumentException if index > len.
+     */
     public fun splitAt(index: Int): Pair<Slice<K, V>, Slice<K, V>> {
         require(index in 0..len()) {
             "mid > len"
@@ -174,72 +217,93 @@ public class Slice<K, V> internal constructor(
         return uncheckedSplitAt(index)
     }
 
-    // Split the mutable slice at index.
+    /** Divides one mutable slice into two at an index. */
     public fun splitAtMut(index: Int): Pair<Slice<K, V>, Slice<K, V>> = splitAt(index)
 
-    // Split the slice at index, returning null when the index is out of bounds.
+    /** Divides one slice into two at an index, returning null if index > len. */
     public fun splitAtChecked(index: Int): Pair<Slice<K, V>, Slice<K, V>>? =
         if (index in 0..len()) uncheckedSplitAt(index) else null
 
-    // Split the mutable slice at index, returning null when the index is out of bounds.
+    /** Divides one mutable slice into two at an index, returning null if index > len. */
     public fun splitAtMutChecked(index: Int): Pair<Slice<K, V>, Slice<K, V>>? =
         splitAtChecked(index)
 
-    // Split off the first key-value pair and the remaining slice.
+    /**
+     * Returns the first key-value pair and the rest of the slice,
+     * or null if it is empty.
+     */
     public fun splitFirst(): Pair<Pair<K, V>, Slice<K, V>>? {
         val first = getIndex(0) ?: return null
         return first to Slice(entries, start + 1, endExclusive)
     }
 
-    // Split off the first mutable key-value pair and the remaining slice.
+    /**
+     * Returns the first key-value pair and the rest of the slice,
+     * with mutable access to the value, or null if it is empty.
+     */
     public fun splitFirstMut(): Pair<Pair<K, V>, Slice<K, V>>? = splitFirst()
 
-    // Split off the last key-value pair and the preceding slice.
+    /**
+     * Returns the last key-value pair and the rest of the slice,
+     * or null if it is empty.
+     */
     public fun splitLast(): Pair<Pair<K, V>, Slice<K, V>>? {
         val last = getIndex(len() - 1) ?: return null
         return last to Slice(entries, start, endExclusive - 1)
     }
 
-    // Split off the last mutable key-value pair and the preceding slice.
+    /**
+     * Returns the last key-value pair and the rest of the slice,
+     * with mutable access to the value, or null if it is empty.
+     */
     public fun splitLastMut(): Pair<Pair<K, V>, Slice<K, V>>? = splitLast()
 
-    // Return the keys in slice order.
+    /** Return the keys in slice order. */
     public fun keys(): List<K> = visibleEntries().map { it.key }
 
-    // Return the keys as an owned list.
+    /** Return an owning iterator over the keys of the map slice. */
     public fun intoKeys(): List<K> = keys()
 
-    // Return the values in slice order.
+    /** Return an iterator over the values of the map slice. */
     public fun values(): List<V> = visibleEntries().map { it.value }
 
-    // Return the mutable values in slice order.
+    /** Return an iterator over mutable references to the values of the map slice. */
     public fun valuesMut(): List<V> = values()
 
-    // Return the values as an owned list.
+    /** Return an owning iterator over the values of the map slice. */
     public fun intoValues(): List<V> = values()
 
-    // Return the key-value pairs in slice order.
+    /** Return the key-value pairs in slice order. */
     public fun toList(): List<Pair<K, V>> = visibleEntries().map { it.keyValue() }
 
-    // Return the key-value pairs as an owned list.
+    /** Return the key-value pairs as an owned list. */
     public fun intoEntries(): List<Pair<K, V>> = toList()
 
     override fun iterator(): Iterator<Pair<K, V>> = toList().iterator()
 
-    // Return an iterator over the key-value pairs of the slice.
+    /** Return an iterator over the key-value pairs of the map slice. */
     public fun iter(): Iterator<Pair<K, V>> = iterator()
 
-    // Return an owning iterator over the key-value pairs of the slice.
+    /** Return an owning iterator over the key-value pairs of the map slice. */
     public fun intoIter(): Iterator<Pair<K, V>> = iterator()
 
-    // Return a mutable iterator over the key-value pairs of the slice.
+    /** Return a mutable iterator over the key-value pairs of the map slice. */
     public fun iterMut(): Iterator<Pair<K, V>> = iterator()
 
-    // Binary search the ordered entries by key.
+    /**
+     * Search over a sorted map for a key.
+     *
+     * Returns the position where that key is present, or the position where it can be inserted.
+     * Computes in O(log(n)) time.
+     */
     public fun binarySearchKeys(key: K, comparator: Comparator<in K>): SearchResult =
         binarySearchBy { entryKey, _ -> comparator.compare(entryKey, key) }
 
-    // Binary search the ordered entries with a comparator over key-value pairs.
+    /**
+     * Search over a sorted map with a comparator function.
+     *
+     * Computes in O(log(n)) time.
+     */
     public fun binarySearchBy(compare: (K, V) -> Int): SearchResult {
         var low = 0
         var high = len()
@@ -256,7 +320,11 @@ public class Slice<K, V> internal constructor(
         return SearchResult.insertion(low)
     }
 
-    // Binary search by a derived key.
+    /**
+     * Search over a sorted map with an extraction function.
+     *
+     * Computes in O(log(n)) time.
+     */
     public fun <T> binarySearchByKey(
         key: T,
         selector: (K, V) -> T,
@@ -264,7 +332,9 @@ public class Slice<K, V> internal constructor(
     ): SearchResult =
         binarySearchBy { entryKey, entryValue -> comparator.compare(selector(entryKey, entryValue), key) }
 
-    // Return true if the slice is sorted under the adjacent-pair predicate.
+    /**
+     * Checks if this slice is sorted using the given comparator function.
+     */
     public fun isSortedBy(inOrder: (K, V, K, V) -> Boolean): Boolean {
         for (index in 1 until len()) {
             val previous = entries[absoluteIndex(index - 1)]
@@ -276,11 +346,15 @@ public class Slice<K, V> internal constructor(
         return true
     }
 
-    // Return true if the slice is sorted by key.
+    /**
+     * Checks if the keys of this slice are sorted.
+     */
     public fun isSorted(comparator: Comparator<in K>): Boolean =
         isSortedBy { leftKey, _, rightKey, _ -> comparator.compare(leftKey, rightKey) <= 0 }
 
-    // Return true if the slice is sorted by a derived key.
+    /**
+     * Checks if this slice is sorted using the given sort-key function.
+     */
     public fun <T> isSortedByKey(
         selector: (K, V) -> T,
         comparator: Comparator<in T>,
@@ -289,18 +363,26 @@ public class Slice<K, V> internal constructor(
             comparator.compare(selector(leftKey, leftValue), selector(rightKey, rightValue)) <= 0
         }
 
-    // Return true if the slice is sorted by a derived key using natural ordering.
+    /**
+     * Checks if this slice is sorted using the given sort-key function with natural ordering.
+     */
     public fun <T : Comparable<T>> isSortedByKey(selector: (K, V) -> T): Boolean =
         isSortedByKey(selector, naturalOrder())
 
-    // Binary search by a derived key using natural ordering.
+    /**
+     * Binary search by a derived key using natural ordering.
+     */
     public fun <T : Comparable<T>> binarySearchByKey(
         key: T,
         selector: (K, V) -> T,
     ): SearchResult =
         binarySearchByKey(key, selector, naturalOrder())
 
-    // Return the split point where the predicate stops matching.
+    /**
+     * Returns the index of the partition point of a sorted map according to the given predicate.
+     *
+     * Computes in O(log(n)) time.
+     */
     public fun partitionPoint(predicate: (K, V) -> Boolean): Int {
         var low = 0
         var high = len()
@@ -357,10 +439,15 @@ public class Slice<K, V> internal constructor(
     private fun absoluteIndex(index: Int): Int = start + index
 }
 
-// Return true if the slice is sorted by natural key ordering.
+/**
+ * Return true if the slice is sorted by natural key ordering.
+ */
 public fun <K : Comparable<K>, V> Slice<K, V>.isSorted(): Boolean =
     isSorted(naturalOrder())
 
-// Binary search the ordered entries by key using natural ordering.
+/**
+ * Binary search the ordered entries by key using natural ordering.
+ */
 public fun <K : Comparable<K>, V> Slice<K, V>.binarySearchKeys(key: K): SearchResult =
     binarySearchKeys(key, naturalOrder())
+
