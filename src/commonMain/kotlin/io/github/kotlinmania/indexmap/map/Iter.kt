@@ -16,6 +16,8 @@ public class Iter<K, V> internal constructor(
     private var backIndex: Int = entries.size,
 ) : Iterator<Pair<K, V>> {
     public companion object {
+        internal fun <K, V> new(entries: List<Bucket<K, V>>): Iter<K, V> = Iter(entries)
+
         public fun <K, V> default(): Iter<K, V> = Iter(emptyList())
     }
 
@@ -29,6 +31,8 @@ public class Iter<K, V> internal constructor(
     public fun len(): Int = (backIndex - index).coerceAtLeast(0)
 
     public fun isEmpty(): Boolean = len() == 0
+
+    public fun sizeHint(): Pair<Int, Int?> = len() to len()
 
     public fun clone(): Iter<K, V> = Iter(entries, index, backIndex)
 
@@ -47,6 +51,8 @@ public class Iter<K, V> internal constructor(
         return entries[backIndex].keyValue()
     }
 
+    public fun fmt(): String = toString()
+
     override fun toString(): String = asSlice().toList().toString()
 }
 
@@ -58,6 +64,8 @@ public class IterMut<K, V> internal constructor(
     private var backIndex: Int = entries.size,
 ) : Iterator<Pair<K, V>> {
     public companion object {
+        internal fun <K, V> new(entries: MutableList<Bucket<K, V>>): IterMut<K, V> = IterMut(entries)
+
         public fun <K, V> default(): IterMut<K, V> = IterMut(mutableListOf())
     }
 
@@ -74,6 +82,8 @@ public class IterMut<K, V> internal constructor(
 
     public fun isEmpty(): Boolean = len() == 0
 
+    public fun sizeHint(): Pair<Int, Int?> = len() to len()
+
     override fun hasNext(): Boolean = index < backIndex
 
     override fun next(): Pair<K, V> {
@@ -89,6 +99,8 @@ public class IterMut<K, V> internal constructor(
         return entries[backIndex].keyValue()
     }
 
+    public fun fmt(): String = toString()
+
     override fun toString(): String = asSlice().toList().toString()
 }
 
@@ -100,6 +112,8 @@ public class IterMut2<K, V> internal constructor(
     private var backIndex: Int = entries.size,
 ) : Iterator<Pair<K, V>> {
     public companion object {
+        internal fun <K, V> new(entries: MutableList<Bucket<K, V>>): IterMut2<K, V> = IterMut2(entries)
+
         public fun <K, V> default(): IterMut2<K, V> = IterMut2(mutableListOf())
     }
 
@@ -116,6 +130,8 @@ public class IterMut2<K, V> internal constructor(
 
     public fun isEmpty(): Boolean = len() == 0
 
+    public fun sizeHint(): Pair<Int, Int?> = len() to len()
+
     override fun hasNext(): Boolean = index < backIndex
 
     override fun next(): Pair<K, V> {
@@ -131,6 +147,8 @@ public class IterMut2<K, V> internal constructor(
         return entries[backIndex].keyValue()
     }
 
+    public fun fmt(): String = toString()
+
     override fun toString(): String = asSlice().toList().toString()
 }
 
@@ -142,6 +160,8 @@ public class IntoIter<K, V> internal constructor(
     private var backIndex: Int = entries.size,
 ) : Iterator<Pair<K, V>> {
     public companion object {
+        internal fun <K, V> new(entries: List<Bucket<K, V>>): IntoIter<K, V> = IntoIter(entries)
+
         public fun <K, V> default(): IntoIter<K, V> = IntoIter(emptyList())
     }
 
@@ -157,6 +177,8 @@ public class IntoIter<K, V> internal constructor(
     public fun len(): Int = (backIndex - index).coerceAtLeast(0)
 
     public fun isEmpty(): Boolean = len() == 0
+
+    public fun sizeHint(): Pair<Int, Int?> = len() to len()
 
     public fun clone(): IntoIter<K, V> = IntoIter(entries, index, backIndex)
 
@@ -174,6 +196,8 @@ public class IntoIter<K, V> internal constructor(
         backIndex -= 1
         return entries[backIndex].keyValue()
     }
+
+    public fun fmt(): String = toString()
 
     override fun toString(): String = asSlice().toList().toString()
 }
@@ -196,6 +220,8 @@ public class Drain<K, V> internal constructor(
 
     public fun isEmpty(): Boolean = len() == 0
 
+    public fun sizeHint(): Pair<Int, Int?> = len() to len()
+
     override fun hasNext(): Boolean = index < backIndex
 
     override fun next(): Pair<K, V> {
@@ -211,6 +237,8 @@ public class Drain<K, V> internal constructor(
         return drained[backIndex].keyValue()
     }
 
+    public fun fmt(): String = toString()
+
     override fun toString(): String = asSlice().toList().toString()
 }
 
@@ -222,12 +250,16 @@ public class Keys<K, V> internal constructor(
     private var backIndex: Int = entries.size,
 ) : Iterator<K> {
     public companion object {
+        internal fun <K, V> new(entries: List<Bucket<K, V>>): Keys<K, V> = Keys(entries)
+
         public fun <K, V> default(): Keys<K, V> = Keys(emptyList())
     }
 
     public fun len(): Int = (backIndex - index).coerceAtLeast(0)
 
     public fun isEmpty(): Boolean = len() == 0
+
+    public fun sizeHint(): Pair<Int, Int?> = len() to len()
 
     public fun clone(): Keys<K, V> = Keys(entries, index, backIndex)
 
@@ -252,6 +284,8 @@ public class Keys<K, V> internal constructor(
         return entries[backIndex].key
     }
 
+    public fun fmt(): String = toString()
+
     override fun toString(): String {
         val list = (index until backIndex).map { entries[it].key }
         return list.toString()
@@ -266,12 +300,16 @@ public class IntoKeys<K, V> internal constructor(
     private var backIndex: Int = keys.size,
 ) : Iterator<K> {
     public companion object {
+        public fun <K, V> new(keys: List<K>): IntoKeys<K, V> = IntoKeys(keys)
+
         public fun <K, V> default(): IntoKeys<K, V> = IntoKeys(emptyList())
     }
 
     public fun len(): Int = (backIndex - index).coerceAtLeast(0)
 
     public fun isEmpty(): Boolean = len() == 0
+
+    public fun sizeHint(): Pair<Int, Int?> = len() to len()
 
     public fun clone(): IntoKeys<K, V> = IntoKeys(keys, index, backIndex)
 
@@ -296,6 +334,8 @@ public class IntoKeys<K, V> internal constructor(
         return keys[backIndex]
     }
 
+    public fun fmt(): String = toString()
+
     override fun toString(): String {
         val list = (index until backIndex).map { keys[it] }
         return list.toString()
@@ -310,12 +350,16 @@ public class Values<K, V> internal constructor(
     private var backIndex: Int = entries.size,
 ) : Iterator<V> {
     public companion object {
+        internal fun <K, V> new(entries: List<Bucket<K, V>>): Values<K, V> = Values(entries)
+
         public fun <K, V> default(): Values<K, V> = Values(emptyList())
     }
 
     public fun len(): Int = (backIndex - index).coerceAtLeast(0)
 
     public fun isEmpty(): Boolean = len() == 0
+
+    public fun sizeHint(): Pair<Int, Int?> = len() to len()
 
     public fun clone(): Values<K, V> = Values(entries, index, backIndex)
 
@@ -340,6 +384,8 @@ public class Values<K, V> internal constructor(
         return entries[backIndex].value
     }
 
+    public fun fmt(): String = toString()
+
     override fun toString(): String {
         val list = (index until backIndex).map { entries[it].value }
         return list.toString()
@@ -354,12 +400,16 @@ public class ValuesMut<K, V> internal constructor(
     private var backIndex: Int = entries.size,
 ) : Iterator<V> {
     public companion object {
+        internal fun <K, V> new(entries: MutableList<Bucket<K, V>>): ValuesMut<K, V> = ValuesMut(entries)
+
         public fun <K, V> default(): ValuesMut<K, V> = ValuesMut(mutableListOf())
     }
 
     public fun len(): Int = (backIndex - index).coerceAtLeast(0)
 
     public fun isEmpty(): Boolean = len() == 0
+
+    public fun sizeHint(): Pair<Int, Int?> = len() to len()
 
     public operator fun get(i: Int): V {
         val target = index + i
@@ -382,6 +432,8 @@ public class ValuesMut<K, V> internal constructor(
         return entries[backIndex].value
     }
 
+    public fun fmt(): String = toString()
+
     override fun toString(): String {
         val list = (index until backIndex).map { entries[it].value }
         return list.toString()
@@ -396,12 +448,16 @@ public class IntoValues<K, V> internal constructor(
     private var backIndex: Int = values.size,
 ) : Iterator<V> {
     public companion object {
+        public fun <K, V> new(values: List<V>): IntoValues<K, V> = IntoValues(values)
+
         public fun <K, V> default(): IntoValues<K, V> = IntoValues(emptyList())
     }
 
     public fun len(): Int = (backIndex - index).coerceAtLeast(0)
 
     public fun isEmpty(): Boolean = len() == 0
+
+    public fun sizeHint(): Pair<Int, Int?> = len() to len()
 
     public fun clone(): IntoValues<K, V> = IntoValues(values, index, backIndex)
 
@@ -426,6 +482,8 @@ public class IntoValues<K, V> internal constructor(
         return values[backIndex]
     }
 
+    public fun fmt(): String = toString()
+
     override fun toString(): String {
         val list = (index until backIndex).map { values[it] }
         return list.toString()
@@ -444,6 +502,8 @@ public class Splice<K, V> internal constructor(
     public fun len(): Int = (backIndex - index).coerceAtLeast(0)
 
     public fun isEmpty(): Boolean = len() == 0
+
+    public fun sizeHint(): Pair<Int, Int?> = len() to null
 
     override fun hasNext(): Boolean = index < backIndex
 
@@ -466,6 +526,8 @@ public class Splice<K, V> internal constructor(
             map.insert(key, value)
         }
     }
+
+    public fun fmt(): String = toString()
 }
 
 // An extracting iterator for IndexMap.
@@ -477,6 +539,10 @@ public class ExtractIf<K, V> internal constructor(
     private val extracted: Iterator<Pair<K, V>> by lazy {
         map.extractIf(predicate).iterator()
     }
+
+    public fun sizeHint(): Pair<Int, Int?> = 0 to null
+
+    public fun fmt(): String = toString()
 
     override fun hasNext(): Boolean = extracted.hasNext()
 

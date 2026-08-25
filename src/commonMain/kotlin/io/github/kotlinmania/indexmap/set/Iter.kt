@@ -16,6 +16,8 @@ public class Iter<T> internal constructor(
     internal var backIndex: Int = entries.size,
 ) : Iterator<T> {
     public companion object {
+        internal fun <T> new(entries: List<Bucket<T, Unit>>): Iter<T> = Iter(entries)
+
         public fun <T> default(): Iter<T> = Iter(emptyList())
     }
 
@@ -29,6 +31,8 @@ public class Iter<T> internal constructor(
     public fun len(): Int = (backIndex - index).coerceAtLeast(0)
 
     public fun isEmpty(): Boolean = len() == 0
+
+    public fun sizeHint(): Pair<Int, Int?> = len() to len()
 
     public fun clone(): Iter<T> = Iter(entries, index, backIndex)
 
@@ -47,6 +51,8 @@ public class Iter<T> internal constructor(
         return entries[backIndex].key
     }
 
+    public fun fmt(): String = toString()
+
     override fun toString(): String = asSlice().toList().toString()
 }
 
@@ -58,6 +64,8 @@ public class IntoIter<T> internal constructor(
     private var backIndex: Int = entries.size,
 ) : Iterator<T> {
     public companion object {
+        internal fun <T> new(entries: List<Bucket<T, Unit>>): IntoIter<T> = IntoIter(entries)
+
         public fun <T> default(): IntoIter<T> = IntoIter(emptyList())
     }
 
@@ -71,6 +79,8 @@ public class IntoIter<T> internal constructor(
     public fun len(): Int = (backIndex - index).coerceAtLeast(0)
 
     public fun isEmpty(): Boolean = len() == 0
+
+    public fun sizeHint(): Pair<Int, Int?> = len() to len()
 
     public fun clone(): IntoIter<T> = IntoIter(entries, index, backIndex)
 
@@ -88,6 +98,8 @@ public class IntoIter<T> internal constructor(
         backIndex -= 1
         return entries[backIndex].key
     }
+
+    public fun fmt(): String = toString()
 
     override fun toString(): String = asSlice().toList().toString()
 }
@@ -110,6 +122,8 @@ public class Drain<T> internal constructor(
 
     public fun isEmpty(): Boolean = len() == 0
 
+    public fun sizeHint(): Pair<Int, Int?> = len() to len()
+
     override fun hasNext(): Boolean = index < backIndex
 
     override fun next(): T {
@@ -124,6 +138,8 @@ public class Drain<T> internal constructor(
         backIndex -= 1
         return drained[backIndex].key
     }
+
+    public fun fmt(): String = toString()
 
     override fun toString(): String = asSlice().toList().toString()
 }
@@ -177,6 +193,7 @@ public class Difference<T> internal constructor(
         }
         return null
     }
+    public fun fmt(): String = toString()
 }
 
 // A lazy iterator producing elements in the intersection of IndexSets.
@@ -228,6 +245,8 @@ public class Intersection<T> internal constructor(
         }
         return null
     }
+
+    public fun fmt(): String = toString()
 }
 
 // A lazy iterator producing elements in the symmetric difference of IndexSets.
@@ -252,6 +271,8 @@ public class SymmetricDifference<T> internal constructor(
         if (back2 != null) return back2
         return diff1.nextBack()
     }
+
+    public fun fmt(): String = toString()
 }
 
 // A lazy iterator producing elements in the union of IndexSets.
@@ -275,6 +296,8 @@ public class Union<T> internal constructor(
         if (back2 != null) return back2
         return iter1.nextBack()
     }
+
+    public fun fmt(): String = toString()
 }
 
 // A splicing iterator for IndexSet.
@@ -289,6 +312,8 @@ public class Splice<T> internal constructor(
     public fun len(): Int = (backIndex - index).coerceAtLeast(0)
 
     public fun isEmpty(): Boolean = len() == 0
+
+    public fun sizeHint(): Pair<Int, Int?> = len() to null
 
     override fun hasNext(): Boolean = index < backIndex
 
@@ -311,6 +336,8 @@ public class Splice<T> internal constructor(
             set.insert(key)
         }
     }
+
+    public fun fmt(): String = toString()
 }
 
 // An extracting iterator for IndexSet.
@@ -322,6 +349,10 @@ public class ExtractIf<T> internal constructor(
     private val extracted: Iterator<T> by lazy {
         set.extractIf(predicate).iterator()
     }
+
+    public fun sizeHint(): Pair<Int, Int?> = 0 to null
+
+    public fun fmt(): String = toString()
 
     override fun hasNext(): Boolean = extracted.hasNext()
 

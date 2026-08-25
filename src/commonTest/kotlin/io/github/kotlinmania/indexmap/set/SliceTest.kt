@@ -90,17 +90,44 @@ class SliceTest {
 
     @Test
     fun sliceIndexTestFromRust() {
+        fun check(vecSlice: List<Int>, setSliceList: List<Int>, subSlice: Slice<Int>) {
+            assertEquals(setSliceList, subSlice.toList())
+            assertEquals(vecSlice, subSlice.toList())
+        }
+
         val vec: List<Int> = (0 until 10).map { it * it }
         val set: IndexSet<Int> = IndexSet.from(vec)
         val slice = set.asSetSlice()
 
-        assertEquals(vec, slice.toList())
+        // RangeFull
+        check(vec, set.asSetSlice().toList(), slice)
 
         for (i in 0 until 10) {
+            // Index
             assertEquals(vec[i], set[i])
             assertEquals(vec[i], slice[i])
-            assertEquals(vec.subList(i, 10), slice.getRange(i, 10)?.toList())
-            assertEquals(vec.subList(0, i), slice.getRange(0, i)?.toList())
+
+            // RangeFrom
+            check(vec.subList(i, vec.size), set.getRange(i, set.len())!!, slice.getRange(i, slice.len())!!)
+
+            // RangeTo
+            check(vec.subList(0, i), set.getRange(0, i)!!, slice.getRange(0, i)!!)
+
+            // RangeToInclusive
+            check(vec.subList(0, i + 1), set.getRange(0, i + 1)!!, slice.getRange(0, i + 1)!!)
+
+            // (Bound::Excluded(i), Bound::Unbounded)
+            check(vec.subList(i + 1, vec.size), set.getRange(i + 1, set.len())!!, slice.getRange(i + 1, slice.len())!!)
+
+            for (j in i..10) {
+                // Range
+                check(vec.subList(i, j), set.getRange(i, j)!!, slice.getRange(i, j)!!)
+            }
+
+            for (j in i until 10) {
+                // RangeInclusive
+                check(vec.subList(i, j + 1), set.getRange(i, j + 1)!!, slice.getRange(i, j + 1)!!)
+            }
         }
     }
 
