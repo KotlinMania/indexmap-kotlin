@@ -1,6 +1,6 @@
 # port-lint Proposed Changes
 
-**Generated:** 2026-08-24
+**Generated:** 2026-08-25
 **Source:** tmp/indexmap/src
 **Target:** src/commonMain/kotlin/io/github/kotlinmania/indexmap
 
