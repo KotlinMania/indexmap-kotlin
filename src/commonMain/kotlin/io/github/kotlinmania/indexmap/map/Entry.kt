@@ -127,6 +127,8 @@ public class OccupiedEntry<K, V> internal constructor(
     override fun replaceKey(newKey: K): K =
         map.replaceIndex(index(), newKey)
 
+    public fun intoCore(): IndexMap<K, V> = map
+
     public fun fmt(): String = toString()
 
     private fun pair(): Pair<K, V> =
@@ -212,10 +214,26 @@ public class IndexedEntry<K, V> internal constructor(
     override fun replaceKey(newKey: K): K =
         map.replaceIndex(index(), newKey)
 
+    public fun intoCore(): IndexMap<K, V> = map
+
+    public fun getBucket(): Pair<K, V> = pair()
+
+    public fun getBucketMut(): Pair<K, V> = pair()
+
+    public fun intoBucket(): Pair<K, V> = pair()
+
     public fun fmt(): String = toString()
 
     private fun pair(): Pair<K, V> =
         map.getIndex(index()) ?: error("indexed entry no longer exists")
 
     override fun toString(): String = "IndexedEntry(index=$entryIndex, key=${key()}, value=${get()})"
+
+    public companion object {
+        public fun <K, V> new(map: IndexMap<K, V>, index: Int): IndexedEntry<K, V>? =
+            if (index in 0 until map.len()) IndexedEntry(map, index) else null
+
+        public fun <K, V> from(other: OccupiedEntry<K, V>): IndexedEntry<K, V> =
+            IndexedEntry(other.intoCore(), other.index())
+    }
 }
