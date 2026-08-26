@@ -1,6 +1,6 @@
 # port-lint Proposed Changes
 
-**Generated:** 2026-08-25
+**Generated:** 2026-08-26
 **Source:** tmp/indexmap/src
 **Target:** src/commonMain/kotlin
 
@@ -9,4 +9,3 @@ These are review proposals only. They are emitted when a Rust -> Kotlin pair mat
 | Target file | Current header | Proposed header | Source path | Reason |
 |-------------|----------------|-----------------|-------------|--------|
 | `src/commonMain/kotlin/io/github/kotlinmania/indexmap/map/Typealiases.kt` | `// port-lint: source map.rs` | `// port-lint: source rayon/map.rs` | `rayon/map.rs` | `port-lint provenance header matched only by basename: 'map.rs' vs expected 'rayon/map.rs'` |
-| `src/commonTest/kotlin/io/github/kotlinmania/indexmap/SerdeTest.kt` | `// port-lint: tests tests/serde.rs` | `// port-lint: tests serde.rs` | `serde.rs` | `port-lint provenance header matched only by basename: 'tests:tests/serde.rs' vs expected 'serde.rs'` |
