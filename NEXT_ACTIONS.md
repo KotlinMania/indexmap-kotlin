@@ -56,7 +56,7 @@ Every matched file is listed below with function and type symbol parity.
 
 ### 3. serde
 
-- **Target:** `indexmap.Serde [PROVENANCE-FALLBACK]`
+- **Target:** `indexmap.Serde`
 - **Similarity:** 0.13
 - **Dependents:** 0
 - **Priority Score:** 81108.7
@@ -64,9 +64,6 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `expecting`, `visit_map`, `into_deserializer`, `visit_seq`
 - **Types:** 0/4 matched (target 3)
 - **Missing types:** `IndexMapVisitor`, `Value`, `Deserializer`, `IndexSetVisitor`
-- **Provenance warning:** port-lint provenance header matched only by basename: `tests:tests/serde.rs` vs expected `serde.rs`
-- **Proposed provenance header:** `// port-lint: tests serde.rs` (current: `// port-lint: tests tests/serde.rs`)
-- **Lint issues:** 1
 
 ### 4. map.mutable
 

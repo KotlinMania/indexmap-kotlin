@@ -1,4 +1,4 @@
-// port-lint: tests tests/serde.rs
+// port-lint: tests serde.rs
 package io.github.kotlinmania.indexmap
 
 import io.github.kotlinmania.indexmap.map.IndexMapSeqSerializer
