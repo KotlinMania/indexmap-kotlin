@@ -10,6 +10,7 @@ import kotlin.native.HiddenFromObjC
 
 internal class Indices(
     internal val items: MutableList<Int> = mutableListOf(),
+    internal val hashes: MutableList<ULong> = mutableListOf(),
 ) {
     public fun len(): Int = items.size
 
@@ -19,16 +20,24 @@ internal class Indices(
 
     public fun clear() {
         items.clear()
+        hashes.clear()
     }
 
-    public fun clone(): Indices = Indices(items.toMutableList())
+    public fun clone(): Indices = Indices(items.toMutableList(), hashes.toMutableList())
 
     public fun cloneFrom(other: Indices) {
         items.clear()
         items.addAll(other.items)
+        hashes.clear()
+        hashes.addAll(other.hashes)
     }
 
     public fun find(hash: ULong, isMatch: (Int) -> Boolean): Int? {
+        for (i in items.indices) {
+            if (hashes.getOrNull(i) == hash && isMatch(items[i])) {
+                return items[i]
+            }
+        }
         for (idx in items) {
             if (isMatch(idx)) {
                 return idx
@@ -45,6 +54,11 @@ internal class Indices(
 
     public fun findBucketIndex(hash: ULong, isMatch: (Int) -> Boolean): Int? {
         for (i in items.indices) {
+            if (hashes.getOrNull(i) == hash && isMatch(items[i])) {
+                return i
+            }
+        }
+        for (i in items.indices) {
             if (isMatch(items[i])) {
                 return i
             }
@@ -53,13 +67,21 @@ internal class Indices(
     }
 
     public fun insertUnique(hash: ULong, index: Int) {
+        hashes.add(hash)
         items.add(index)
     }
 
-    public fun removeIndex(index: Int) {
+    public fun removeIndex(hash: ULong, index: Int) {
         val i = items.indexOf(index)
         if (i >= 0) {
             items.removeAt(i)
+            if (i < hashes.size) {
+                if (hashes[i] == hash) {
+                    hashes.removeAt(i)
+                } else {
+                    hashes.removeAt(i)
+                }
+            }
         }
     }
 }
@@ -71,13 +93,16 @@ internal fun <K, V> equivalent(key: K, entries: List<Bucket<K, V>>): (Int) -> Bo
     { i -> entries[i].key == key }
 
 internal fun eraseIndex(indices: Indices, hash: HashValue, index: Int) {
-    indices.removeIndex(index)
+    indices.removeIndex(hash.get(), index)
 }
 
 internal fun updateIndex(indices: Indices, hash: HashValue, old: Int, new: Int) {
     val i = indices.items.indexOf(old)
     if (i >= 0) {
         indices.items[i] = new
+        if (i < indices.hashes.size) {
+            indices.hashes[i] = hash.get()
+        }
     }
 }
 
@@ -185,17 +210,26 @@ internal class Core<K, V> internal constructor(
         other.entries.clear()
     }
 
-    public fun reserve(additional: Int) {}
+    public fun reserve(additional: Int) {
+        require(additional >= 0) { "additional must be non-negative" }
+    }
 
-    public fun reserveExact(additional: Int) {}
+    public fun reserveExact(additional: Int) {
+        require(additional >= 0) { "additional must be non-negative" }
+    }
 
-    public fun tryReserve(additional: Int): Result<Unit> = Result.success(Unit)
+    public fun tryReserve(additional: Int): Result<Unit> =
+        if (additional >= 0) Result.success(Unit) else Result.failure(IllegalArgumentException("negative"))
 
-    public fun tryReserveEntries(additional: Int): Result<Unit> = Result.success(Unit)
+    public fun tryReserveEntries(additional: Int): Result<Unit> =
+        if (additional >= 0) Result.success(Unit) else Result.failure(IllegalArgumentException("negative"))
 
-    public fun tryReserveExact(additional: Int): Result<Unit> = Result.success(Unit)
+    public fun tryReserveExact(additional: Int): Result<Unit> =
+        if (additional >= 0) Result.success(Unit) else Result.failure(IllegalArgumentException("negative"))
 
-    public fun shrinkTo(minCapacity: Int) {}
+    public fun shrinkTo(minCapacity: Int) {
+        require(minCapacity >= 0) { "minCapacity must be non-negative" }
+    }
 
     public fun pop(): Pair<K, V>? {
         if (entries.isEmpty()) return null
@@ -308,9 +342,12 @@ internal class Core<K, V> internal constructor(
         for (i in indices.items.indices) {
             indices.items[i] = len - indices.items[i] - 1
         }
+        indices.hashes.reverse()
     }
 
-    internal fun reserveEntries(additional: Int) {}
+    internal fun reserveEntries(additional: Int) {
+        require(additional >= 0) { "additional must be non-negative" }
+    }
 
     public fun insertUnique(hash: HashValue, key: K, value: V): Bucket<K, V> {
         val i = entries.size
