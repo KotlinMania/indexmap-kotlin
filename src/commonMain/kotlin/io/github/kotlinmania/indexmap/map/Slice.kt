@@ -137,7 +137,6 @@ public class Slice<K, V> internal constructor(
      */
     public fun getRangeMut(range: IntRange): Slice<K, V>? = getRange(range)
 
-
     internal fun getRange(range: RangeBounds<Int>): Slice<K, V>? {
         val simplified = trySimplifyRange(range, len()) ?: return null
         return getRange(simplified)
@@ -450,4 +449,3 @@ public fun <K : Comparable<K>, V> Slice<K, V>.isSorted(): Boolean =
  */
 public fun <K : Comparable<K>, V> Slice<K, V>.binarySearchKeys(key: K): SearchResult =
     binarySearchKeys(key, naturalOrder())
-

@@ -210,6 +210,7 @@ public class Difference<T> internal constructor(
         }
         return null
     }
+
     public fun fmt(): String = toString()
 }
 
@@ -388,4 +389,3 @@ public class ExtractIf<T> internal constructor(
         return extracted.next()
     }
 }
-

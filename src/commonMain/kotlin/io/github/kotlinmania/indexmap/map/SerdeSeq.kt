@@ -4,8 +4,8 @@ package io.github.kotlinmania.indexmap.map
 import io.github.kotlinmania.indexmap.IndexMap
 import io.github.kotlinmania.indexmap.cautiousCapacity
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.builtins.PairSerializer
 import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.PairSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder

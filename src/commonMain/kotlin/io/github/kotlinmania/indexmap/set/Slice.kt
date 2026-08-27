@@ -117,7 +117,6 @@ public class Slice<T> internal constructor(
         return get(len() - 1) to Slice(entries, start, endExclusive - 1)
     }
 
-
     /**
      * Returns a slice of values in the given range of indices.
      *
@@ -366,4 +365,3 @@ public fun <T : Comparable<T>> Slice<T>.isSorted(): Boolean =
  */
 public fun <T : Comparable<T>> Slice<T>.binarySearch(target: T): SearchResult =
     binarySearch(target, naturalOrder())
-

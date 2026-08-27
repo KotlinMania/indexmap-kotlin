@@ -67,4 +67,3 @@ public fun <T> IndexSet<T>.getIndexMut2(index: Int): T? =
 public fun <T> IndexSet<T>.retain2(keep: (T) -> Boolean) {
     map.retain2 { key, _ -> keep(key) }
 }
-

@@ -590,4 +590,3 @@ public class ExtractIf<K, V> internal constructor(
         return extracted.next()
     }
 }
-

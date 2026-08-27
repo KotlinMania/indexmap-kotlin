@@ -4,14 +4,14 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 19/26 (73.1%)
-- **Function parity:** 479/731 matched (target 938) — 65.5%
-- **Class/type parity:** 46/95 matched (target 79) — 48.4%
-- **Combined symbol parity:** 525/826 matched (target 1017) — 63.6%
-- **Average inline-code cosine:** 0.39 (function body across 19 matched files)
-- **Average documentation cosine:** 0.33 (doc text across 19 matched files)
-- **Cheat-zeroed Files:** 2
-- **Critical Issues:** 14 files with <0.60 function similarity
+- **Files Present:** 18/26 (69.2%)
+- **Function parity:** 486/747 matched (target 949) — 65.1%
+- **Class/type parity:** 46/95 matched (target 78) — 48.4%
+- **Combined symbol parity:** 532/842 matched (target 1027) — 63.2%
+- **Average inline-code cosine:** 0.42 (function body across 18 matched files)
+- **Average documentation cosine:** 0.34 (doc text across 18 matched files)
+- **Cheat-zeroed Files:** 1
+- **Critical Issues:** 13 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
@@ -39,34 +39,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `IntoIter`, `Item`, `Output`
 - **Tests:** 5/12 matched
 
-### 2. rayon.map
-
-- **Target:** `map.Typealiases [ZERO] [PROVENANCE-FALLBACK]`
-- **Similarity:** 0.00
-- **Dependents:** 0
-- **Priority Score:** 343410.0
-- **Functions:** 0/25 matched (target 0)
-- **Missing functions:** `into_par_iter`, `fmt`, `clone`, `par_drain`, `par_keys`, `par_values`, `par_eq`, `par_values_mut`, `par_sort_keys`, `par_sort_by`, `par_sorted_by`, `par_sort_by_key`, `par_sort_unstable_keys`, `par_sort_unstable_by`, `par_sorted_unstable_by`, `par_sort_unstable_by_key`, `par_sort_by_cached_key`, `from_par_iter`, `par_extend`, `insert_order`, `partial_eq_and_eq`, `extend`, `keys`, `values`, `values_mut`
-- **Types:** 0/9 matched (target 1)
-- **Missing types:** `Item`, `Iter`, `IntoParIter`, `ParIter`, `ParIterMut`, `ParDrain`, `ParKeys`, `ParValues`, `ParValuesMut`
-- **Tests:** 0/6 matched
-- **Provenance warning:** port-lint provenance header matched only by basename: `map.rs` vs expected `rayon/map.rs`
-- **Proposed provenance header:** `// port-lint: source rayon/map.rs` (current: `// port-lint: source map.rs`)
-- **Lint issues:** 1
-
-### 3. map.raw_entry_v1
-
-- **Target:** `map.RawEntryV1`
-- **Similarity:** 0.44
-- **Dependents:** 0
-- **Priority Score:** 104205.6
-- **Functions:** 26/35 matched (target 50)
-- **Missing functions:** `raw_entry_v1`, `raw_entry_mut_v1`, `into_key`, `into_mut`, `get_key_value`, `get_key_value_mut`, `into_key_value_mut`, `insert_key`, `assert_send_sync`
-- **Types:** 6/7 matched (target 9)
-- **Missing types:** `Sealed`
-- **Tests:** 0/1 matched
-
-### 4. serde
+### 2. serde
 
 - **Target:** `indexmap.Serde`
 - **Similarity:** 0.13
@@ -77,7 +50,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/4 matched (target 3)
 - **Missing types:** `IndexMapVisitor`, `Value`, `Deserializer`, `IndexSetVisitor`
 
-### 5. map.mutable
+### 3. map.mutable
 
 - **Target:** `map.Mutable`
 - **Similarity:** 0.09
@@ -88,7 +61,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/5 matched (target 2)
 - **Missing types:** `Key`, `Value`, `Sealed`
 
-### 6. map.iter
+### 4. map.iter
 
 - **Target:** `map.Iter`
 - **Similarity:** 0.32
@@ -99,7 +72,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 12/14 matched (target 13)
 - **Missing types:** `Item`, `Output`
 
-### 7. set.iter
+### 5. set.iter
 
 - **Target:** `set.Iter`
 - **Similarity:** 0.25
@@ -110,7 +83,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 9/11 matched (target 10)
 - **Missing types:** `Item`, `UnitValue`
 
-### 8. set.slice
+### 6. set.slice
 
 - **Target:** `set.Slice`
 - **Similarity:** 0.31
@@ -122,7 +95,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `IntoIter`, `Item`, `Output`
 - **Tests:** 1/2 matched
 
-### 9. map.serde_seq
+### 7. map.serde_seq
 
 - **Target:** `map.SerdeSeq`
 - **Similarity:** 0.09
@@ -133,7 +106,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/2 matched (target 1)
 - **Missing types:** `SeqVisitor`, `Value`
 
-### 10. inner
+### 8. inner
 
 - **Target:** `inner.Inner`
 - **Similarity:** 0.69
@@ -146,7 +119,19 @@ Every matched file is listed below with function and type symbol parity.
 - **Tests:** 0/1 matched
 - **Lint issues:** 7
 
-### 11. set
+### 9. map.raw_entry_v1
+
+- **Target:** `map.RawEntryV1`
+- **Similarity:** 0.50
+- **Dependents:** 0
+- **Priority Score:** 34205.0
+- **Functions:** 33/35 matched (target 61)
+- **Missing functions:** `raw_entry_v1`, `raw_entry_mut_v1`
+- **Types:** 6/7 matched (target 9)
+- **Missing types:** `Sealed`
+- **Tests:** 1/1 matched
+
+### 10. set
 
 - **Target:** `indexmap.Set`
 - **Similarity:** 0.59
@@ -157,7 +142,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 2)
 - **Missing types:** `Bucket`, `Output`
 
-### 12. inner.entry
+### 11. inner.entry
 
 - **Target:** `inner.Entry`
 - **Similarity:** 0.64
@@ -168,7 +153,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/2 matched
 - **Missing types:** _none_
 
-### 13. map.entry
+### 12. map.entry
 
 - **Target:** `map.Entry`
 - **Similarity:** 0.51
@@ -180,7 +165,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/1 matched
 
-### 14. map
+### 13. map
 
 - **Target:** `indexmap.Map`
 - **Similarity:** 0.45
@@ -191,7 +176,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/2 matched
 - **Missing types:** `Output`
 
-### 15. set.mutable
+### 14. set.mutable
 
 - **Target:** `set.Mutable`
 - **Similarity:** 0.63
@@ -202,7 +187,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 1)
 - **Missing types:** `Value`, `Sealed`
 
-### 16. inner.extract
+### 15. inner.extract
 
 - **Target:** `inner.Extract`
 - **Similarity:** 0.60
@@ -213,7 +198,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/1 matched
 - **Missing types:** _none_
 
-### 17. lib
+### 16. lib
 
 - **Target:** `indexmap.Lib`
 - **Similarity:** 0.71
@@ -224,7 +209,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 5/5 matched (target 11)
 - **Missing types:** _none_
 
-### 18. util
+### 17. util
 
 - **Target:** `indexmap.Util`
 - **Similarity:** 0.68
@@ -235,7 +220,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched (target 7)
 - **Missing types:** _none_
 
-### 19. macros
+### 18. macros
 
 - **Target:** `indexmap.Macros [ZERO]`
 - **Similarity:** 0.00
