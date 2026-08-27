@@ -109,15 +109,14 @@ Every matched file is listed below with function and type symbol parity.
 ### 8. inner
 
 - **Target:** `inner.Inner`
-- **Similarity:** 0.69
+- **Similarity:** 0.70
 - **Dependents:** 0
-- **Priority Score:** 35703.1
+- **Priority Score:** 35703.0
 - **Functions:** 52/54 matched (target 67)
 - **Missing functions:** `par_drain`, `assert_send_sync`
 - **Types:** 2/3 matched
 - **Missing types:** `Entries`
 - **Tests:** 0/1 matched
-- **Lint issues:** 7
 
 ### 9. map.raw_entry_v1
 
