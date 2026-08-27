@@ -5,9 +5,9 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 19/26 (73.1%)
-- **Function parity:** 485/731 matched (target 940) — 66.3%
+- **Function parity:** 479/731 matched (target 938) — 65.5%
 - **Class/type parity:** 46/95 matched (target 79) — 48.4%
-- **Combined symbol parity:** 531/826 matched (target 1019) — 64.3%
+- **Combined symbol parity:** 525/826 matched (target 1017) — 63.6%
 - **Average inline-code cosine:** 0.39 (function body across 19 matched files)
 - **Average documentation cosine:** 0.33 (doc text across 19 matched files)
 - **Cheat-zeroed Files:** 2
@@ -54,7 +54,19 @@ Every matched file is listed below with function and type symbol parity.
 - **Proposed provenance header:** `// port-lint: source rayon/map.rs` (current: `// port-lint: source map.rs`)
 - **Lint issues:** 1
 
-### 3. serde
+### 3. map.raw_entry_v1
+
+- **Target:** `map.RawEntryV1`
+- **Similarity:** 0.44
+- **Dependents:** 0
+- **Priority Score:** 104205.6
+- **Functions:** 26/35 matched (target 50)
+- **Missing functions:** `raw_entry_v1`, `raw_entry_mut_v1`, `into_key`, `into_mut`, `get_key_value`, `get_key_value_mut`, `into_key_value_mut`, `insert_key`, `assert_send_sync`
+- **Types:** 6/7 matched (target 9)
+- **Missing types:** `Sealed`
+- **Tests:** 0/1 matched
+
+### 4. serde
 
 - **Target:** `indexmap.Serde`
 - **Similarity:** 0.13
@@ -65,7 +77,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/4 matched (target 3)
 - **Missing types:** `IndexMapVisitor`, `Value`, `Deserializer`, `IndexSetVisitor`
 
-### 4. map.mutable
+### 5. map.mutable
 
 - **Target:** `map.Mutable`
 - **Similarity:** 0.09
@@ -76,7 +88,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/5 matched (target 2)
 - **Missing types:** `Key`, `Value`, `Sealed`
 
-### 5. map.iter
+### 6. map.iter
 
 - **Target:** `map.Iter`
 - **Similarity:** 0.32
@@ -87,7 +99,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 12/14 matched (target 13)
 - **Missing types:** `Item`, `Output`
 
-### 6. set.iter
+### 7. set.iter
 
 - **Target:** `set.Iter`
 - **Similarity:** 0.25
@@ -97,18 +109,6 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `into_iter`, `fold`, `rfold`
 - **Types:** 9/11 matched (target 10)
 - **Missing types:** `Item`, `UnitValue`
-
-### 7. map.raw_entry_v1
-
-- **Target:** `map.RawEntryV1`
-- **Similarity:** 0.47
-- **Dependents:** 0
-- **Priority Score:** 44205.3
-- **Functions:** 32/35 matched (target 52)
-- **Missing functions:** `raw_entry_v1`, `raw_entry_mut_v1`, `assert_send_sync`
-- **Types:** 6/7 matched (target 9)
-- **Missing types:** `Sealed`
-- **Tests:** 0/1 matched
 
 ### 8. set.slice
 
