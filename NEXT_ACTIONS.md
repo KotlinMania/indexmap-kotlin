@@ -4,14 +4,14 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 16/26 (61.5%)
-- **Function parity:** 401/735 matched (target 838) — 54.6%
-- **Class/type parity:** 41/95 matched (target 73) — 43.2%
-- **Combined symbol parity:** 442/830 matched (target 911) — 53.3%
-- **Average inline-code cosine:** 0.35 (function body across 16 matched files)
-- **Average documentation cosine:** 0.36 (doc text across 16 matched files)
+- **Files Present:** 19/26 (73.1%)
+- **Function parity:** 485/731 matched (target 940) — 66.3%
+- **Class/type parity:** 46/95 matched (target 79) — 48.4%
+- **Combined symbol parity:** 531/826 matched (target 1019) — 64.3%
+- **Average inline-code cosine:** 0.39 (function body across 19 matched files)
+- **Average documentation cosine:** 0.33 (doc text across 19 matched files)
 - **Cheat-zeroed Files:** 2
-- **Critical Issues:** 13 files with <0.60 function similarity
+- **Critical Issues:** 14 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
@@ -133,7 +133,20 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/2 matched (target 1)
 - **Missing types:** `SeqVisitor`, `Value`
 
-### 10. set
+### 10. inner
+
+- **Target:** `inner.Inner`
+- **Similarity:** 0.69
+- **Dependents:** 0
+- **Priority Score:** 35703.1
+- **Functions:** 52/54 matched (target 67)
+- **Missing functions:** `par_drain`, `assert_send_sync`
+- **Types:** 2/3 matched
+- **Missing types:** `Entries`
+- **Tests:** 0/1 matched
+- **Lint issues:** 7
+
+### 11. set
 
 - **Target:** `indexmap.Set`
 - **Similarity:** 0.59
@@ -144,7 +157,18 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 2)
 - **Missing types:** `Bucket`, `Output`
 
-### 11. map.entry
+### 12. inner.entry
+
+- **Target:** `inner.Entry`
+- **Similarity:** 0.64
+- **Dependents:** 0
+- **Priority Score:** 23303.6
+- **Functions:** 29/31 matched (target 32)
+- **Missing functions:** `new`, `from`
+- **Types:** 2/2 matched
+- **Missing types:** _none_
+
+### 13. map.entry
 
 - **Target:** `map.Entry`
 - **Similarity:** 0.51
@@ -156,7 +180,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/1 matched
 
-### 12. map
+### 14. map
 
 - **Target:** `indexmap.Map`
 - **Similarity:** 0.45
@@ -167,7 +191,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/2 matched
 - **Missing types:** `Output`
 
-### 13. set.mutable
+### 15. set.mutable
 
 - **Target:** `set.Mutable`
 - **Similarity:** 0.63
@@ -178,7 +202,18 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 1)
 - **Missing types:** `Value`, `Sealed`
 
-### 14. lib
+### 16. inner.extract
+
+- **Target:** `inner.Extract`
+- **Similarity:** 0.60
+- **Dependents:** 0
+- **Priority Score:** 10504.0
+- **Functions:** 3/4 matched (target 3)
+- **Missing functions:** `drop`
+- **Types:** 1/1 matched
+- **Missing types:** _none_
+
+### 17. lib
 
 - **Target:** `indexmap.Lib`
 - **Similarity:** 0.71
@@ -189,7 +224,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 5/5 matched (target 11)
 - **Missing types:** _none_
 
-### 15. util
+### 18. util
 
 - **Target:** `indexmap.Util`
 - **Similarity:** 0.68
@@ -200,7 +235,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched (target 7)
 - **Missing types:** _none_
 
-### 16. macros
+### 19. macros
 
 - **Target:** `indexmap.Macros [ZERO]`
 - **Similarity:** 0.00

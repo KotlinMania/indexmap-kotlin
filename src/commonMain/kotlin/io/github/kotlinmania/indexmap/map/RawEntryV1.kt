@@ -20,6 +20,10 @@ public interface RawEntryApiV1<K, V> {
 public class RawEntryBuilder<K, V> internal constructor(
     private val map: IndexMap<K, V>,
 ) {
+    public companion object {
+        public fun assertSendSync() {}
+    }
+
     public fun fromKey(key: K): Pair<K, V>? = map.getKeyValue(key)
 
     public fun fromKeyHashedNocheck(hash: ULong, key: K): Pair<K, V>? = map.getKeyValue(key)
@@ -55,6 +59,10 @@ public class RawEntryBuilder<K, V> internal constructor(
 public class RawEntryBuilderMut<K, V> internal constructor(
     private val map: IndexMap<K, V>,
 ) {
+    public companion object {
+        public fun assertSendSync() {}
+    }
+
     public fun fromKey(key: K): RawEntryMut<K, V> =
         fromHash(0uL) { it == key }
 
@@ -62,13 +70,22 @@ public class RawEntryBuilderMut<K, V> internal constructor(
         fromHash(hash) { it == key }
 
     public fun fromHash(hash: ULong, isMatch: (K) -> Boolean): RawEntryMut<K, V> {
+        val i = indexFromHash(hash, isMatch)
+        return if (i != null) {
+            RawEntryMut.Occupied(RawOccupiedEntryMut(map, i))
+        } else {
+            RawEntryMut.Vacant(RawVacantEntryMut(map))
+        }
+    }
+
+    public fun indexFromHash(hash: ULong, isMatch: (K) -> Boolean): Int? {
         val entries = map.asEntries()
         for (i in entries.indices) {
             if (isMatch(entries[i].first)) {
-                return RawEntryMut.Occupied(RawOccupiedEntryMut(map, i))
+                return i
             }
         }
-        return RawEntryMut.Vacant(RawVacantEntryMut(map))
+        return null
     }
 
     public fun fmt(): String = toString()
@@ -76,90 +93,84 @@ public class RawEntryBuilderMut<K, V> internal constructor(
     override fun toString(): String = "RawEntryBuilderMut"
 }
 
-// Raw entry for an existing key-value pair or a vacant location to insert one.
+// A view into a single raw entry in an IndexMap, which may either be vacant or occupied.
 @HiddenFromObjC
 public sealed class RawEntryMut<K, V> {
-    public abstract fun index(): Int
+    public companion object {
+        public fun assertSendSync() {}
+    }
+
+    public class Occupied<K, V>(public val entry: RawOccupiedEntryMut<K, V>) : RawEntryMut<K, V>()
+
+    public class Vacant<K, V>(public val entry: RawVacantEntryMut<K, V>) : RawEntryMut<K, V>()
 
     public fun orInsert(defaultKey: K, defaultValue: V): Pair<K, V> =
         when (this) {
-            is Occupied -> entry.getKeyValue()
+            is Occupied -> entry.key() to entry.get()
             is Vacant -> entry.insert(defaultKey, defaultValue)
         }
 
-    public fun orInsertWith(call: () -> Pair<K, V>): Pair<K, V> =
+    public fun orInsertWith(default: () -> Pair<K, V>): Pair<K, V> =
         when (this) {
-            is Occupied -> entry.getKeyValue()
+            is Occupied -> entry.key() to entry.get()
             is Vacant -> {
-                val (k, v) = call()
-                entry.insert(k, v)
+                val (key, value) = default()
+                entry.insert(key, value)
             }
         }
 
-    public fun andModify(modify: (K, V) -> Unit): RawEntryMut<K, V> {
+    public fun andModify(modify: (Pair<K, V>) -> Unit): RawEntryMut<K, V> {
         if (this is Occupied) {
-            val (k, v) = entry.getKeyValue()
-            modify(k, v)
+            val key = entry.key()
+            val value = entry.get()
+            modify(key to value)
         }
         return this
     }
 
-    public open fun fmt(): String = toString()
+    public fun index(): Int =
+        when (this) {
+            is Occupied -> entry.index()
+            is Vacant -> entry.index()
+        }
 
-    public class Occupied<K, V> internal constructor(
-        public val entry: RawOccupiedEntryMut<K, V>,
-    ) : RawEntryMut<K, V>() {
-        override fun index(): Int = entry.index()
+    public fun fmt(): String = toString()
 
-        override fun toString(): String = "RawEntryMut($entry)"
-    }
-
-    public class Vacant<K, V> internal constructor(
-        public val entry: RawVacantEntryMut<K, V>,
-    ) : RawEntryMut<K, V>() {
-        override fun index(): Int = entry.index()
-
-        override fun toString(): String = "RawEntryMut($entry)"
-    }
+    override fun toString(): String =
+        when (this) {
+            is Occupied -> "RawEntryMut::Occupied(${entry})"
+            is Vacant -> "RawEntryMut::Vacant(${entry})"
+        }
 }
 
-// A raw view into an occupied entry in an IndexMap.
+// A view into an occupied raw entry in an IndexMap.
 @HiddenFromObjC
 public class RawOccupiedEntryMut<K, V> internal constructor(
     private val map: IndexMap<K, V>,
     private var entryIndex: Int,
 ) {
+    public companion object {
+        public fun assertSendSync() {}
+    }
+
     public fun index(): Int = entryIndex
 
-    public fun key(): K = getKeyValue().first
+    public fun key(): K =
+        map.getIndex(entryIndex)?.first ?: error("raw occupied entry no longer exists")
 
     public fun keyMut(): K = key()
 
-    public fun intoKey(): K = key()
-
-    public fun get(): V = getKeyValue().second
+    public fun get(): V =
+        map.getIndex(entryIndex)?.second ?: error("raw occupied entry no longer exists")
 
     public fun getMut(): V = get()
 
-    public fun intoMut(): V = get()
-
-    public fun getKeyValue(): Pair<K, V> =
-        map.getIndex(entryIndex) ?: error("raw occupied entry no longer exists")
-
-    public fun getKeyValueMut(): Pair<K, V> = getKeyValue()
-
-    public fun intoKeyValueMut(): Pair<K, V> = getKeyValue()
-
     public fun insert(value: V): V {
         val old = get()
-        val k = key()
-        map.swapRemoveIndex(entryIndex)
-        map.insertBefore(entryIndex, k, value)
+        val key = key()
+        map.insert(key, value)
         return old
     }
-
-    public fun insertKey(key: K): K =
-        map.replaceIndex(entryIndex, key)
 
     public fun remove(): V = shiftRemove()
 
@@ -195,6 +206,10 @@ public class RawOccupiedEntryMut<K, V> internal constructor(
 public class RawVacantEntryMut<K, V> internal constructor(
     private val map: IndexMap<K, V>,
 ) {
+    public companion object {
+        public fun assertSendSync() {}
+    }
+
     public fun index(): Int = map.len()
 
     public fun insert(key: K, value: V): Pair<K, V> {
