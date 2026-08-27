@@ -389,3 +389,12 @@ public class ExtractIf<T> internal constructor(
         return extracted.next()
     }
 }
+
+internal class UnitValue<I : Iterator<*>>(
+    private val iter: I,
+) : Iterator<Pair<Any?, Unit>> {
+    override fun hasNext(): Boolean = iter.hasNext()
+
+    override fun next(): Pair<Any?, Unit> = iter.next() to Unit
+}
+
