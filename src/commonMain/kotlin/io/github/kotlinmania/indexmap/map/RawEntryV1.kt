@@ -100,9 +100,13 @@ public sealed class RawEntryMut<K, V> {
         public fun assertSendSync() {}
     }
 
-    public class Occupied<K, V>(public val entry: RawOccupiedEntryMut<K, V>) : RawEntryMut<K, V>()
+    public class Occupied<K, V>(
+        public val entry: RawOccupiedEntryMut<K, V>,
+    ) : RawEntryMut<K, V>()
 
-    public class Vacant<K, V>(public val entry: RawVacantEntryMut<K, V>) : RawEntryMut<K, V>()
+    public class Vacant<K, V>(
+        public val entry: RawVacantEntryMut<K, V>,
+    ) : RawEntryMut<K, V>()
 
     public fun orInsert(defaultKey: K, defaultValue: V): Pair<K, V> =
         when (this) {
@@ -117,6 +121,12 @@ public sealed class RawEntryMut<K, V> {
                 val (key, value) = default()
                 entry.insert(key, value)
             }
+        }
+
+    public fun intoKeyValueMut(): Pair<K, V> =
+        when (this) {
+            is Occupied -> entry.intoKeyValueMut()
+            is Vacant -> error("cannot convert vacant raw entry to key value")
         }
 
     public fun andModify(modify: (Pair<K, V>) -> Unit): RawEntryMut<K, V> {
@@ -138,8 +148,8 @@ public sealed class RawEntryMut<K, V> {
 
     override fun toString(): String =
         when (this) {
-            is Occupied -> "RawEntryMut::Occupied(${entry})"
-            is Vacant -> "RawEntryMut::Vacant(${entry})"
+            is Occupied -> "RawEntryMut::Occupied($entry)"
+            is Vacant -> "RawEntryMut::Vacant($entry)"
         }
 }
 
@@ -160,15 +170,31 @@ public class RawOccupiedEntryMut<K, V> internal constructor(
 
     public fun keyMut(): K = key()
 
+    public fun intoKey(): K = key()
+
     public fun get(): V =
         map.getIndex(entryIndex)?.second ?: error("raw occupied entry no longer exists")
 
     public fun getMut(): V = get()
 
+    public fun intoMut(): V = get()
+
+    public fun getKeyValue(): Pair<K, V> = key() to get()
+
+    public fun getKeyValueMut(): Pair<K, V> = key() to get()
+
+    public fun intoKeyValueMut(): Pair<K, V> = key() to get()
+
     public fun insert(value: V): V {
         val old = get()
         val key = key()
         map.insert(key, value)
+        return old
+    }
+
+    public fun insertKey(key: K): K {
+        val old = key()
+        map.entries[entryIndex].key = key
         return old
     }
 

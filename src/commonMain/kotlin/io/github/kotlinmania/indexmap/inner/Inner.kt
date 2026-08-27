@@ -6,7 +6,6 @@ package io.github.kotlinmania.indexmap.inner
 
 import io.github.kotlinmania.indexmap.Bucket
 import io.github.kotlinmania.indexmap.HashValue
-import io.github.kotlinmania.indexmap.TryReserveError
 import kotlin.native.HiddenFromObjC
 
 internal class Indices(

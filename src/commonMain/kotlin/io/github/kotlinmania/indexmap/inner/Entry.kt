@@ -6,8 +6,6 @@ package io.github.kotlinmania.indexmap.inner
 
 import io.github.kotlinmania.indexmap.Bucket
 import io.github.kotlinmania.indexmap.HashValue
-import io.github.kotlinmania.indexmap.map.Entry
-import io.github.kotlinmania.indexmap.map.IndexedEntry
 import kotlin.native.HiddenFromObjC
 
 /**
@@ -132,8 +130,8 @@ internal class VacantEntry<K, V> internal constructor(
         return OccupiedEntry(map, index, index)
     }
 
-    public fun insertSorted(value: V): Pair<Int, V> {
-        return insertSortedBy(value) { k1, _, k2, _ ->
+    public fun insertSorted(value: V): Pair<Int, V> =
+        insertSortedBy(value) { k1, _, k2, _ ->
             if (k1 is Comparable<*> && k2 is Comparable<*>) {
                 @Suppress("UNCHECKED_CAST")
                 (k1 as Comparable<Any>).compareTo(k2 as Any)
@@ -141,7 +139,6 @@ internal class VacantEntry<K, V> internal constructor(
                 0
             }
         }
-    }
 
     public fun insertSortedBy(value: V, cmp: (K, V, K, V) -> Int): Pair<Int, V> {
         var idx = 0
