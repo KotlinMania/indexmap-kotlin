@@ -11,7 +11,7 @@ import kotlin.test.assertTrue
 
 class SliceTest {
     @Test
-    fun sliceNew() {
+    fun sliceNewBasic() {
         val slice = Slice.new<Int, String>()
 
         assertEquals(0, slice.len())
@@ -21,7 +21,7 @@ class SliceTest {
     }
 
     @Test
-    fun sliceIndex() {
+    fun sliceIndexBasic() {
         val slice = sampleMap().asSlice()
 
         assertEquals(4, slice.len())
@@ -34,7 +34,7 @@ class SliceTest {
     }
 
     @Test
-    fun sliceGetRange() {
+    fun sliceGetRangeBasic() {
         val slice = sampleMap().asSlice()
 
         assertEquals(listOf(2 to "two", 3 to "three"), slice.getRange(1, 3)?.toList())
@@ -45,7 +45,7 @@ class SliceTest {
     }
 
     @Test
-    fun sliceSplitFirst() {
+    fun sliceSplitFirstBasic() {
         val slice = sampleMap().asSlice()
         val split = assertNotNull(slice.splitFirst())
 
@@ -55,7 +55,7 @@ class SliceTest {
     }
 
     @Test
-    fun sliceSplitLast() {
+    fun sliceSplitLastBasic() {
         val slice = sampleMap().asSlice()
         val split = assertNotNull(slice.splitLast())
 
@@ -164,7 +164,7 @@ class SliceTest {
     }
 
     @Test
-    fun sliceIndexTestFromRust() {
+    fun sliceIndex() {
         fun check(
             vecSlice: List<Pair<Int, Int>>,
             mapSlice: Slice<Int, Int>,
@@ -203,21 +203,60 @@ class SliceTest {
     }
 
     @Test
-    fun sliceNewRustParity() {
+    fun sliceIndexMut() {
+        fun checkMut(
+            vecSlice: List<Pair<Int, Int>>,
+            mapSlice: Slice<Int, Int>,
+            subSlice: Slice<Int, Int>,
+        ) {
+            assertEquals(mapSlice, subSlice)
+            assertEquals(vecSlice, mapSlice.toList())
+            assertEquals(vecSlice.map { it.second }, mapSlice.values())
+        }
+
+        val vec: List<Pair<Int, Int>> = (0 until 10).map { it to it * it }
+        val map: IndexMap<Int, Int> = IndexMap.from(vec)
+        val slice = map.asMutSlice()
+
+        checkMut(vec, map.asMutSlice(), slice)
+
+        for (i in 0 until 10) {
+            assertEquals(vec[i].second, map[i])
+            assertEquals(vec[i].second, slice[i])
+            assertEquals(map.get(i), map.getIndex(i)?.second)
+            assertEquals(slice[i], map.getIndex(i)?.second)
+
+            checkMut(vec.subList(i, vec.size), map.getRangeMut(i, map.len())!!, slice.getRangeMut(i, slice.len())!!)
+            checkMut(vec.subList(0, i), map.getRangeMut(0, i)!!, slice.getRangeMut(0, i)!!)
+            checkMut(vec.subList(0, i + 1), map.getRangeMut(0, i + 1)!!, slice.getRangeMut(0, i + 1)!!)
+            checkMut(vec.subList(i + 1, vec.size), map.getRangeMut(i + 1, map.len())!!, slice.getRangeMut(i + 1, slice.len())!!)
+
+            for (j in i..10) {
+                checkMut(vec.subList(i, j), map.getRangeMut(i, j)!!, slice.getRangeMut(i, j)!!)
+            }
+
+            for (j in i until 10) {
+                checkMut(vec.subList(i, j + 1), map.getRangeMut(i, j + 1)!!, slice.getRangeMut(i, j + 1)!!)
+            }
+        }
+    }
+
+    @Test
+    fun sliceNew() {
         val slice: Slice<Int, Int> = Slice.new()
         assertTrue(slice.isEmpty())
         assertEquals(0, slice.len())
     }
 
     @Test
-    fun sliceNewMutRustParity() {
+    fun sliceNewMut() {
         val slice: Slice<Int, Int> = Slice.newMut()
         assertTrue(slice.isEmpty())
         assertEquals(0, slice.len())
     }
 
     @Test
-    fun sliceGetIndexMutRustParity() {
+    fun sliceGetIndexMut() {
         val map: IndexMap<Int, Int> = IndexMap.from((0 until 10).map { it to it * it })
         val slice = map.asMutSlice()
 
@@ -229,7 +268,7 @@ class SliceTest {
     }
 
     @Test
-    fun sliceSplitFirstRustParity() {
+    fun sliceSplitFirst() {
         val emptySlice: Slice<Int, Int> = Slice.newMut()
         assertNull(emptySlice.splitFirst())
 
@@ -243,7 +282,7 @@ class SliceTest {
     }
 
     @Test
-    fun sliceSplitFirstMutRustParity() {
+    fun sliceSplitFirstMut() {
         val emptySlice: Slice<Int, Int> = Slice.newMut()
         assertNull(emptySlice.splitFirstMut())
 
@@ -257,7 +296,7 @@ class SliceTest {
     }
 
     @Test
-    fun sliceSplitLastRustParity() {
+    fun sliceSplitLast() {
         val emptySlice: Slice<Int, Int> = Slice.newMut()
         assertNull(emptySlice.splitLast())
 
@@ -271,7 +310,7 @@ class SliceTest {
     }
 
     @Test
-    fun sliceSplitLastMutRustParity() {
+    fun sliceSplitLastMut() {
         val emptySlice: Slice<Int, Int> = Slice.newMut()
         assertNull(emptySlice.splitLastMut())
 
@@ -285,7 +324,7 @@ class SliceTest {
     }
 
     @Test
-    fun sliceGetRangeRustParity() {
+    fun sliceGetRange() {
         val map: IndexMap<Int, Int> = IndexMap.from((0 until 10).map { it to it * it })
         val slice = map.asMutSlice()
         val subslice = assertNotNull(slice.getRange(3, 6))

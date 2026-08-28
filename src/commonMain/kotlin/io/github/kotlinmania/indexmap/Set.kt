@@ -15,12 +15,14 @@ import io.github.kotlinmania.indexmap.set.SymmetricDifference
 import io.github.kotlinmania.indexmap.set.Union
 import kotlin.native.HiddenFromObjC
 
-// A hash set where the iteration order of the values is independent of their
-// hash values.
-//
-// The values have a consistent order determined by insertion and removal
-// calls on the set. The order does not depend on the values or on their hash
-// values. Internally this mirrors upstream by using IndexMap<T, Unit>.
+/**
+ * A hash set where the iteration order of the values is independent of their
+ * hash values.
+ *
+ * The values have a consistent order determined by insertion and removal
+ * calls on the set. The order does not depend on the values or on their hash
+ * values. Internally this mirrors upstream by using IndexMap<T, Unit>.
+ */
 @HiddenFromObjC
 public class IndexSet<T> internal constructor(
     internal val map: IndexMap<T, Unit>,
@@ -29,12 +31,12 @@ public class IndexSet<T> internal constructor(
     public constructor() : this(IndexMap.new())
 
     public companion object {
-        // Create a new set. Does not allocate storage for entries yet.
+        /** Create a new set. Does not allocate storage for entries yet. */
         public fun <T> new(): IndexSet<T> = IndexSet()
 
         public fun <T> default(): IndexSet<T> = new()
 
-        // Create a new set with capacity for n values.
+        /** Create a new set with capacity for n values. */
         public fun <T> withCapacity(n: Int): IndexSet<T> =
             IndexSet(IndexMap.withCapacity(n))
 
@@ -51,13 +53,13 @@ public class IndexSet<T> internal constructor(
             from(values)
     }
 
-    // Return the number of values in the set.
+    /** Return the number of values in the set. */
     public fun len(): Int = map.len()
 
-    // Returns true if the set contains no elements.
+    /** Returns true if the set contains no elements. */
     public fun isEmpty(): Boolean = map.isEmpty()
 
-    // Return the number of elements the set can hold without reallocating.
+    /** Return the number of elements the set can hold without reallocating. */
     public fun capacity(): Int = map.capacity()
 
     public fun hasher(): String = map.hasher()
@@ -71,51 +73,51 @@ public class IndexSet<T> internal constructor(
 
     public fun fmt(): String = toString()
 
-    // Return an iterator over the values of the set, in their order.
+    /** Return an iterator over the values of the set, in their order. */
     override fun iterator(): Iterator<T> = map.keys().iterator()
 
-    // Return an iterator over the values of the set, in their order.
+    /** Return an iterator over the values of the set, in their order. */
     public fun iter(): Iter<T> = Iter(map.entries)
 
-    // Return an owning iterator over the values of the set.
+    /** Return an owning iterator over the values of the set. */
     public fun intoIter(): IntoIter<T> = IntoIter(map.entries.map { it.clone() })
 
-    // Return an iterator producing elements in the difference of sets.
+    /** Return an iterator producing elements in the difference of sets. */
     public fun differenceIter(other: IndexSet<T>): Difference<T> = Difference(iter(), other)
 
-    // Return an iterator producing elements in the intersection of sets.
+    /** Return an iterator producing elements in the intersection of sets. */
     public fun intersectionIter(other: IndexSet<T>): Intersection<T> = Intersection(iter(), other)
 
-    // Return an iterator producing elements in the symmetric difference of sets.
+    /** Return an iterator producing elements in the symmetric difference of sets. */
     public fun symmetricDifferenceIter(other: IndexSet<T>): SymmetricDifference<T> =
         SymmetricDifference(differenceIter(other), other.differenceIter(this))
 
-    // Return an iterator producing elements in the union of sets.
+    /** Return an iterator producing elements in the union of sets. */
     public fun unionIter(other: IndexSet<T>): Union<T> =
         Union(iter(), other.differenceIter(this))
 
-    // Return the set values as an ordered list.
+    /** Return the set values as an ordered list. */
     public fun asList(): List<T> = map.keys()
 
-    // Return the set values as an ordered list.
+    /** Return the set values as an ordered list. */
     public fun intoList(): List<T> = asList()
 
-    // Return the set values as an ordered list slice.
+    /** Return the set values as an ordered list slice. */
     public fun asSlice(): List<T> = asList()
 
-    // Return the set entries as a set Slice view.
+    /** Return the set entries as a set Slice view. */
     public fun asSetSlice(): Slice<T> = Slice.fromEntries(map.entries)
 
-    // Return the set entries as a mutable set Slice view.
+    /** Return the set entries as a mutable set Slice view. */
     public fun asMutSlice(): Slice<T> = asSetSlice()
 
-    // Return the set values as an ordered list slice.
+    /** Return the set values as an ordered list slice. */
     public fun intoBoxedSlice(): List<T> = asList()
 
-    // Return the set entries.
+    /** Return the set entries. */
     public fun asEntries(): List<T> = asList()
 
-    // Return the set entries.
+    /** Return the set entries. */
     public fun intoEntries(): List<T> = asList()
 
     override fun getFullMut2(value: T): Pair<Int, T>? =
@@ -128,7 +130,7 @@ public class IndexSet<T> internal constructor(
         map.retain2 { key, _ -> keep(key) }
     }
 
-    // Operate on the underlying set entries.
+    /** Operate on the underlying set entries. */
     public fun <R> withEntries(f: (MutableList<T>) -> R): R {
         val list = asList().toMutableList()
         val result = f(list)
@@ -137,66 +139,66 @@ public class IndexSet<T> internal constructor(
         return result
     }
 
-    // Return a value by index.
+    /** Return a value by index. */
     public operator fun get(index: Int): T = map.getIndex(index)!!.first
 
-    // Return a value by index.
+    /** Return a value by index. */
     public fun index(index: Int): T = get(index)
 
-    // Return a value by index, if it exists.
+    /** Return a value by index, if it exists. */
     public fun getIndex(index: Int): T? = map.getIndex(index)?.first
 
-    // Return true if an equivalent value exists in the set.
+    /** Return true if an equivalent value exists in the set. */
     public fun contains(value: T): Boolean = map.containsKey(value)
 
-    // Return the stored value if it is present.
+    /** Return the stored value if it is present. */
     public fun get(value: T): T? = map.getKeyValue(value)?.first
 
-    // Return item index and stored value.
+    /** Return item index and stored value. */
     public fun getFull(value: T): Pair<Int, T>? =
         map.getFull(value)?.let { (index, stored, _) -> index to stored }
 
-    // Return item index, if it exists in the set.
+    /** Return item index, if it exists in the set. */
     public fun getIndexOf(value: T): Int? = map.getIndexOf(value)
 
-    // Get the first value.
+    /** Get the first value. */
     public fun first(): T? = map.first()?.first
 
-    // Get the last value.
+    /** Get the last value. */
     public fun last(): T? = map.last()?.first
 
-    // Remove all elements in the set, while preserving the set object.
+    /** Remove all elements in the set, while preserving the set object. */
     public fun clear() {
         map.clear()
     }
 
-    // Shorten the set, keeping the first len elements and dropping the rest.
+    /** Shorten the set, keeping the first len elements and dropping the rest. */
     public fun truncate(len: Int) {
         map.truncate(len)
     }
 
-    // Insert the value into the set.
+    /** Insert the value into the set. */
     public fun insert(value: T): Boolean = map.insert(value, Unit) == null
 
-    // Insert the value into the set, and get its index.
+    /** Insert the value into the set, and get its index. */
     public fun insertFull(value: T): Pair<Int, Boolean> {
         val (index, existing) = map.insertFull(value, Unit)
         return index to (existing == null)
     }
 
-    // Insert the value into the set at its ordered position among sorted values.
+    /** Insert the value into the set at its ordered position among sorted values. */
     public fun insertSorted(value: T, comparator: Comparator<in T>): Pair<Int, Boolean> {
         val (index, existing) = map.insertSorted(value, Unit, comparator)
         return index to (existing == null)
     }
 
-    // Insert the value into the set at its ordered position under a comparator.
+    /** Insert the value into the set at its ordered position under a comparator. */
     public fun insertSortedBy(value: T, compare: (T, T) -> Int): Pair<Int, Boolean> {
         val (index, existing) = map.insertSortedBy(value, Unit) { left, _, right, _ -> compare(left, right) }
         return index to (existing == null)
     }
 
-    // Insert the value into the set at its ordered position by a derived key.
+    /** Insert the value into the set at its ordered position by a derived key. */
     public fun <K> insertSortedByKey(
         value: T,
         selector: (T) -> K,
@@ -206,27 +208,27 @@ public class IndexSet<T> internal constructor(
         return index to (existing == null)
     }
 
-    // Insert the value into the set at its ordered position by a derived key using natural ordering.
+    /** Insert the value into the set at its ordered position by a derived key using natural ordering. */
     public fun <K : Comparable<K>> insertSortedByKey(
         value: T,
         selector: (T) -> K,
     ): Pair<Int, Boolean> =
         insertSortedByKey(value, selector, naturalOrder())
 
-    // Insert the value before the value at index, or at the end.
+    /** Insert the value before the value at index, or at the end. */
     public fun insertBefore(index: Int, value: T): Pair<Int, Boolean> {
         val (storedIndex, existing) = map.insertBefore(index, value, Unit)
         return storedIndex to (existing == null)
     }
 
-    // Insert the value at the given index.
+    /** Insert the value at the given index. */
     public fun shiftInsert(index: Int, value: T): Boolean =
         map.shiftInsert(index, value, Unit) == null
 
-    // Add a value, replacing the existing value if any without changing order.
+    /** Add a value, replacing the existing value if any without changing order. */
     public fun replace(value: T): T? = replaceFull(value).second
 
-    // Add a value, returning its index and replaced value if any.
+    /** Add a value, returning its index and replaced value if any. */
     public fun replaceFull(value: T): Pair<Int, T?> {
         val existing = getIndexOf(value)
         if (existing != null) {
@@ -237,15 +239,15 @@ public class IndexSet<T> internal constructor(
         return index to null
     }
 
-    // Replace the value at the given index with a unique value.
+    /** Replace the value at the given index with a unique value. */
     public fun replaceIndex(index: Int, value: T): T = map.replaceIndex(index, value)
 
-    // Reserve capacity for additional values when the platform exposes it.
+    /** Reserve capacity for additional values when the platform exposes it. */
     public fun reserve(additional: Int) {
         map.reserve(additional)
     }
 
-    // Reserve exact capacity for additional values when the platform exposes it.
+    /** Reserve exact capacity for additional values when the platform exposes it. */
     public fun reserveExact(additional: Int) {
         map.reserveExact(additional)
     }
@@ -262,66 +264,66 @@ public class IndexSet<T> internal constructor(
         map.shrinkTo(minCapacity)
     }
 
-    // Remove the value and return true if it was present.
+    /** Remove the value and return true if it was present. */
     public fun remove(value: T): Boolean = shiftRemove(value)
 
-    // Remove the value by swapping in the last value.
+    /** Remove the value by swapping in the last value. */
     public fun swapRemove(value: T): Boolean = map.swapRemove(value) != null
 
-    // Remove the value by shifting following values down.
+    /** Remove the value by shifting following values down. */
     public fun shiftRemove(value: T): Boolean = map.shiftRemove(value) != null
 
-    // Remove and return the value.
+    /** Remove and return the value. */
     public fun take(value: T): T? = swapTake(value)
 
-    // Remove and return the value by swapping in the last value.
+    /** Remove and return the value by swapping in the last value. */
     public fun swapTake(value: T): T? = map.swapRemoveEntry(value)?.first
 
-    // Remove and return the value by shifting following values down.
+    /** Remove and return the value by shifting following values down. */
     public fun shiftTake(value: T): T? = map.shiftRemoveEntry(value)?.first
 
-    // Remove the value and return it with the index it had.
+    /** Remove the value and return it with the index it had. */
     public fun swapRemoveFull(value: T): Pair<Int, T>? =
         map.swapRemoveFull(value)?.let { (index, stored, _) -> index to stored }
 
-    // Remove the value and return it with the index it had.
+    /** Remove the value and return it with the index it had. */
     public fun shiftRemoveFull(value: T): Pair<Int, T>? =
         map.shiftRemoveFull(value)?.let { (index, stored, _) -> index to stored }
 
-    // Remove the last value.
+    /** Remove the last value. */
     public fun pop(): T? = map.pop()?.first
 
-    // Remove the last value if the predicate accepts it.
+    /** Remove the last value if the predicate accepts it. */
     public fun popIf(predicate: (T) -> Boolean): T? {
         val last = last() ?: return null
         return if (predicate(last)) pop() else null
     }
 
-    // Keep only the values accepted by the predicate.
+    /** Keep only the values accepted by the predicate. */
     public fun retain(keep: (T) -> Boolean) {
         map.retain { key, _ -> keep(key) }
     }
 
-    // Sort the set's values by their default ordering.
+    /** Sort the set's values by their default ordering. */
     public fun sort(comparator: Comparator<in T>) {
         map.sortKeys(comparator)
     }
 
-    // Sort the set's values in place using the comparison function.
+    /** Sort the set's values in place using the comparison function. */
     public fun sortBy(compare: (T, T) -> Int) {
         map.sortBy { left, _, right, _ -> compare(left, right) }
     }
 
-    // Sort the set's values and return an ordered list of the result.
+    /** Sort the set's values and return an ordered list of the result. */
     public fun sortedBy(compare: (T, T) -> Int): List<T> =
         map.sortedBy { left, _, right, _ -> compare(left, right) }.map { it.first }
 
-    // Sort the set's values in place using a key extraction function.
+    /** Sort the set's values in place using a key extraction function. */
     public fun <K> sortByKey(selector: (T) -> K, comparator: Comparator<in K>) {
         map.sortByKey({ key, _ -> selector(key) }, comparator)
     }
 
-    // Sort the set's values in place using a key extraction function and natural ordering.
+    /** Sort the set's values in place using a key extraction function and natural ordering. */
     public fun <K : Comparable<K>> sortByKey(selector: (T) -> K) {
         sortByKey(selector, naturalOrder())
     }
@@ -353,15 +355,15 @@ public class IndexSet<T> internal constructor(
         sortByKey(selector)
     }
 
-    // Search over a sorted set for a value.
+    /** Search over a sorted set for a value. */
     public fun binarySearch(value: T, comparator: Comparator<in T>): SearchResult =
         map.binarySearchKeys(value, comparator)
 
-    // Search over a sorted set with a comparator function.
+    /** Search over a sorted set with a comparator function. */
     public fun binarySearchBy(compare: (T) -> Int): SearchResult =
         map.binarySearchBy { key, _ -> compare(key) }
 
-    // Search over a sorted set with a key extraction function.
+    /** Search over a sorted set with a key extraction function. */
     public fun <K> binarySearchByKey(
         key: K,
         selector: (T) -> K,
@@ -369,131 +371,131 @@ public class IndexSet<T> internal constructor(
     ): SearchResult =
         map.binarySearchByKey(key, { value, _ -> selector(value) }, comparator)
 
-    // Search over a sorted set with a key extraction function using natural ordering.
+    /** Search over a sorted set with a key extraction function using natural ordering. */
     public fun <K : Comparable<K>> binarySearchByKey(
         key: K,
         selector: (T) -> K,
     ): SearchResult =
         binarySearchByKey(key, selector, naturalOrder())
 
-    // Return true if the values of this set are sorted.
+    /** Return true if the values of this set are sorted. */
     public fun isSorted(comparator: Comparator<in T>): Boolean = map.isSorted(comparator)
 
-    // Return true if this set is sorted by the given adjacent-value predicate.
+    /** Return true if this set is sorted by the given adjacent-value predicate. */
     public fun isSortedBy(inOrder: (T, T) -> Boolean): Boolean =
         map.isSortedBy { left, _, right, _ -> inOrder(left, right) }
 
-    // Return true if this set is sorted using the given sort-key function.
+    /** Return true if this set is sorted using the given sort-key function. */
     public fun <K> isSortedByKey(selector: (T) -> K, comparator: Comparator<in K>): Boolean =
         map.isSortedByKey({ key, _ -> selector(key) }, comparator)
 
-    // Return true if this set is sorted using the given sort-key function and natural ordering.
+    /** Return true if this set is sorted using the given sort-key function and natural ordering. */
     public fun <K : Comparable<K>> isSortedByKey(selector: (T) -> K): Boolean =
         isSortedByKey(selector, naturalOrder())
 
-    // Return the partition point according to the predicate.
+    /** Return the partition point according to the predicate. */
     public fun partitionPoint(predicate: (T) -> Boolean): Int =
         map.partitionPoint { key, _ -> predicate(key) }
 
-    // Reverse the order of the set's values in place.
+    /** Reverse the order of the set's values in place. */
     public fun reverse() {
         map.reverse()
     }
 
-    // Return a list of values in the given index range.
+    /** Return a list of values in the given index range. */
     public fun getRange(start: Int, endExclusive: Int): List<T>? =
         map.getRange(start, endExclusive)?.keys()
 
-    // Return a list of values in the given index range.
+    /** Return a list of values in the given index range. */
     public fun getRange(range: IntRange): List<T>? =
         map.getRange(range)?.keys()
 
-    // Remove the value by index by swapping in the last value.
+    /** Remove the value by index by swapping in the last value. */
     public fun swapRemoveIndex(index: Int): T? = map.swapRemoveIndex(index)?.first
 
-    // Remove the value by index by shifting following values down.
+    /** Remove the value by index by shifting following values down. */
     public fun shiftRemoveIndex(index: Int): T? = map.shiftRemoveIndex(index)?.first
 
-    // Move the position of a value from one index to another.
+    /** Move the position of a value from one index to another. */
     public fun moveIndex(from: Int, to: Int) {
         map.moveIndex(from, to)
     }
 
-    // Swap the positions of two values in the set.
+    /** Swap the positions of two values in the set. */
     public fun swapIndices(a: Int, b: Int) {
         map.swapIndices(a, b)
     }
 
-    // Drain a range of values and return them in removal order.
+    /** Drain a range of values and return them in removal order. */
     public fun drain(start: Int = 0, endExclusive: Int = len()): List<T> =
         map.drain(start, endExclusive).map { it.first }
 
-    // Drain a range of values and return them in removal order.
+    /** Drain a range of values and return them in removal order. */
     public fun drain(range: IntRange): List<T> =
         if (range.isEmpty()) emptyList() else drain(range.first, range.last + 1)
 
-    // Remove values accepted by a predicate and return them in original order.
+    /** Remove values accepted by a predicate and return them in original order. */
     public fun extractIf(predicate: (T) -> Boolean): List<T> =
         map.extractIf { key, _ -> predicate(key) }.map { it.first }
 
-    // Split off values starting at index.
+    /** Split off values starting at index. */
     public fun splitOff(index: Int): IndexSet<T> =
         IndexSet(map.splitOff(index))
 
-    // Replace a range of values and return the removed values.
+    /** Replace a range of values and return the removed values. */
     public fun splice(start: Int, endExclusive: Int, replacement: Iterable<T>): List<T> =
         map.splice(start, endExclusive, replacement.map { it to Unit }).map { it.first }
 
-    // Move all values from another set into this one, leaving the other empty.
+    /** Move all values from another set into this one, leaving the other empty. */
     public fun append(other: IndexSet<T>) {
         extend(other.asList())
         other.clear()
     }
 
-    // Extend the set with ordered values.
+    /** Extend the set with ordered values. */
     public fun extend(values: Iterable<T>) {
         for (value in values) {
             insert(value)
         }
     }
 
-    // Return true if self has no values in common with other.
+    /** Return true if self has no values in common with other. */
     public fun isDisjoint(other: IndexSet<T>): Boolean =
         if (len() <= other.len()) asList().all { !other.contains(it) } else other.asList().all { !contains(it) }
 
-    // Return true if all values of self are contained in other.
+    /** Return true if all values of self are contained in other. */
     public fun isSubset(other: IndexSet<T>): Boolean =
         len() <= other.len() && asList().all { other.contains(it) }
 
-    // Return true if all values of other are contained in self.
+    /** Return true if all values of other are contained in self. */
     public fun isSuperset(other: IndexSet<T>): Boolean = other.isSubset(this)
 
-    // Return values in self but not in other, preserving self order.
+    /** Return values in self but not in other, preserving self order. */
     public fun difference(other: IndexSet<T>): List<T> =
         asList().filter { !other.contains(it) }
 
-    // Return values in both sets, preserving self order.
+    /** Return values in both sets, preserving self order. */
     public fun intersection(other: IndexSet<T>): List<T> =
         asList().filter { other.contains(it) }
 
-    // Return values in either set but not both, preserving set order.
+    /** Return values in either set but not both, preserving set order. */
     public fun symmetricDifference(other: IndexSet<T>): List<T> =
         difference(other) + other.difference(this)
 
-    // Return all values in self, followed by values unique to other.
+    /** Return all values in self, followed by values unique to other. */
     public fun union(other: IndexSet<T>): List<T> =
         asList() + other.asList().filter { !contains(it) }
 
-    // Returns the set intersection as a new IndexSet.
+    /** Returns the set intersection as a new IndexSet. */
     public fun bitand(other: IndexSet<T>): IndexSet<T> = IndexSet.from(intersection(other))
 
-    // Returns the set union as a new IndexSet.
+    /** Returns the set union as a new IndexSet. */
     public fun bitor(other: IndexSet<T>): IndexSet<T> = IndexSet.from(union(other))
 
-    // Returns the set symmetric difference as a new IndexSet.
+    /** Returns the set symmetric difference as a new IndexSet. */
     public fun bitxor(other: IndexSet<T>): IndexSet<T> = IndexSet.from(symmetricDifference(other))
 
-    // Returns the set difference as a new IndexSet.
+    /** Returns the set difference as a new IndexSet. */
     public fun sub(other: IndexSet<T>): IndexSet<T> = IndexSet.from(difference(other))
 
     public operator fun plus(other: IndexSet<T>): IndexSet<T> = bitor(other)
@@ -513,19 +515,19 @@ public class IndexSet<T> internal constructor(
         map.keys().any { it == value }
 }
 
-// Return true if the values of this set are sorted by natural ordering.
+/** Return true if the values of this set are sorted by natural ordering. */
 public fun <T : Comparable<T>> IndexSet<T>.isSorted(): Boolean =
     isSorted(naturalOrder())
 
-// Search over a sorted set for a value using natural ordering.
+/** Search over a sorted set for a value using natural ordering. */
 public fun <T : Comparable<T>> IndexSet<T>.binarySearch(value: T): SearchResult =
     binarySearch(value, naturalOrder())
 
-// Insert the value into the set at its ordered position using natural ordering.
+/** Insert the value into the set at its ordered position using natural ordering. */
 public fun <T : Comparable<T>> IndexSet<T>.insertSorted(value: T): Pair<Int, Boolean> =
     insertSorted(value, naturalOrder())
 
-// Sort the set's values by natural ordering.
+/** Sort the set's values by natural ordering. */
 public fun <T : Comparable<T>> IndexSet<T>.sort() {
     sort(naturalOrder())
 }
