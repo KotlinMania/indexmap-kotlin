@@ -5,9 +5,9 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 18/26 (69.2%)
-- **Function parity:** 486/747 matched (target 949) — 65.1%
-- **Class/type parity:** 46/95 matched (target 78) — 48.4%
-- **Combined symbol parity:** 532/842 matched (target 1027) — 63.2%
+- **Function parity:** 486/747 matched (target 951) — 65.1%
+- **Class/type parity:** 47/95 matched (target 79) — 49.5%
+- **Combined symbol parity:** 533/842 matched (target 1030) — 63.3%
 - **Average inline-code cosine:** 0.42 (function body across 18 matched files)
 - **Average documentation cosine:** 0.34 (doc text across 18 matched files)
 - **Cheat-zeroed Files:** 1
@@ -72,18 +72,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 12/14 matched (target 13)
 - **Missing types:** `Item`, `Output`
 
-### 5. set.iter
-
-- **Target:** `set.Iter`
-- **Similarity:** 0.25
-- **Dependents:** 0
-- **Priority Score:** 52307.5
-- **Functions:** 9/12 matched (target 71)
-- **Missing functions:** `into_iter`, `fold`, `rfold`
-- **Types:** 9/11 matched (target 10)
-- **Missing types:** `Item`, `UnitValue`
-
-### 6. set.slice
+### 5. set.slice
 
 - **Target:** `set.Slice`
 - **Similarity:** 0.31
@@ -94,6 +83,17 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/4 matched (target 2)
 - **Missing types:** `IntoIter`, `Item`, `Output`
 - **Tests:** 1/2 matched
+
+### 6. set.iter
+
+- **Target:** `set.Iter`
+- **Similarity:** 0.26
+- **Dependents:** 0
+- **Priority Score:** 42307.4
+- **Functions:** 9/12 matched (target 73)
+- **Missing functions:** `into_iter`, `fold`, `rfold`
+- **Types:** 10/11 matched
+- **Missing types:** `Item`
 
 ### 7. map.serde_seq
 
