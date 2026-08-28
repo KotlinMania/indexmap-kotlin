@@ -5,9 +5,9 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 24/26 (92.3%)
-- **Function parity:** 501/708 matched (target 1008) — 70.8%
+- **Function parity:** 501/708 matched (target 1012) — 70.8%
 - **Class/type parity:** 51/95 matched (target 101) — 53.7%
-- **Combined symbol parity:** 552/803 matched (target 1109) — 68.7%
+- **Combined symbol parity:** 552/803 matched (target 1113) — 68.7%
 - **Average inline-code cosine:** 0.35 (function body across 23 matched files)
 - **Average documentation cosine:** 0.33 (doc text across 23 matched files)
 - **Cheat-zeroed Files:** 2
@@ -294,7 +294,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 10.0
-- **Functions:** 0/0 matched (target 2)
+- **Functions:** 0/0 matched (target 6)
 - **Missing functions:** _none_
 - **Types:** 0/0 matched
 - **Missing types:** _none_
