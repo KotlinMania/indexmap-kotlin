@@ -48,6 +48,23 @@ class TestsTest {
                 3 to 3,
             )
         assertEquals(4, m.len())
+
+        val m2 =
+            indexmap(
+                "a" to 1,
+                "b" to 2,
+            )
+        assertEquals(2, m2.len())
+        assertEquals(1, m2.get("a"))
+        assertEquals(2, m2.get("b"))
+
+        val m3 =
+            indexmapWithDefault(
+                Unit,
+                "a" to 1,
+                "b" to 2,
+            )
+        assertEquals(2, m3.len())
     }
 
     @Test
@@ -60,5 +77,22 @@ class TestsTest {
                 3,
             )
         assertEquals(4, s.len())
+
+        val s2 =
+            indexset(
+                "a",
+                "b",
+            )
+        assertEquals(2, s2.len())
+        assertEquals(true, s2.contains("a"))
+        assertEquals(false, s2.contains("c"))
+
+        val s3 =
+            indexsetWithDefault(
+                Unit,
+                "a",
+                "b",
+            )
+        assertEquals(2, s3.len())
     }
 }
