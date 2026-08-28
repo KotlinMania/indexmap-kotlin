@@ -56,6 +56,23 @@ public class Iter<K, V> internal constructor(
         return entries[backIndex].keyValue()
     }
 
+    public fun <R> fold(initial: R, operation: (R, Pair<K, V>) -> R): R {
+        var accumulator = initial
+        while (hasNext()) {
+            accumulator = operation(accumulator, next())
+        }
+        return accumulator
+    }
+
+    public fun <R> rfold(initial: R, operation: (R, Pair<K, V>) -> R): R {
+        var accumulator = initial
+        while (true) {
+            val item = nextBack() ?: break
+            accumulator = operation(accumulator, item)
+        }
+        return accumulator
+    }
+
     public fun fmt(): String = toString()
 
     override fun toString(): String = asSlice().toList().toString()
@@ -107,6 +124,23 @@ public class IterMut<K, V> internal constructor(
         if (index >= backIndex) return null
         backIndex -= 1
         return entries[backIndex].keyValue()
+    }
+
+    public fun <R> fold(initial: R, operation: (R, Pair<K, V>) -> R): R {
+        var accumulator = initial
+        while (hasNext()) {
+            accumulator = operation(accumulator, next())
+        }
+        return accumulator
+    }
+
+    public fun <R> rfold(initial: R, operation: (R, Pair<K, V>) -> R): R {
+        var accumulator = initial
+        while (true) {
+            val item = nextBack() ?: break
+            accumulator = operation(accumulator, item)
+        }
+        return accumulator
     }
 
     public fun fmt(): String = toString()
@@ -162,6 +196,23 @@ public class IterMut2<K, V> internal constructor(
         return entries[backIndex].keyValue()
     }
 
+    public fun <R> fold(initial: R, operation: (R, Pair<K, V>) -> R): R {
+        var accumulator = initial
+        while (hasNext()) {
+            accumulator = operation(accumulator, next())
+        }
+        return accumulator
+    }
+
+    public fun <R> rfold(initial: R, operation: (R, Pair<K, V>) -> R): R {
+        var accumulator = initial
+        while (true) {
+            val item = nextBack() ?: break
+            accumulator = operation(accumulator, item)
+        }
+        return accumulator
+    }
+
     public fun fmt(): String = toString()
 
     override fun toString(): String = asSlice().toList().toString()
@@ -215,6 +266,23 @@ public class IntoIter<K, V> internal constructor(
         if (index >= backIndex) return null
         backIndex -= 1
         return entries[backIndex].keyValue()
+    }
+
+    public fun <R> fold(initial: R, operation: (R, Pair<K, V>) -> R): R {
+        var accumulator = initial
+        while (hasNext()) {
+            accumulator = operation(accumulator, next())
+        }
+        return accumulator
+    }
+
+    public fun <R> rfold(initial: R, operation: (R, Pair<K, V>) -> R): R {
+        var accumulator = initial
+        while (true) {
+            val item = nextBack() ?: break
+            accumulator = operation(accumulator, item)
+        }
+        return accumulator
     }
 
     public fun fmt(): String = toString()
@@ -311,6 +379,23 @@ public class Keys<K, V> internal constructor(
         return entries[backIndex].key
     }
 
+    public fun <R> fold(initial: R, operation: (R, K) -> R): R {
+        var accumulator = initial
+        while (hasNext()) {
+            accumulator = operation(accumulator, next())
+        }
+        return accumulator
+    }
+
+    public fun <R> rfold(initial: R, operation: (R, K) -> R): R {
+        var accumulator = initial
+        while (true) {
+            val item = nextBack() ?: break
+            accumulator = operation(accumulator, item)
+        }
+        return accumulator
+    }
+
     public fun fmt(): String = toString()
 
     override fun toString(): String {
@@ -361,6 +446,23 @@ public class IntoKeys<K, V> internal constructor(
         if (index >= backIndex) return null
         backIndex -= 1
         return keys[backIndex]
+    }
+
+    public fun <R> fold(initial: R, operation: (R, K) -> R): R {
+        var accumulator = initial
+        while (hasNext()) {
+            accumulator = operation(accumulator, next())
+        }
+        return accumulator
+    }
+
+    public fun <R> rfold(initial: R, operation: (R, K) -> R): R {
+        var accumulator = initial
+        while (true) {
+            val item = nextBack() ?: break
+            accumulator = operation(accumulator, item)
+        }
+        return accumulator
     }
 
     public fun fmt(): String = toString()
@@ -415,6 +517,23 @@ public class Values<K, V> internal constructor(
         return entries[backIndex].value
     }
 
+    public fun <R> fold(initial: R, operation: (R, V) -> R): R {
+        var accumulator = initial
+        while (hasNext()) {
+            accumulator = operation(accumulator, next())
+        }
+        return accumulator
+    }
+
+    public fun <R> rfold(initial: R, operation: (R, V) -> R): R {
+        var accumulator = initial
+        while (true) {
+            val item = nextBack() ?: break
+            accumulator = operation(accumulator, item)
+        }
+        return accumulator
+    }
+
     public fun fmt(): String = toString()
 
     override fun toString(): String {
@@ -463,6 +582,23 @@ public class ValuesMut<K, V> internal constructor(
         if (index >= backIndex) return null
         backIndex -= 1
         return entries[backIndex].value
+    }
+
+    public fun <R> fold(initial: R, operation: (R, V) -> R): R {
+        var accumulator = initial
+        while (hasNext()) {
+            accumulator = operation(accumulator, next())
+        }
+        return accumulator
+    }
+
+    public fun <R> rfold(initial: R, operation: (R, V) -> R): R {
+        var accumulator = initial
+        while (true) {
+            val item = nextBack() ?: break
+            accumulator = operation(accumulator, item)
+        }
+        return accumulator
     }
 
     public fun fmt(): String = toString()
@@ -515,6 +651,23 @@ public class IntoValues<K, V> internal constructor(
         if (index >= backIndex) return null
         backIndex -= 1
         return values[backIndex]
+    }
+
+    public fun <R> fold(initial: R, operation: (R, V) -> R): R {
+        var accumulator = initial
+        while (hasNext()) {
+            accumulator = operation(accumulator, next())
+        }
+        return accumulator
+    }
+
+    public fun <R> rfold(initial: R, operation: (R, V) -> R): R {
+        var accumulator = initial
+        while (true) {
+            val item = nextBack() ?: break
+            accumulator = operation(accumulator, item)
+        }
+        return accumulator
     }
 
     public fun fmt(): String = toString()
