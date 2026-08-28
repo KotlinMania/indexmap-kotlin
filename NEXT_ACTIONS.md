@@ -4,10 +4,10 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 24/26 (92.3%)
-- **Function parity:** 509/708 matched (target 1045) — 71.9%
-- **Class/type parity:** 69/95 matched (target 122) — 72.6%
-- **Combined symbol parity:** 578/803 matched (target 1167) — 72.0%
+- **Files Present:** 24/32 (75.0%)
+- **Function parity:** 509/802 matched (target 1045) — 63.5%
+- **Class/type parity:** 69/106 matched (target 122) — 65.1%
+- **Combined symbol parity:** 578/908 matched (target 1167) — 63.7%
 - **Average inline-code cosine:** 0.36 (function body across 23 matched files)
 - **Average documentation cosine:** 0.40 (doc text across 23 matched files)
 - **Cheat-zeroed Files:** 2
@@ -29,7 +29,7 @@ Every matched file is listed below with function and type symbol parity.
 
 ### 1. map.slice
 
-- **Target:** `map.Slice`
+- **Target:** `map.Slice [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.39
 - **Dependents:** 5
 - **Priority Score:** 5026806.0
@@ -38,10 +38,46 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 4/4 matched (target 9)
 - **Missing types:** _none_
 - **Tests:** 10/12 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `map/slice.rs` vs expected `map/slice.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:map/slice.rs` vs expected `map/slice.rs`
+- **Proposed provenance header:** `// port-lint: source map/slice.rs` (current: `// port-lint: source map/slice.rs`)
+- **Proposed provenance header:** `// port-lint: tests map/slice.rs` (current: `// port-lint: tests map/slice.rs`)
+- **Lint issues:** 2
 
-### 2. rayon.set
+### 2. map.entry
 
-- **Target:** `rayon.Set`
+- **Target:** `map.Entry [PROVENANCE-FALLBACK]`
+- **Similarity:** 0.56
+- **Dependents:** 1
+- **Priority Score:** 1012904.4
+- **Functions:** 26/27 matched (target 72)
+- **Missing functions:** `assert_send_sync`
+- **Types:** 2/2 matched (target 6)
+- **Missing types:** _none_
+- **Tests:** 0/1 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `map/entry.rs` vs expected `map/entry.rs`
+- **Proposed provenance header:** `// port-lint: source map/entry.rs` (current: `// port-lint: source map/entry.rs`)
+- **Lint issues:** 1
+
+### 3. indexmap.arbitrary
+
+- **Target:** `indexmap.Arbitrary [PROVENANCE-FALLBACK]`
+- **Similarity:** 0.24
+- **Dependents:** 1
+- **Priority Score:** 1010307.6
+- **Functions:** 2/3 matched (target 8)
+- **Missing functions:** `shrink`
+- **Types:** 0/0 matched (target 6)
+- **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `arbitrary.rs` vs expected `arbitrary.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:arbitrary.rs` vs expected `arbitrary.rs`
+- **Proposed provenance header:** `// port-lint: source arbitrary.rs` (current: `// port-lint: source arbitrary.rs`)
+- **Proposed provenance header:** `// port-lint: tests arbitrary.rs` (current: `// port-lint: tests arbitrary.rs`)
+- **Lint issues:** 2
+
+### 4. rayon.set
+
+- **Target:** `rayon.Set [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.01
 - **Dependents:** 0
 - **Priority Score:** 374009.9
@@ -50,10 +86,13 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/10 matched (target 2)
 - **Missing types:** `Bucket`, `Item`, `Iter`, `IntoParIter`, `ParIter`, `ParDrain`, `ParDifference`, `ParIntersection`, `ParSymmetricDifference`, `ParUnion`
 - **Tests:** 0/6 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rayon/set.rs` vs expected `rayon/set.rs`
+- **Proposed provenance header:** `// port-lint: source rayon/set.rs` (current: `// port-lint: source rayon/set.rs`)
+- **Lint issues:** 1
 
-### 3. rayon.map
+### 5. rayon.map
 
-- **Target:** `rayon.Map`
+- **Target:** `rayon.Map [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.05
 - **Dependents:** 0
 - **Priority Score:** 253409.5
@@ -62,10 +101,13 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 4/9 matched (target 4)
 - **Missing types:** `Item`, `Iter`, `ParIterMut`, `ParDrain`, `ParValuesMut`
 - **Tests:** 0/6 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rayon/map.rs` vs expected `rayon/map.rs`
+- **Proposed provenance header:** `// port-lint: source rayon/map.rs` (current: `// port-lint: source rayon/map.rs`)
+- **Lint issues:** 1
 
-### 4. serde
+### 6. indexmap.serde
 
-- **Target:** `indexmap.Serde`
+- **Target:** `indexmap.Serde [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.13
 - **Dependents:** 0
 - **Priority Score:** 81108.7
@@ -73,10 +115,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `expecting`, `visit_map`, `into_deserializer`, `visit_seq`
 - **Types:** 0/4 matched (target 3)
 - **Missing types:** `IndexMapVisitor`, `Value`, `Deserializer`, `IndexSetVisitor`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `serde.rs` vs expected `serde.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:serde.rs` vs expected `serde.rs`
+- **Proposed provenance header:** `// port-lint: source serde.rs` (current: `// port-lint: source serde.rs`)
+- **Proposed provenance header:** `// port-lint: tests serde.rs` (current: `// port-lint: tests serde.rs`)
+- **Lint issues:** 2
 
-### 5. map.mutable
+### 7. map.mutable
 
-- **Target:** `map.Mutable`
+- **Target:** `map.Mutable [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.09
 - **Dependents:** 0
 - **Priority Score:** 41009.1
@@ -84,10 +131,13 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `get_full_mut2`, `get_index_mut2`, `iter_mut2`, `retain2`
 - **Types:** 5/5 matched
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `map/mutable.rs` vs expected `map/mutable.rs`
+- **Proposed provenance header:** `// port-lint: source map/mutable.rs` (current: `// port-lint: source map/mutable.rs`)
+- **Lint issues:** 1
 
-### 6. map.serde_seq
+### 8. map.serde_seq
 
-- **Target:** `map.SerdeSeq`
+- **Target:** `map.SerdeSeq [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.09
 - **Dependents:** 0
 - **Priority Score:** 40609.1
@@ -95,10 +145,13 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `expecting`, `visit_seq`
 - **Types:** 0/2 matched (target 1)
 - **Missing types:** `SeqVisitor`, `Value`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `map/serde_seq.rs` vs expected `map/serde_seq.rs`
+- **Proposed provenance header:** `// port-lint: source map/serde_seq.rs` (current: `// port-lint: source map/serde_seq.rs`)
+- **Lint issues:** 1
 
-### 7. inner
+### 9. indexmap.inner
 
-- **Target:** `inner.Inner`
+- **Target:** `inner.Inner [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.70
 - **Dependents:** 0
 - **Priority Score:** 35703.0
@@ -107,10 +160,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/3 matched
 - **Missing types:** `Entries`
 - **Tests:** 0/1 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `inner.rs` vs expected `inner.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:inner.rs` vs expected `inner.rs`
+- **Proposed provenance header:** `// port-lint: source inner.rs` (current: `// port-lint: source inner.rs`)
+- **Proposed provenance header:** `// port-lint: tests inner.rs` (current: `// port-lint: tests inner.rs`)
+- **Lint issues:** 2
 
-### 8. map.iter
+### 10. map.iter
 
-- **Target:** `map.Iter`
+- **Target:** `map.Iter [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.32
 - **Dependents:** 0
 - **Priority Score:** 32806.8
@@ -118,10 +176,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `into_iter`, `index`, `drop`
 - **Types:** 14/14 matched (target 15)
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `map/iter.rs` vs expected `map/iter.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:map/iter.rs` vs expected `map/iter.rs`
+- **Proposed provenance header:** `// port-lint: source map/iter.rs` (current: `// port-lint: source map/iter.rs`)
+- **Proposed provenance header:** `// port-lint: tests map/iter.rs` (current: `// port-lint: tests map/iter.rs`)
+- **Lint issues:** 2
 
-### 9. map.raw_entry_v1
+### 11. map.raw_entry_v1
 
-- **Target:** `map.RawEntryV1`
+- **Target:** `map.RawEntryV1 [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.50
 - **Dependents:** 0
 - **Priority Score:** 24205.0
@@ -130,10 +193,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 7/7 matched (target 10)
 - **Missing types:** _none_
 - **Tests:** 1/1 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `map/raw_entry_v1.rs` vs expected `map/raw_entry_v1.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:map/raw_entry_v1.rs` vs expected `map/raw_entry_v1.rs`
+- **Proposed provenance header:** `// port-lint: source map/raw_entry_v1.rs` (current: `// port-lint: source map/raw_entry_v1.rs`)
+- **Proposed provenance header:** `// port-lint: tests map/raw_entry_v1.rs` (current: `// port-lint: tests map/raw_entry_v1.rs`)
+- **Lint issues:** 2
 
-### 10. inner.entry
+### 12. inner.entry
 
-- **Target:** `inner.Entry`
+- **Target:** `inner.Entry [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.64
 - **Dependents:** 0
 - **Priority Score:** 23303.6
@@ -141,10 +209,13 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `new`, `from`
 - **Types:** 2/2 matched
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `inner/entry.rs` vs expected `inner/entry.rs`
+- **Proposed provenance header:** `// port-lint: source inner/entry.rs` (current: `// port-lint: source inner/entry.rs`)
+- **Lint issues:** 1
 
-### 11. set.slice
+### 13. set.slice
 
-- **Target:** `set.Slice`
+- **Target:** `set.Slice [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.31
 - **Dependents:** 0
 - **Priority Score:** 13906.9
@@ -153,22 +224,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 4/4 matched (target 5)
 - **Missing types:** _none_
 - **Tests:** 1/2 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `set/slice.rs` vs expected `set/slice.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:set/slice.rs` vs expected `set/slice.rs`
+- **Proposed provenance header:** `// port-lint: source set/slice.rs` (current: `// port-lint: source set/slice.rs`)
+- **Proposed provenance header:** `// port-lint: tests set/slice.rs` (current: `// port-lint: tests set/slice.rs`)
+- **Lint issues:** 2
 
-### 12. map.entry
+### 14. set.iter
 
-- **Target:** `map.Entry`
-- **Similarity:** 0.56
-- **Dependents:** 0
-- **Priority Score:** 12904.4
-- **Functions:** 26/27 matched (target 72)
-- **Missing functions:** `assert_send_sync`
-- **Types:** 2/2 matched (target 6)
-- **Missing types:** _none_
-- **Tests:** 0/1 matched
-
-### 13. set.iter
-
-- **Target:** `set.Iter`
+- **Target:** `set.Iter [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.27
 - **Dependents:** 0
 - **Priority Score:** 12307.3
@@ -176,10 +240,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `into_iter`
 - **Types:** 11/11 matched (target 12)
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `set/iter.rs` vs expected `set/iter.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:set/iter.rs` vs expected `set/iter.rs`
+- **Proposed provenance header:** `// port-lint: source set/iter.rs` (current: `// port-lint: source set/iter.rs`)
+- **Proposed provenance header:** `// port-lint: tests set/iter.rs` (current: `// port-lint: tests set/iter.rs`)
+- **Lint issues:** 2
 
-### 14. map
+### 15. indexmap.map
 
-- **Target:** `indexmap.Map`
+- **Target:** `indexmap.Map [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.45
 - **Dependents:** 0
 - **Priority Score:** 11005.5
@@ -187,10 +256,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 2/2 matched (target 3)
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `map.rs` vs expected `map.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:map.rs` vs expected `map.rs`
+- **Proposed provenance header:** `// port-lint: source map.rs` (current: `// port-lint: source map.rs`)
+- **Proposed provenance header:** `// port-lint: tests map.rs` (current: `// port-lint: tests map.rs`)
+- **Lint issues:** 2
 
-### 15. borsh
+### 16. indexmap.borsh
 
-- **Target:** `indexmap.Borsh`
+- **Target:** `indexmap.Borsh [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.26
 - **Dependents:** 0
 - **Priority Score:** 10507.4
@@ -199,10 +273,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched (target 7)
 - **Missing types:** _none_
 - **Tests:** 2/2 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `borsh.rs` vs expected `borsh.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:borsh.rs` vs expected `borsh.rs`
+- **Proposed provenance header:** `// port-lint: source borsh.rs` (current: `// port-lint: source borsh.rs`)
+- **Proposed provenance header:** `// port-lint: tests borsh.rs` (current: `// port-lint: tests borsh.rs`)
+- **Lint issues:** 2
 
-### 16. inner.extract
+### 17. inner.extract
 
-- **Target:** `inner.Extract`
+- **Target:** `inner.Extract [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.60
 - **Dependents:** 0
 - **Priority Score:** 10504.0
@@ -210,21 +289,13 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `drop`
 - **Types:** 1/1 matched
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `inner/extract.rs` vs expected `inner/extract.rs`
+- **Proposed provenance header:** `// port-lint: source inner/extract.rs` (current: `// port-lint: source inner/extract.rs`)
+- **Lint issues:** 1
 
-### 17. arbitrary
+### 18. indexmap.sval
 
-- **Target:** `indexmap.Arbitrary`
-- **Similarity:** 0.24
-- **Dependents:** 0
-- **Priority Score:** 10307.6
-- **Functions:** 2/3 matched (target 8)
-- **Missing functions:** `shrink`
-- **Types:** 0/0 matched (target 6)
-- **Missing types:** _none_
-
-### 18. sval
-
-- **Target:** `indexmap.Sval`
+- **Target:** `indexmap.Sval [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 10110.0
@@ -232,10 +303,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `stream`
 - **Types:** 0/0 matched (target 3)
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `sval.rs` vs expected `sval.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:sval.rs` vs expected `sval.rs`
+- **Proposed provenance header:** `// port-lint: source sval.rs` (current: `// port-lint: source sval.rs`)
+- **Proposed provenance header:** `// port-lint: tests sval.rs` (current: `// port-lint: tests sval.rs`)
+- **Lint issues:** 2
 
-### 19. set
+### 19. indexmap.set
 
-- **Target:** `indexmap.Set`
+- **Target:** `indexmap.Set [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.59
 - **Dependents:** 0
 - **Priority Score:** 10004.1
@@ -243,10 +319,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 3/3 matched (target 4)
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `set.rs` vs expected `set.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:set.rs` vs expected `set.rs`
+- **Proposed provenance header:** `// port-lint: source set.rs` (current: `// port-lint: source set.rs`)
+- **Proposed provenance header:** `// port-lint: tests set.rs` (current: `// port-lint: tests set.rs`)
+- **Lint issues:** 2
 
-### 20. lib
+### 20. indexmap.lib
 
-- **Target:** `indexmap.Lib`
+- **Target:** `indexmap.Lib [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.71
 - **Dependents:** 0
 - **Priority Score:** 2002.9
@@ -254,10 +335,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 5/5 matched (target 11)
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `lib.rs` vs expected `lib.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:lib.rs` vs expected `lib.rs`
+- **Proposed provenance header:** `// port-lint: source lib.rs` (current: `// port-lint: source lib.rs`)
+- **Proposed provenance header:** `// port-lint: tests lib.rs` (current: `// port-lint: tests lib.rs`)
+- **Lint issues:** 2
 
 ### 21. set.mutable
 
-- **Target:** `set.Mutable`
+- **Target:** `set.Mutable [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.63
 - **Dependents:** 0
 - **Priority Score:** 603.7
@@ -265,10 +351,13 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 3/3 matched
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `set/mutable.rs` vs expected `set/mutable.rs`
+- **Proposed provenance header:** `// port-lint: source set/mutable.rs` (current: `// port-lint: source set/mutable.rs`)
+- **Lint issues:** 1
 
-### 22. util
+### 22. indexmap.util
 
-- **Target:** `indexmap.Util`
+- **Target:** `indexmap.Util [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.68
 - **Dependents:** 0
 - **Priority Score:** 403.2
@@ -276,10 +365,15 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 0/0 matched (target 7)
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `util.rs` vs expected `util.rs`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:util.rs` vs expected `util.rs`
+- **Proposed provenance header:** `// port-lint: source util.rs` (current: `// port-lint: source util.rs`)
+- **Proposed provenance header:** `// port-lint: tests util.rs` (current: `// port-lint: tests util.rs`)
+- **Lint issues:** 2
 
 ### 23. rayon.mod
 
-- **Target:** `rayon.Mod [STUB]`
+- **Target:** `rayon.Mod [STUB] [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 110.0
@@ -287,10 +381,13 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 0/0 matched
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rayon/mod.rs` vs expected `rayon/mod.rs`
+- **Proposed provenance header:** `// port-lint: source rayon/mod.rs` (current: `// port-lint: source rayon/mod.rs`)
+- **Lint issues:** 1
 
-### 24. macros
+### 24. indexmap.macros
 
-- **Target:** `indexmap.Macros [ZERO]`
+- **Target:** `indexmap.Macros [ZERO] [PROVENANCE-FALLBACK]`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 10.0
@@ -298,6 +395,9 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 0/0 matched
 - **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `macros.rs` vs expected `macros.rs`
+- **Proposed provenance header:** `// port-lint: source macros.rs` (current: `// port-lint: source macros.rs`)
+- **Lint issues:** 1
 
 ## Success Criteria
 
