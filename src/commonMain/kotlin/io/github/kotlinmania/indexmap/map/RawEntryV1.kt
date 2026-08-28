@@ -10,6 +10,8 @@ import kotlin.native.HiddenFromObjC
 // Opt-in access to the experimental raw entry API.
 @HiddenFromObjC
 public interface RawEntryApiV1<K, V> {
+    public interface Sealed
+
     public fun rawEntryV1(): RawEntryBuilder<K, V>
 
     public fun rawEntryMutV1(): RawEntryBuilderMut<K, V>

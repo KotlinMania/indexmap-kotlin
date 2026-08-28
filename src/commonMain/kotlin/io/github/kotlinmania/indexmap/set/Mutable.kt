@@ -20,6 +20,9 @@ import kotlin.native.HiddenFromObjC
  */
 @HiddenFromObjC
 public interface MutableValues<T> {
+    public interface Value
+    public interface Sealed
+
     /**
      * Return item index and mutable reference to the value.
      *

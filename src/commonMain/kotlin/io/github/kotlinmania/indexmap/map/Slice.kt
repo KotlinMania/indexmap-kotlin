@@ -12,6 +12,21 @@ import io.github.kotlinmania.indexmap.trySimplifyRange
 import kotlin.native.HiddenFromObjC
 
 /**
+ * Associated type marker for `IntoIterator::IntoIter` on [Slice].
+ */
+public interface SliceIntoIter
+
+/**
+ * Associated type marker for `IntoIterator::Item` on [Slice].
+ */
+public interface SliceItem
+
+/**
+ * Associated type marker for `Index::Output` on [Slice].
+ */
+public interface SliceOutput
+
+/**
  * The result of searching an ordered entry slice.
  */
 public data class SearchResult(
@@ -37,6 +52,10 @@ public class Slice<K, V> internal constructor(
     private val start: Int,
     private val endExclusive: Int,
 ) : Iterable<Pair<K, V>> {
+    public interface IntoIter
+    public interface Item
+    public interface Output
+
     init {
         require(start in 0..entries.size) {
             "slice start index $start out of range for entries of length ${entries.size}"

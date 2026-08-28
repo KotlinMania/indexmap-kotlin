@@ -163,18 +163,28 @@ class SliceTest {
         assertEquals(3, map.partitionPoint { key, _ -> key < 4 })
     }
 
+    private fun check(
+        vecSlice: List<Pair<Int, Int>>,
+        mapSlice: Slice<Int, Int>,
+        subSlice: Slice<Int, Int>,
+    ) {
+        assertEquals(mapSlice, subSlice)
+        assertEquals(vecSlice, mapSlice.toList())
+        assertEquals(vecSlice.map { it.second }, mapSlice.values())
+    }
+
+    private fun checkMut(
+        vecSlice: List<Pair<Int, Int>>,
+        mapSlice: Slice<Int, Int>,
+        subSlice: Slice<Int, Int>,
+    ) {
+        assertEquals(mapSlice, subSlice)
+        assertEquals(vecSlice, mapSlice.toList())
+        assertEquals(vecSlice.map { it.second }, mapSlice.values())
+    }
+
     @Test
     fun sliceIndex() {
-        fun check(
-            vecSlice: List<Pair<Int, Int>>,
-            mapSlice: Slice<Int, Int>,
-            subSlice: Slice<Int, Int>,
-        ) {
-            assertEquals(mapSlice, subSlice)
-            assertEquals(vecSlice, mapSlice.toList())
-            assertEquals(vecSlice.map { it.second }, mapSlice.values())
-        }
-
         val vec: List<Pair<Int, Int>> = (0 until 10).map { it to it * it }
         val map: IndexMap<Int, Int> = IndexMap.from(vec)
         val slice = map.asSlice()
@@ -204,16 +214,6 @@ class SliceTest {
 
     @Test
     fun sliceIndexMut() {
-        fun checkMut(
-            vecSlice: List<Pair<Int, Int>>,
-            mapSlice: Slice<Int, Int>,
-            subSlice: Slice<Int, Int>,
-        ) {
-            assertEquals(mapSlice, subSlice)
-            assertEquals(vecSlice, mapSlice.toList())
-            assertEquals(vecSlice.map { it.second }, mapSlice.values())
-        }
-
         val vec: List<Pair<Int, Int>> = (0 until 10).map { it to it * it }
         val map: IndexMap<Int, Int> = IndexMap.from(vec)
         val slice = map.asMutSlice()

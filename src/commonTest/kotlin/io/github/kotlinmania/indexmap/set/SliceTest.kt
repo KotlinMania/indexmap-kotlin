@@ -88,13 +88,13 @@ class SliceTest {
         assertEquals(2, slice.partitionPoint { it < 3 })
     }
 
+    private fun check(vecSlice: List<Int>, setSliceList: List<Int>, subSlice: Slice<Int>) {
+        assertEquals(setSliceList, subSlice.toList())
+        assertEquals(vecSlice, subSlice.toList())
+    }
+
     @Test
     fun sliceIndexTestFromRust() {
-        fun check(vecSlice: List<Int>, setSliceList: List<Int>, subSlice: Slice<Int>) {
-            assertEquals(setSliceList, subSlice.toList())
-            assertEquals(vecSlice, subSlice.toList())
-        }
-
         val vec: List<Int> = (0 until 10).map { it * it }
         val set: IndexSet<Int> = IndexSet.from(vec)
         val slice = set.asSetSlice()

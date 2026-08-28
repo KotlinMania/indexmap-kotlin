@@ -33,6 +33,8 @@ public class IndexMap<K, V> private constructor(
     RawEntryApiV1<K, V> {
     public constructor() : this(mutableListOf())
 
+    public interface Output
+
     public companion object {
         /** Create a new map. Does not allocate storage for entries yet. */
         public fun <K, V> new(): IndexMap<K, V> = IndexMap()
