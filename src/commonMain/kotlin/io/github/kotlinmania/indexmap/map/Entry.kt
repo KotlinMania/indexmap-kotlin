@@ -11,6 +11,10 @@ import kotlin.native.HiddenFromObjC
 // insertion position.
 @HiddenFromObjC
 public sealed class Entry<K, V> : MutableEntryKey<K> {
+    public companion object {
+        public fun assertSendSync() {}
+    }
+
     public abstract fun index(): Int
 
     abstract override fun key(): K

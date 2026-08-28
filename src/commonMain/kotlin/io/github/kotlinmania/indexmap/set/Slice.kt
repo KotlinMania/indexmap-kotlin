@@ -23,6 +23,10 @@ public class Slice<T> internal constructor(
     private val start: Int,
     private val endExclusive: Int,
 ) : Iterable<T> {
+    public interface IntoIter
+    public interface Item
+    public interface Output
+
     init {
         require(start in 0..entries.size) {
             "slice start index $start out of range for entries of length ${entries.size}"

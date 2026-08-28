@@ -17,6 +17,8 @@ public class Iter<T> internal constructor(
     internal var index: Int = 0,
     internal var backIndex: Int = entries.size,
 ) : Iterator<T> {
+    public interface Item
+
     public companion object {
         internal fun <T> new(entries: List<Bucket<T, Unit>>): Iter<T> = Iter(entries)
 

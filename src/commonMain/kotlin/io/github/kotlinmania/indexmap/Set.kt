@@ -30,6 +30,9 @@ public class IndexSet<T> internal constructor(
     MutableValues<T> {
     public constructor() : this(IndexMap.new())
 
+    public interface Bucket
+    public interface Output
+
     public companion object {
         /** Create a new set. Does not allocate storage for entries yet. */
         public fun <T> new(): IndexSet<T> = IndexSet()

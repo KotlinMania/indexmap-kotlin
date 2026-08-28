@@ -5,9 +5,9 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 24/26 (92.3%)
-- **Function parity:** 509/708 matched (target 1044) — 71.9%
-- **Class/type parity:** 51/95 matched (target 101) — 53.7%
-- **Combined symbol parity:** 560/803 matched (target 1145) — 69.7%
+- **Function parity:** 509/708 matched (target 1045) — 71.9%
+- **Class/type parity:** 69/95 matched (target 122) — 72.6%
+- **Combined symbol parity:** 578/803 matched (target 1167) — 72.0%
 - **Average inline-code cosine:** 0.36 (function body across 23 matched files)
 - **Average documentation cosine:** 0.40 (doc text across 23 matched files)
 - **Cheat-zeroed Files:** 2
@@ -32,11 +32,11 @@ Every matched file is listed below with function and type symbol parity.
 - **Target:** `map.Slice`
 - **Similarity:** 0.39
 - **Dependents:** 5
-- **Priority Score:** 5056806.0
+- **Priority Score:** 5026806.0
 - **Functions:** 62/64 matched (target 97)
 - **Missing functions:** `check`, `check_mut`
-- **Types:** 1/4 matched (target 3)
-- **Missing types:** `IntoIter`, `Item`, `Output`
+- **Types:** 4/4 matched (target 9)
+- **Missing types:** _none_
 - **Tests:** 10/12 matched
 
 ### 2. rayon.set
@@ -79,36 +79,13 @@ Every matched file is listed below with function and type symbol parity.
 - **Target:** `map.Mutable`
 - **Similarity:** 0.09
 - **Dependents:** 0
-- **Priority Score:** 71009.1
+- **Priority Score:** 41009.1
 - **Functions:** 1/5 matched (target 1)
 - **Missing functions:** `get_full_mut2`, `get_index_mut2`, `iter_mut2`, `retain2`
-- **Types:** 2/5 matched (target 2)
-- **Missing types:** `Key`, `Value`, `Sealed`
+- **Types:** 5/5 matched
+- **Missing types:** _none_
 
-### 6. map.iter
-
-- **Target:** `map.Iter`
-- **Similarity:** 0.32
-- **Dependents:** 0
-- **Priority Score:** 52806.8
-- **Functions:** 11/14 matched (target 154)
-- **Missing functions:** `into_iter`, `index`, `drop`
-- **Types:** 12/14 matched (target 13)
-- **Missing types:** `Item`, `Output`
-
-### 7. set.slice
-
-- **Target:** `set.Slice`
-- **Similarity:** 0.31
-- **Dependents:** 0
-- **Priority Score:** 43906.9
-- **Functions:** 34/35 matched (target 60)
-- **Missing functions:** `check`
-- **Types:** 1/4 matched (target 2)
-- **Missing types:** `IntoIter`, `Item`, `Output`
-- **Tests:** 1/2 matched
-
-### 8. map.serde_seq
+### 6. map.serde_seq
 
 - **Target:** `map.SerdeSeq`
 - **Similarity:** 0.09
@@ -119,7 +96,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/2 matched (target 1)
 - **Missing types:** `SeqVisitor`, `Value`
 
-### 9. inner
+### 7. inner
 
 - **Target:** `inner.Inner`
 - **Similarity:** 0.70
@@ -131,30 +108,30 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Entries`
 - **Tests:** 0/1 matched
 
-### 10. map.raw_entry_v1
+### 8. map.iter
+
+- **Target:** `map.Iter`
+- **Similarity:** 0.32
+- **Dependents:** 0
+- **Priority Score:** 32806.8
+- **Functions:** 11/14 matched (target 154)
+- **Missing functions:** `into_iter`, `index`, `drop`
+- **Types:** 14/14 matched (target 15)
+- **Missing types:** _none_
+
+### 9. map.raw_entry_v1
 
 - **Target:** `map.RawEntryV1`
 - **Similarity:** 0.50
 - **Dependents:** 0
-- **Priority Score:** 34205.0
+- **Priority Score:** 24205.0
 - **Functions:** 33/35 matched (target 61)
 - **Missing functions:** `raw_entry_v1`, `raw_entry_mut_v1`
-- **Types:** 6/7 matched (target 9)
-- **Missing types:** `Sealed`
+- **Types:** 7/7 matched (target 10)
+- **Missing types:** _none_
 - **Tests:** 1/1 matched
 
-### 11. set
-
-- **Target:** `indexmap.Set`
-- **Similarity:** 0.59
-- **Dependents:** 0
-- **Priority Score:** 30004.1
-- **Functions:** 97/97 matched (target 148)
-- **Missing functions:** _none_
-- **Types:** 1/3 matched (target 2)
-- **Missing types:** `Bucket`, `Output`
-
-### 12. inner.entry
+### 10. inner.entry
 
 - **Target:** `inner.Entry`
 - **Similarity:** 0.64
@@ -165,52 +142,53 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/2 matched
 - **Missing types:** _none_
 
+### 11. set.slice
+
+- **Target:** `set.Slice`
+- **Similarity:** 0.31
+- **Dependents:** 0
+- **Priority Score:** 13906.9
+- **Functions:** 34/35 matched (target 60)
+- **Missing functions:** `check`
+- **Types:** 4/4 matched (target 5)
+- **Missing types:** _none_
+- **Tests:** 1/2 matched
+
+### 12. map.entry
+
+- **Target:** `map.Entry`
+- **Similarity:** 0.56
+- **Dependents:** 0
+- **Priority Score:** 12904.4
+- **Functions:** 26/27 matched (target 72)
+- **Missing functions:** `assert_send_sync`
+- **Types:** 2/2 matched (target 6)
+- **Missing types:** _none_
+- **Tests:** 0/1 matched
+
 ### 13. set.iter
 
 - **Target:** `set.Iter`
 - **Similarity:** 0.27
 - **Dependents:** 0
-- **Priority Score:** 22307.3
+- **Priority Score:** 12307.3
 - **Functions:** 11/12 matched (target 77)
 - **Missing functions:** `into_iter`
-- **Types:** 10/11 matched
-- **Missing types:** `Item`
+- **Types:** 11/11 matched (target 12)
+- **Missing types:** _none_
 
 ### 14. map
 
 - **Target:** `indexmap.Map`
 - **Similarity:** 0.45
 - **Dependents:** 0
-- **Priority Score:** 21005.5
+- **Priority Score:** 11005.5
 - **Functions:** 108/108 matched (target 147)
 - **Missing functions:** _none_
-- **Types:** 1/2 matched
-- **Missing types:** `Output`
-
-### 15. set.mutable
-
-- **Target:** `set.Mutable`
-- **Similarity:** 0.63
-- **Dependents:** 0
-- **Priority Score:** 20603.7
-- **Functions:** 3/3 matched
-- **Missing functions:** _none_
-- **Types:** 1/3 matched (target 1)
-- **Missing types:** `Value`, `Sealed`
-
-### 16. map.entry
-
-- **Target:** `map.Entry`
-- **Similarity:** 0.53
-- **Dependents:** 0
-- **Priority Score:** 12904.7
-- **Functions:** 26/27 matched (target 71)
-- **Missing functions:** `assert_send_sync`
-- **Types:** 2/2 matched (target 6)
+- **Types:** 2/2 matched (target 3)
 - **Missing types:** _none_
-- **Tests:** 0/1 matched
 
-### 17. borsh
+### 15. borsh
 
 - **Target:** `indexmap.Borsh`
 - **Similarity:** 0.26
@@ -222,7 +200,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 2/2 matched
 
-### 18. inner.extract
+### 16. inner.extract
 
 - **Target:** `inner.Extract`
 - **Similarity:** 0.60
@@ -233,7 +211,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/1 matched
 - **Missing types:** _none_
 
-### 19. arbitrary
+### 17. arbitrary
 
 - **Target:** `indexmap.Arbitrary`
 - **Similarity:** 0.24
@@ -244,7 +222,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched (target 6)
 - **Missing types:** _none_
 
-### 20. sval
+### 18. sval
 
 - **Target:** `indexmap.Sval`
 - **Similarity:** 0.00
@@ -255,7 +233,18 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched (target 3)
 - **Missing types:** _none_
 
-### 21. lib
+### 19. set
+
+- **Target:** `indexmap.Set`
+- **Similarity:** 0.59
+- **Dependents:** 0
+- **Priority Score:** 10004.1
+- **Functions:** 97/97 matched (target 148)
+- **Missing functions:** _none_
+- **Types:** 3/3 matched (target 4)
+- **Missing types:** _none_
+
+### 20. lib
 
 - **Target:** `indexmap.Lib`
 - **Similarity:** 0.71
@@ -264,6 +253,17 @@ Every matched file is listed below with function and type symbol parity.
 - **Functions:** 15/15 matched (target 36)
 - **Missing functions:** _none_
 - **Types:** 5/5 matched (target 11)
+- **Missing types:** _none_
+
+### 21. set.mutable
+
+- **Target:** `set.Mutable`
+- **Similarity:** 0.63
+- **Dependents:** 0
+- **Priority Score:** 603.7
+- **Functions:** 3/3 matched
+- **Missing functions:** _none_
+- **Types:** 3/3 matched
 - **Missing types:** _none_
 
 ### 22. util
