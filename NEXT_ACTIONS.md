@@ -5,11 +5,11 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 24/26 (92.3%)
-- **Function parity:** 501/708 matched (target 1012) — 70.8%
+- **Function parity:** 506/708 matched (target 1014) — 71.5%
 - **Class/type parity:** 51/95 matched (target 101) — 53.7%
-- **Combined symbol parity:** 552/803 matched (target 1113) — 68.7%
+- **Combined symbol parity:** 557/803 matched (target 1115) — 69.4%
 - **Average inline-code cosine:** 0.35 (function body across 23 matched files)
-- **Average documentation cosine:** 0.33 (doc text across 23 matched files)
+- **Average documentation cosine:** 0.40 (doc text across 23 matched files)
 - **Cheat-zeroed Files:** 2
 - **Critical Issues:** 19 files with <0.60 function similarity
 
@@ -30,14 +30,14 @@ Every matched file is listed below with function and type symbol parity.
 ### 1. map.slice
 
 - **Target:** `map.Slice`
-- **Similarity:** 0.32
+- **Similarity:** 0.39
 - **Dependents:** 5
-- **Priority Score:** 5106807.0
-- **Functions:** 57/64 matched (target 95)
-- **Missing functions:** `check`, `slice_index_mut`, `check_mut`, `slice_new_mut`, `slice_get_index_mut`, `slice_split_first_mut`, `slice_split_last_mut`
+- **Priority Score:** 5056806.0
+- **Functions:** 62/64 matched (target 97)
+- **Missing functions:** `check`, `check_mut`
 - **Types:** 1/4 matched (target 3)
 - **Missing types:** `IntoIter`, `Item`, `Output`
-- **Tests:** 5/12 matched
+- **Tests:** 10/12 matched
 
 ### 2. rayon.set
 
