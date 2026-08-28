@@ -15,6 +15,8 @@ public sealed class Entry<K, V> : MutableEntryKey<K> {
 
     abstract override fun key(): K
 
+    override fun keyMut(): K = key()
+
     public fun insertEntry(value: V): OccupiedEntry<K, V> =
         when (this) {
             is Occupied -> {
@@ -91,6 +93,8 @@ public class OccupiedEntry<K, V> internal constructor(
     public fun index(): Int = entryIndex
 
     override fun key(): K = pair().first
+ 
+    override fun keyMut(): K = key()
 
     public fun get(): V = pair().second
 
@@ -147,6 +151,8 @@ public class VacantEntry<K, V> internal constructor(
     public fun index(): Int = insertionIndex
 
     override fun key(): K = entryKey
+ 
+    override fun keyMut(): K = key()
 
     public fun insert(value: V): V {
         insertEntry(value)
@@ -164,6 +170,18 @@ public class VacantEntry<K, V> internal constructor(
         return old
     }
 
+    public fun intoCore(): IndexMap<K, V> = map
+
+    public fun insertSortedBy(value: V, cmp: (K, V, K, V) -> Int): Pair<Int, V> {
+        val (index, _) = map.insertSortedBy(entryKey, value, cmp)
+        return index to value
+    }
+
+    public fun <B : Comparable<B>> insertSortedByKey(value: V, sortKey: (K, V) -> B): Pair<Int, V> {
+        val (index, _) = map.insertSortedByKey(entryKey, value, sortKey)
+        return index to value
+    }
+
     public fun fmt(): String = toString()
 
     override fun toString(): String = "VacantEntry($entryKey)"
@@ -178,6 +196,8 @@ public class IndexedEntry<K, V> internal constructor(
     public fun index(): Int = entryIndex
 
     override fun key(): K = pair().first
+ 
+    override fun keyMut(): K = key()
 
     public fun get(): V = pair().second
 
@@ -237,3 +257,7 @@ public class IndexedEntry<K, V> internal constructor(
             IndexedEntry(other.intoCore(), other.index())
     }
 }
+
+public fun <K : Comparable<K>, V> VacantEntry<K, V>.insertSorted(value: V): Pair<Int, V> =
+    insertSortedBy(value) { k1, _, k2, _ -> k1.compareTo(k2) }
+

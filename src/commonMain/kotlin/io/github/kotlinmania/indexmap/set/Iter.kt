@@ -56,6 +56,23 @@ public class Iter<T> internal constructor(
         return entries[backIndex].key
     }
 
+    public fun <R> fold(initial: R, operation: (R, T) -> R): R {
+        var accumulator = initial
+        while (hasNext()) {
+            accumulator = operation(accumulator, next())
+        }
+        return accumulator
+    }
+
+    public fun <R> rfold(initial: R, operation: (R, T) -> R): R {
+        var accumulator = initial
+        while (true) {
+            val item = nextBack() ?: break
+            accumulator = operation(accumulator, item)
+        }
+        return accumulator
+    }
+
     public fun fmt(): String = toString()
 
     override fun toString(): String = asSlice().toList().toString()
@@ -107,6 +124,23 @@ public class IntoIter<T> internal constructor(
         if (index >= backIndex) return null
         backIndex -= 1
         return entries[backIndex].key
+    }
+
+    public fun <R> fold(initial: R, operation: (R, T) -> R): R {
+        var accumulator = initial
+        while (hasNext()) {
+            accumulator = operation(accumulator, next())
+        }
+        return accumulator
+    }
+
+    public fun <R> rfold(initial: R, operation: (R, T) -> R): R {
+        var accumulator = initial
+        while (true) {
+            val item = nextBack() ?: break
+            accumulator = operation(accumulator, item)
+        }
+        return accumulator
     }
 
     public fun fmt(): String = toString()
