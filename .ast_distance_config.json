@@ -18,6 +18,7 @@
   },
   "reexport_modules": [
     "mod.rs",
-    "lib.rs"
+    "lib.rs",
+    "rayon/mod.rs"
   ]
 }
