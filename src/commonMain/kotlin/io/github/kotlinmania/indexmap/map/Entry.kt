@@ -142,7 +142,12 @@ public class OccupiedEntry<K, V> internal constructor(
     private fun pair(): Pair<K, V> =
         map.getIndex(index()) ?: error("occupied entry no longer exists")
 
-    override fun toString(): String = "OccupiedEntry(key=${key()}, value=${get()})"
+    override fun toString(): String = "OccupiedEntry(index=$entryIndex, key=${key()}, value=${get()})"
+
+    public companion object {
+        public fun <K, V> from(other: IndexedEntry<K, V>): OccupiedEntry<K, V> =
+            OccupiedEntry(other.intoCore(), other.index())
+    }
 }
 
 // A view into a vacant insertion position in an IndexMap.

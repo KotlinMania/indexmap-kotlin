@@ -27,7 +27,7 @@ class MapTests {
     }
 
     @Test
-    fun newMap() {
+    fun new() {
         val map = IndexMap.new<String, String>()
         assertEquals(0, map.len())
         assertTrue(map.isEmpty())
@@ -341,6 +341,42 @@ class MapTests {
         assertNull(map[2])
     }
 
+    enum class TestEnum {
+        DefaultValue,
+        NonDefaultValue;
+
+        companion object {
+            fun default(): TestEnum = DefaultValue
+        }
+    }
+
+    @Test
+    fun entryOrDefault() {
+        val map = IndexMap.new<Int, String>()
+        map.insert(1, TestEnum.NonDefaultValue.name)
+        assertEquals(TestEnum.NonDefaultValue.name, map.entry(1).orDefault(TestEnum.default().name))
+        assertEquals(TestEnum.DefaultValue.name, map.entry(2).orDefault(TestEnum.default().name))
+    }
+
+    @Test
+    fun occupiedEntryKey() {
+        class Key(val value: Int) {
+            override fun equals(other: Any?): Boolean = other is Key && other.value == value
+            override fun hashCode(): Int = value
+        }
+        val k1 = Key(1)
+        val k2 = Key(1)
+        val map = IndexMap.new<Key, String>()
+        map.insert(k1, "value")
+        when (val e = map.entry(k2)) {
+            is Entry.Occupied -> {
+                assertTrue(e.key() === k1)
+                assertFalse(e.key() === k2)
+            }
+            is Entry.Vacant -> error("expected occupied")
+        }
+    }
+
     @Test
     fun getIndexEntry() {
         val map = IndexMap.new<Int, String>()
@@ -374,6 +410,26 @@ class MapTests {
     }
 
     @Test
+    fun fromEntries() {
+        val map = IndexMap.from(listOf(1 to "1", 2 to "2", 3 to "3"))
+        when (val e = map.entry(1)) {
+            is Entry.Occupied -> {
+                val indexed = IndexedEntry.from(e.entry)
+                assertEquals(0, indexed.index())
+                assertEquals(1, indexed.key())
+                assertEquals("1", indexed.get())
+            }
+            is Entry.Vacant -> error("expected occupied")
+        }
+        val e = map.getIndexEntry(1)
+        assertTrue(e != null)
+        val occupied = OccupiedEntry.from(IndexedEntry(map, 1))
+        assertEquals(1, occupied.index())
+        assertEquals(2, occupied.key())
+        assertEquals("2", occupied.get())
+    }
+
+    @Test
     fun keys() {
         val vec = listOf(1 to 'a', 2 to 'b', 3 to 'c')
         val map = IndexMap.from(vec)
@@ -385,10 +441,47 @@ class MapTests {
     }
 
     @Test
+    fun intoKeys() {
+        val vec = listOf(1 to 'a', 2 to 'b', 3 to 'c')
+        val map = IndexMap.from(vec)
+        val keys = map.intoKeys()
+        assertEquals(3, keys.size)
+        assertTrue(keys.contains(1))
+        assertTrue(keys.contains(2))
+        assertTrue(keys.contains(3))
+    }
+
+    @Test
     fun values() {
         val vec = listOf(1 to 'a', 2 to 'b', 3 to 'c')
         val map = IndexMap.from(vec)
         val values = map.values()
+        assertEquals(3, values.size)
+        assertTrue(values.contains('a'))
+        assertTrue(values.contains('b'))
+        assertTrue(values.contains('c'))
+    }
+
+    @Test
+    fun valuesMut() {
+        val vec = listOf(1 to 1, 2 to 2, 3 to 3)
+        val map = IndexMap.from(vec)
+        for ((k, _) in vec) {
+            val v = map[k]!!
+            map.insert(k, v * 2)
+        }
+        val values = map.values()
+        assertEquals(3, values.size)
+        assertTrue(values.contains(2))
+        assertTrue(values.contains(4))
+        assertTrue(values.contains(6))
+    }
+
+    @Test
+    fun intoValues() {
+        val vec = listOf(1 to 'a', 2 to 'b', 3 to 'c')
+        val map = IndexMap.from(vec)
+        val values = map.intoValues()
         assertEquals(3, values.size)
         assertTrue(values.contains('a'))
         assertTrue(values.contains('b'))
@@ -419,6 +512,29 @@ class MapTests {
         expected.insert(1, 2)
         expected.insert(3, 4)
         assertEquals(map, expected)
+    }
+
+    @Test
+    fun iterDefault() {
+        fun <T : Iterator<*>> assertDefault(iter: T) {
+            assertFalse(iter.hasNext())
+        }
+        assertDefault(IndexMap.new<Int, String>().iterator())
+        assertDefault(IndexMap.new<Int, String>().keys().iterator())
+        assertDefault(IndexMap.new<Int, String>().values().iterator())
+    }
+
+    @Test
+    fun getIndexMut2() {
+        val map = IndexMap.new<Int, Int>()
+        map.insert(1, 2)
+        map.insert(3, 4)
+        map.insert(5, 6)
+
+        val entry = map.getIndex(0)
+        assertTrue(entry != null)
+        assertEquals(1, entry.first)
+        assertEquals(2, entry.second)
     }
 
     @Test
@@ -513,6 +629,20 @@ class MapTests {
     }
 
     @Test
+    fun intoBoxedSlice() {
+        val map = IndexMap.new<Int, Int>()
+        for (i in 0 until 5) {
+            map.insert(i, i * 10)
+        }
+        val boxedSlice = map.asSlice()
+        assertEquals(5, boxedSlice.len())
+        assertEquals(
+            listOf(0 to 0, 1 to 10, 2 to 20, 3 to 30, 4 to 40),
+            boxedSlice.toList(),
+        )
+    }
+
+    @Test
     fun lastMut() {
         val map = IndexMap.new<String, Int>()
         assertNull(map.lastMut())
@@ -554,6 +684,27 @@ class MapTests {
 
         val result1 = indexMap.getRange(IntRange(2, 1))
         assertTrue(result1!!.isEmpty())
+
+        val result2 = indexMap.getRange(4, 2)
+        assertNull(result2)
+
+        val result3 = indexMap.getRange(2, 4)
+        val slice = result3!!
+        assertEquals(2, slice.len())
+        assertEquals(listOf(3 to 30, 4 to 40), slice.toList())
+    }
+
+    @Test
+    fun getRangeMut() {
+        val indexMap = IndexMap.new<Int, Int>()
+        indexMap.insert(1, 10)
+        indexMap.insert(2, 20)
+        indexMap.insert(3, 30)
+        indexMap.insert(4, 40)
+        indexMap.insert(5, 50)
+
+        val result1 = indexMap.getRange(IntRange(2, 1))
+        assertTrue(result1 != null && result1.isEmpty())
 
         val result2 = indexMap.getRange(4, 2)
         assertNull(result2)
@@ -749,7 +900,20 @@ class MapTests {
     }
 
     @Test
-    fun disjointMutMultiSuccessStringKey() {
+    fun disjointMutMultiSuccessUnsizedKey() {
+        val map = IndexMap.new<String, Int>()
+        map.insert("1", 100)
+        map.insert("2", 200)
+        map.insert("3", 300)
+        map.insert("4", 400)
+
+        assertEquals(listOf(100, 200), map.getDisjointMut(listOf("1", "2")))
+        assertEquals(listOf(100, 300), map.getDisjointMut(listOf("1", "3")))
+        assertEquals(listOf(300, 100, 400, 200), map.getDisjointMut(listOf("3", "1", "4", "2")))
+    }
+
+    @Test
+    fun disjointMutMultiSuccessBorrowKey() {
         val map = IndexMap.new<String, Int>()
         map.insert("1", 100)
         map.insert("2", 200)

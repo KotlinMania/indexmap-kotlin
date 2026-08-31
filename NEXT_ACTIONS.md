@@ -5,11 +5,11 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 24/26 (92.3%)
-- **Function parity:** 509/708 matched (target 1045) — 71.9%
+- **Function parity:** 509/708 matched (target 1046) — 71.9%
 - **Class/type parity:** 69/95 matched (target 122) — 72.6%
-- **Combined symbol parity:** 578/803 matched (target 1167) — 72.0%
+- **Combined symbol parity:** 578/803 matched (target 1168) — 72.0%
 - **Average inline-code cosine:** 0.36 (function body across 23 matched files)
-- **Average documentation cosine:** 0.40 (doc text across 23 matched files)
+- **Average documentation cosine:** 0.42 (doc text across 23 matched files)
 - **Cheat-zeroed Files:** 2
 - **Critical Issues:** 19 files with <0.60 function similarity
 
@@ -160,7 +160,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.56
 - **Dependents:** 0
 - **Priority Score:** 12904.4
-- **Functions:** 26/27 matched (target 72)
+- **Functions:** 26/27 matched (target 73)
 - **Missing functions:** `assert_send_sync`
 - **Types:** 2/2 matched (target 6)
 - **Missing types:** _none_

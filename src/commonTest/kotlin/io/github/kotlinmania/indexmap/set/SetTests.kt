@@ -27,7 +27,7 @@ class SetTests {
     }
 
     @Test
-    fun newSet() {
+    fun new() {
         val set = IndexSet.new<String>()
         assertEquals(0, set.len())
         assertTrue(set.isEmpty())
@@ -245,6 +245,18 @@ class SetTests {
     }
 
     @Test
+    fun replaceChange() {
+        val set = IndexSet.new<MutableList<Int>>()
+        val item1 = mutableListOf(42)
+        val item2 = mutableListOf(42)
+        set.insert(item1)
+        val replaced = set.replace(item2)
+        assertEquals(item1, replaced)
+        assertTrue(replaced === item1)
+        assertTrue(set[0] === item2)
+    }
+
+    @Test
     fun grow() {
         val insert = listOf(0, 4, 2, 12, 8, 7, 11)
         val notPresent = listOf(1, 3, 6, 9, 10)
@@ -422,42 +434,69 @@ class SetTests {
 
     @Test
     fun iterComparisons() {
+        fun <T> check(iter1: Iterable<T>, iter2: Iterable<T>) {
+            assertEquals(iter2.toList(), iter1.toList())
+        }
+
         val setA = IndexSet.from(0 until 3)
         val setB = IndexSet.from(3 until 6)
         val setC = IndexSet.from(0 until 6)
         val setD = IndexSet.from((3 until 9).reversed())
 
-        assertEquals(emptyList<Int>(), setA.difference(setA))
-        assertEquals(emptyList<Int>(), setA.symmetricDifference(setA))
-        assertEquals((0 until 3).toList(), setA.intersection(setA))
-        assertEquals((0 until 3).toList(), setA.union(setA))
+        check(setA.difference(setA), emptyList())
+        check(setA.symmetricDifference(setA), emptyList())
+        check(setA.intersection(setA), (0 until 3).toList())
+        check(setA.union(setA), (0 until 3).toList())
 
-        assertEquals((0 until 3).toList(), setA.difference(setB))
-        assertEquals((3 until 6).toList(), setB.difference(setA))
-        assertEquals((0 until 6).toList(), setA.symmetricDifference(setB))
-        assertEquals((3 until 6).toList() + (0 until 3).toList(), setB.symmetricDifference(setA))
-        assertEquals(emptyList<Int>(), setA.intersection(setB))
-        assertEquals(emptyList<Int>(), setB.intersection(setA))
-        assertEquals((0 until 6).toList(), setA.union(setB))
-        assertEquals((3 until 6).toList() + (0 until 3).toList(), setB.union(setA))
+        check(setA.difference(setB), (0 until 3).toList())
+        check(setB.difference(setA), (3 until 6).toList())
+        check(setA.symmetricDifference(setB), (0 until 6).toList())
+        check(setB.symmetricDifference(setA), (3 until 6).toList() + (0 until 3).toList())
+        check(setA.intersection(setB), emptyList())
+        check(setB.intersection(setA), emptyList())
+        check(setA.union(setB), (0 until 6).toList())
+        check(setB.union(setA), (3 until 6).toList() + (0 until 3).toList())
 
-        assertEquals(emptyList<Int>(), setA.difference(setC))
-        assertEquals((3 until 6).toList(), setC.difference(setA))
-        assertEquals((3 until 6).toList(), setA.symmetricDifference(setC))
-        assertEquals((3 until 6).toList(), setC.symmetricDifference(setA))
-        assertEquals((0 until 3).toList(), setA.intersection(setC))
-        assertEquals((0 until 3).toList(), setC.intersection(setA))
-        assertEquals((0 until 6).toList(), setA.union(setC))
-        assertEquals((0 until 6).toList(), setC.union(setA))
+        check(setA.difference(setC), emptyList())
+        check(setC.difference(setA), (3 until 6).toList())
+        check(setA.symmetricDifference(setC), (3 until 6).toList())
+        check(setC.symmetricDifference(setA), (3 until 6).toList())
+        check(setA.intersection(setC), (0 until 3).toList())
+        check(setC.intersection(setA), (0 until 3).toList())
+        check(setA.union(setC), (0 until 6).toList())
+        check(setC.union(setA), (0 until 6).toList())
 
-        assertEquals((0 until 3).toList(), setC.difference(setD))
-        assertEquals((6 until 9).reversed().toList(), setD.difference(setC))
-        assertEquals((0 until 3).toList() + (6 until 9).reversed().toList(), setC.symmetricDifference(setD))
-        assertEquals((6 until 9).reversed().toList() + (0 until 3).toList(), setD.symmetricDifference(setC))
-        assertEquals((3 until 6).toList(), setC.intersection(setD))
-        assertEquals((3 until 6).reversed().toList(), setD.intersection(setC))
-        assertEquals((0 until 6).toList() + (6 until 9).reversed().toList(), setC.union(setD))
-        assertEquals((3 until 9).reversed().toList() + (0 until 3).toList(), setD.union(setC))
+        check(setC.difference(setD), (0 until 3).toList())
+        check(setD.difference(setC), (6 until 9).reversed().toList())
+        check(setC.symmetricDifference(setD), (0 until 3).toList() + (6 until 9).reversed().toList())
+        check(setD.symmetricDifference(setC), (6 until 9).reversed().toList() + (0 until 3).toList())
+        check(setC.intersection(setD), (3 until 6).toList())
+        check(setD.intersection(setC), (3 until 6).reversed().toList())
+        check(setC.union(setD), (0 until 6).toList() + (6 until 9).reversed().toList())
+        check(setD.union(setC), (3 until 9).reversed().toList() + (0 until 3).toList())
+    }
+
+    @Test
+    fun ops() {
+        val empty = IndexSet.new<Int>()
+        val setA = IndexSet.from(0 until 3)
+        val setB = IndexSet.from(3 until 6)
+        val setC = IndexSet.from(0 until 6)
+        val setD = IndexSet.from((3 until 9).reversed())
+
+        assertEquals(setA, IndexSet.from(setA.intersection(setA)))
+        assertEquals(setA, IndexSet.from(setA.union(setA)))
+        assertEquals(empty, IndexSet.from(setA.symmetricDifference(setA)))
+        assertEquals(empty, IndexSet.from(setA.difference(setA)))
+
+        assertEquals(empty, IndexSet.from(setA.intersection(setB)))
+        assertEquals(empty, IndexSet.from(setB.intersection(setA)))
+        assertEquals(setC, IndexSet.from(setA.union(setB)))
+        assertEquals(setC, IndexSet.from(setB.union(setA)))
+        assertEquals(setC, IndexSet.from(setA.symmetricDifference(setB)))
+        assertEquals(setC, IndexSet.from(setB.symmetricDifference(setA)))
+        assertEquals(setA, IndexSet.from(setA.difference(setB)))
+        assertEquals(setB, IndexSet.from(setB.difference(setA)))
     }
 
     @Test
@@ -465,6 +504,14 @@ class SetTests {
         val set1 = IndexSet.from(listOf(1, 2, 3, 4))
         val set2 = IndexSet.from(listOf(1, 2, 3, 4))
         assertEquals(set1, set2)
+    }
+
+    @Test
+    fun iterDefault() {
+        fun <T : Iterator<*>> assertDefault(iter: T) {
+            assertFalse(iter.hasNext())
+        }
+        assertDefault(IndexSet.new<Int>().iterator())
     }
 
     @Test
