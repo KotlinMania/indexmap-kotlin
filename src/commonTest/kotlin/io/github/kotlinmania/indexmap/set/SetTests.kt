@@ -1,4 +1,4 @@
-// port-lint: tests set/tests.rs
+// port-lint: source set/tests.rs
 package io.github.kotlinmania.indexmap.set
 
 import io.github.kotlinmania.indexmap.IndexSet
