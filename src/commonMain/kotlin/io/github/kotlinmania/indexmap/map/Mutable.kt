@@ -57,6 +57,16 @@ public interface MutableKeys<K, V> {
     public fun retain2(keep: (K, V) -> Boolean)
 }
 
+public fun <K, V> IndexMap<K, V>.getFullMut2(key: K): Triple<Int, K, V>? = getFull(key)
+
+public fun <K, V> IndexMap<K, V>.getIndexMut2(index: Int): Pair<K, V>? = getIndex(index)
+
+public fun <K, V> IndexMap<K, V>.iterMut2(): List<Pair<K, V>> = asEntries()
+
+public fun <K, V> IndexMap<K, V>.retain2(keep: (K, V) -> Boolean) {
+    retain(keep)
+}
+
 /**
  * Opt-in mutable access to [Entry] keys.
  *
