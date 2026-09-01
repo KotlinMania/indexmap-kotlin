@@ -8,17 +8,19 @@ class ArbitraryTest {
     private class DummyUnstructured(
         val items: List<Int>,
     ) : Unstructured {
-        override fun <T> arbitraryIter(generator: (Unstructured) -> T): Sequence<T> = sequence {
-            for (item in items) {
-                yield(generator(this@DummyUnstructured))
+        override fun <T> arbitraryIter(generator: (Unstructured) -> T): Sequence<T> =
+            sequence {
+                for (item in items) {
+                    yield(generator(this@DummyUnstructured))
+                }
             }
-        }
 
-        override fun <T> arbitraryTakeRestIter(generator: (Unstructured) -> T): Sequence<T> = sequence {
-            for (item in items) {
-                yield(generator(this@DummyUnstructured))
+        override fun <T> arbitraryTakeRestIter(generator: (Unstructured) -> T): Sequence<T> =
+            sequence {
+                for (item in items) {
+                    yield(generator(this@DummyUnstructured))
+                }
             }
-        }
     }
 
     @Test

@@ -53,7 +53,9 @@ public class Slice<K, V> internal constructor(
     private val endExclusive: Int,
 ) : Iterable<Pair<K, V>> {
     public interface IntoIter
+
     public interface Item
+
     public interface Output
 
     init {

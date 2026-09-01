@@ -25,7 +25,9 @@ class BorshTest {
         fun toByteArray(): ByteArray = buffer.toByteArray()
     }
 
-    private class SimpleReader(private val bytes: ByteArray) : BorshReader {
+    private class SimpleReader(
+        private val bytes: ByteArray,
+    ) : BorshReader {
         private var pos = 0
 
         override fun read(bytes: ByteArray, offset: Int, length: Int): Int {
@@ -34,7 +36,9 @@ class BorshTest {
                 if (pos < this.bytes.size) {
                     bytes[i] = this.bytes[pos++]
                     readCount++
-                } else break
+                } else {
+                    break
+                }
             }
             return readCount
         }
@@ -48,17 +52,17 @@ class BorshTest {
         }
     }
 
-    private val intSerializer = object : BorshSerializer<Int> {
-        override fun serialize(value: Int, writer: BorshWriter) {
-            writer.writeU32(value.toUInt())
+    private val intSerializer =
+        object : BorshSerializer<Int> {
+            override fun serialize(value: Int, writer: BorshWriter) {
+                writer.writeU32(value.toUInt())
+            }
         }
-    }
 
-    private val intDeserializer = object : BorshDeserializer<Int> {
-        override fun deserialize(reader: BorshReader): Int {
-            return reader.readU32().toInt()
+    private val intDeserializer =
+        object : BorshDeserializer<Int> {
+            override fun deserialize(reader: BorshReader): Int = reader.readU32().toInt()
         }
-    }
 
     @Test
     fun mapBorshRoundtrip() {

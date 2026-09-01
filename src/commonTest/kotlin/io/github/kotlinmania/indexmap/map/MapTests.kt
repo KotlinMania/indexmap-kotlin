@@ -343,7 +343,8 @@ class MapTests {
 
     enum class TestEnum {
         DefaultValue,
-        NonDefaultValue;
+        NonDefaultValue,
+        ;
 
         companion object {
             fun default(): TestEnum = DefaultValue
@@ -360,8 +361,11 @@ class MapTests {
 
     @Test
     fun occupiedEntryKey() {
-        class Key(val value: Int) {
+        class Key(
+            val value: Int,
+        ) {
             override fun equals(other: Any?): Boolean = other is Key && other.value == value
+
             override fun hashCode(): Int = value
         }
         val k1 = Key(1)
