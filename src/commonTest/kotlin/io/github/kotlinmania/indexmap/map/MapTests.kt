@@ -1,4 +1,4 @@
-// port-lint: tests map/tests.rs
+// port-lint: source map/tests.rs
 package io.github.kotlinmania.indexmap.map
 
 import io.github.kotlinmania.indexmap.GetDisjointMutError

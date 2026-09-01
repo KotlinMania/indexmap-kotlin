@@ -4,14 +4,14 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 24/26 (92.3%)
-- **Function parity:** 509/708 matched (target 1046) — 71.9%
-- **Class/type parity:** 69/95 matched (target 122) — 72.6%
-- **Combined symbol parity:** 578/803 matched (target 1168) — 72.0%
-- **Average inline-code cosine:** 0.36 (function body across 23 matched files)
-- **Average documentation cosine:** 0.42 (doc text across 23 matched files)
+- **Files Present:** 26/26 (100.0%)
+- **Function parity:** 631/706 matched (target 1181) — 89.4%
+- **Class/type parity:** 70/95 matched (target 128) — 73.7%
+- **Combined symbol parity:** 701/801 matched (target 1309) — 87.5%
+- **Average inline-code cosine:** 0.38 (function body across 25 matched files)
+- **Average documentation cosine:** 0.38 (doc text across 25 matched files)
 - **Cheat-zeroed Files:** 2
-- **Critical Issues:** 19 files with <0.60 function similarity
+- **Critical Issues:** 20 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
@@ -119,7 +119,22 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 14/14 matched (target 15)
 - **Missing types:** _none_
 
-### 9. map.raw_entry_v1
+### 9. map.tests
+
+- **Target:** `map.MapTests [PROVENANCE-FALLBACK]`
+- **Similarity:** 0.57
+- **Dependents:** 0
+- **Priority Score:** 26904.3
+- **Functions:** 66/66 matched (target 78)
+- **Missing functions:** _none_
+- **Types:** 1/3 matched (target 5)
+- **Missing types:** `K`, `V`
+- **Tests:** 63/63 matched
+- **Provenance warning:** port-lint provenance header matched only by basename: `tests:tests.rs` vs expected `map/tests.rs`
+- **Proposed provenance header:** `// port-lint: tests map/tests.rs` (current: `// port-lint: tests tests.rs`)
+- **Lint issues:** 1
+
+### 10. map.raw_entry_v1
 
 - **Target:** `map.RawEntryV1`
 - **Similarity:** 0.50
@@ -131,7 +146,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 1/1 matched
 
-### 10. inner.entry
+### 11. inner.entry
 
 - **Target:** `inner.Entry`
 - **Similarity:** 0.64
@@ -142,7 +157,19 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/2 matched
 - **Missing types:** _none_
 
-### 11. set.slice
+### 12. set.tests
+
+- **Target:** `set.SetTests`
+- **Similarity:** 0.77
+- **Dependents:** 0
+- **Priority Score:** 15702.3
+- **Functions:** 56/56 matched (target 57)
+- **Missing functions:** _none_
+- **Types:** 0/1 matched
+- **Missing types:** `Item`
+- **Tests:** 53/53 matched
+
+### 13. set.slice
 
 - **Target:** `set.Slice`
 - **Similarity:** 0.31
@@ -154,7 +181,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 1/2 matched
 
-### 12. map.entry
+### 14. map.entry
 
 - **Target:** `map.Entry`
 - **Similarity:** 0.56
@@ -166,7 +193,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/1 matched
 
-### 13. set.iter
+### 15. set.iter
 
 - **Target:** `set.Iter`
 - **Similarity:** 0.27
@@ -177,7 +204,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 11/11 matched (target 12)
 - **Missing types:** _none_
 
-### 14. map
+### 16. map
 
 - **Target:** `indexmap.Map`
 - **Similarity:** 0.45
@@ -188,7 +215,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/2 matched (target 3)
 - **Missing types:** _none_
 
-### 15. borsh
+### 17. borsh
 
 - **Target:** `indexmap.Borsh`
 - **Similarity:** 0.26
@@ -200,7 +227,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 2/2 matched
 
-### 16. inner.extract
+### 18. inner.extract
 
 - **Target:** `inner.Extract`
 - **Similarity:** 0.60
@@ -211,7 +238,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/1 matched
 - **Missing types:** _none_
 
-### 17. arbitrary
+### 19. arbitrary
 
 - **Target:** `indexmap.Arbitrary`
 - **Similarity:** 0.24
@@ -222,7 +249,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched (target 6)
 - **Missing types:** _none_
 
-### 18. sval
+### 20. sval
 
 - **Target:** `indexmap.Sval`
 - **Similarity:** 0.00
@@ -233,7 +260,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched (target 3)
 - **Missing types:** _none_
 
-### 19. set
+### 21. set
 
 - **Target:** `indexmap.Set`
 - **Similarity:** 0.59
@@ -244,7 +271,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 3/3 matched (target 4)
 - **Missing types:** _none_
 
-### 20. lib
+### 22. lib
 
 - **Target:** `indexmap.Lib`
 - **Similarity:** 0.71
@@ -255,7 +282,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 5/5 matched (target 11)
 - **Missing types:** _none_
 
-### 21. set.mutable
+### 23. set.mutable
 
 - **Target:** `set.Mutable`
 - **Similarity:** 0.63
@@ -266,7 +293,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 3/3 matched
 - **Missing types:** _none_
 
-### 22. util
+### 24. util
 
 - **Target:** `indexmap.Util`
 - **Similarity:** 0.68
@@ -277,7 +304,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched (target 7)
 - **Missing types:** _none_
 
-### 23. rayon.mod
+### 25. rayon.mod
 
 - **Target:** `rayon.Mod [STUB]`
 - **Similarity:** 0.00
@@ -288,7 +315,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched
 - **Missing types:** _none_
 
-### 24. macros
+### 26. macros
 
 - **Target:** `indexmap.Macros [ZERO]`
 - **Similarity:** 0.00
