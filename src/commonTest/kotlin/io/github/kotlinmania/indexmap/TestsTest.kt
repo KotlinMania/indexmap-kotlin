@@ -1,4 +1,4 @@
-// port-lint: tests tests.rs
+// port-lint: tests map/tests.rs
 package io.github.kotlinmania.indexmap
 
 import kotlin.test.Test

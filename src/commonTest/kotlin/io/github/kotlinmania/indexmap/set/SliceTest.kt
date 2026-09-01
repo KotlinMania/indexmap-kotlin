@@ -88,9 +88,9 @@ class SliceTest {
         assertEquals(2, slice.partitionPoint { it < 3 })
     }
 
-    private fun check(vecSlice: List<Int>, setSliceList: List<Int>, subSlice: Slice<Int>) {
-        assertEquals(setSliceList, subSlice.toList())
-        assertEquals(vecSlice, subSlice.toList())
+    private fun check(vecSlice: List<Int>, setSlice: Slice<Int>, subSlice: Slice<Int>) {
+        assertEquals(setSlice, subSlice)
+        assertEquals(vecSlice, setSlice.toList())
     }
 
     @Test
@@ -100,7 +100,7 @@ class SliceTest {
         val slice = set.asSetSlice()
 
         // RangeFull
-        check(vec, set.asSetSlice().toList(), slice)
+        check(vec, set.asSetSlice(), slice)
 
         for (i in 0 until 10) {
             // Index
@@ -108,25 +108,25 @@ class SliceTest {
             assertEquals(vec[i], slice[i])
 
             // RangeFrom
-            check(vec.subList(i, vec.size), set.getRange(i, set.len())!!, slice.getRange(i, slice.len())!!)
+            check(vec.subList(i, vec.size), set.asSetSlice().getRange(i, set.len())!!, slice.getRange(i, slice.len())!!)
 
             // RangeTo
-            check(vec.subList(0, i), set.getRange(0, i)!!, slice.getRange(0, i)!!)
+            check(vec.subList(0, i), set.asSetSlice().getRange(0, i)!!, slice.getRange(0, i)!!)
 
             // RangeToInclusive
-            check(vec.subList(0, i + 1), set.getRange(0, i + 1)!!, slice.getRange(0, i + 1)!!)
+            check(vec.subList(0, i + 1), set.asSetSlice().getRange(0, i + 1)!!, slice.getRange(0, i + 1)!!)
 
             // (Bound::Excluded(i), Bound::Unbounded)
-            check(vec.subList(i + 1, vec.size), set.getRange(i + 1, set.len())!!, slice.getRange(i + 1, slice.len())!!)
+            check(vec.subList(i + 1, vec.size), set.asSetSlice().getRange(i + 1, set.len())!!, slice.getRange(i + 1, slice.len())!!)
 
             for (j in i..10) {
                 // Range
-                check(vec.subList(i, j), set.getRange(i, j)!!, slice.getRange(i, j)!!)
+                check(vec.subList(i, j), set.asSetSlice().getRange(i, j)!!, slice.getRange(i, j)!!)
             }
 
             for (j in i until 10) {
                 // RangeInclusive
-                check(vec.subList(i, j + 1), set.getRange(i, j + 1)!!, slice.getRange(i, j + 1)!!)
+                check(vec.subList(i, j + 1), set.asSetSlice().getRange(i, j + 1)!!, slice.getRange(i, j + 1)!!)
             }
         }
     }

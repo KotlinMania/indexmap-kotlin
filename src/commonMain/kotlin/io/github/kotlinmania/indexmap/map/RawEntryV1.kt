@@ -17,6 +17,10 @@ public interface RawEntryApiV1<K, V> {
     public fun rawEntryMutV1(): RawEntryBuilderMut<K, V>
 }
 
+public fun <K, V> IndexMap<K, V>.rawEntryV1(): RawEntryBuilder<K, V> = RawEntryBuilder(this)
+
+public fun <K, V> IndexMap<K, V>.rawEntryMutV1(): RawEntryBuilderMut<K, V> = RawEntryBuilderMut(this)
+
 // A builder for computing where in an IndexMap a key-value pair would be stored.
 @HiddenFromObjC
 public class RawEntryBuilder<K, V> internal constructor(

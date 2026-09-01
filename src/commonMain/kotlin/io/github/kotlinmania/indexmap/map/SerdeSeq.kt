@@ -35,3 +35,18 @@ public class IndexMapSeqSerializer<K, V>(
         return result
     }
 }
+
+public fun <K, V> serialize(
+    map: IndexMap<K, V>,
+    keySerializer: KSerializer<K>,
+    valueSerializer: KSerializer<V>,
+    encoder: Encoder,
+) {
+    IndexMapSeqSerializer(keySerializer, valueSerializer).serialize(encoder, map)
+}
+
+public fun <K, V> deserialize(
+    decoder: Decoder,
+    keySerializer: KSerializer<K>,
+    valueSerializer: KSerializer<V>,
+): IndexMap<K, V> = IndexMapSeqSerializer(keySerializer, valueSerializer).deserialize(decoder)
