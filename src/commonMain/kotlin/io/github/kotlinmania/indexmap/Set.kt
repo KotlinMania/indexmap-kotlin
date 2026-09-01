@@ -31,6 +31,7 @@ public class IndexSet<T> internal constructor(
     public constructor() : this(IndexMap.new())
 
     public interface Bucket
+
     public interface Output
 
     public companion object {

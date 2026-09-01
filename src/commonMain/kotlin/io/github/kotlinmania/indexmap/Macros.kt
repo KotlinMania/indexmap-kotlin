@@ -54,5 +54,3 @@ public fun <T, S> indexsetWithDefault(hasher: S, vararg elements: T): IndexSet<T
     }
     return set
 }
-
-

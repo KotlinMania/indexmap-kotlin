@@ -6,6 +6,7 @@ package io.github.kotlinmania.indexmap
  */
 public interface Unstructured {
     public fun <T> arbitraryIter(generator: (Unstructured) -> T): Sequence<T>
+
     public fun <T> arbitraryTakeRestIter(generator: (Unstructured) -> T): Sequence<T>
 }
 
@@ -14,6 +15,7 @@ public interface Unstructured {
  */
 public interface Arbitrary<T> {
     public fun arbitrary(u: Unstructured): T
+
     public fun arbitraryTakeRest(u: Unstructured): T
 }
 
@@ -29,6 +31,7 @@ public interface Gen {
  */
 public interface QuickcheckArbitrary<T> {
     public fun arbitrary(g: Gen): T
+
     public fun shrink(value: T): Sequence<T>
 }
 

@@ -21,7 +21,9 @@ import kotlin.native.HiddenFromObjC
 @HiddenFromObjC
 public interface MutableKeys<K, V> {
     public interface Key
+
     public interface Value
+
     public interface Sealed
 
     /**

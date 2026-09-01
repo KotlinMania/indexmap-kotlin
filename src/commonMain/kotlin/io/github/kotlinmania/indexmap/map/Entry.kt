@@ -97,7 +97,7 @@ public class OccupiedEntry<K, V> internal constructor(
     public fun index(): Int = entryIndex
 
     override fun key(): K = pair().first
- 
+
     override fun keyMut(): K = key()
 
     public fun get(): V = pair().second
@@ -160,7 +160,7 @@ public class VacantEntry<K, V> internal constructor(
     public fun index(): Int = insertionIndex
 
     override fun key(): K = entryKey
- 
+
     override fun keyMut(): K = key()
 
     public fun insert(value: V): V {
@@ -205,7 +205,7 @@ public class IndexedEntry<K, V> internal constructor(
     public fun index(): Int = entryIndex
 
     override fun key(): K = pair().first
- 
+
     override fun keyMut(): K = key()
 
     public fun get(): V = pair().second
@@ -269,4 +269,3 @@ public class IndexedEntry<K, V> internal constructor(
 
 public fun <K : Comparable<K>, V> VacantEntry<K, V>.insertSorted(value: V): Pair<Int, V> =
     insertSortedBy(value) { k1, _, k2, _ -> k1.compareTo(k2) }
-

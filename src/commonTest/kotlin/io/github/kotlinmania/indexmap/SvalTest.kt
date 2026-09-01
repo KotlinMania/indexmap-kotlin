@@ -62,14 +62,23 @@ class SvalTest {
         val stream = TestStream()
         map.svalStream(stream)
 
-        val expected = listOf(
-            "mapBegin(2)",
-            "mapKeyBegin", "value(a)", "mapKeyEnd",
-            "mapValueBegin", "value(1)", "mapValueEnd",
-            "mapKeyBegin", "value(b)", "mapKeyEnd",
-            "mapValueBegin", "value(2)", "mapValueEnd",
-            "mapEnd",
-        )
+        val expected =
+            listOf(
+                "mapBegin(2)",
+                "mapKeyBegin",
+                "value(a)",
+                "mapKeyEnd",
+                "mapValueBegin",
+                "value(1)",
+                "mapValueEnd",
+                "mapKeyBegin",
+                "value(b)",
+                "mapKeyEnd",
+                "mapValueBegin",
+                "value(2)",
+                "mapValueEnd",
+                "mapEnd",
+            )
         assertEquals(expected, stream.events)
     }
 
@@ -82,12 +91,17 @@ class SvalTest {
         val stream = TestStream()
         set.svalStream(stream)
 
-        val expected = listOf(
-            "seqBegin(2)",
-            "seqValueBegin", "value(x)", "seqValueEnd",
-            "seqValueBegin", "value(y)", "seqValueEnd",
-            "seqEnd",
-        )
+        val expected =
+            listOf(
+                "seqBegin(2)",
+                "seqValueBegin",
+                "value(x)",
+                "seqValueEnd",
+                "seqValueBegin",
+                "value(y)",
+                "seqValueEnd",
+                "seqEnd",
+            )
         assertEquals(expected, stream.events)
     }
 }

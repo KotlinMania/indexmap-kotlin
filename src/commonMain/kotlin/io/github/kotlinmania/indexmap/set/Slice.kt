@@ -24,7 +24,9 @@ public class Slice<T> internal constructor(
     private val endExclusive: Int,
 ) : Iterable<T> {
     public interface IntoIter
+
     public interface Item
+
     public interface Output
 
     init {

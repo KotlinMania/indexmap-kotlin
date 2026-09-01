@@ -8,6 +8,7 @@ public const val ERROR_ZST_FORBIDDEN: String = "Zero-sized types are forbidden"
  */
 public interface BorshWriter {
     public fun write(bytes: ByteArray, offset: Int = 0, length: Int = bytes.size)
+
     public fun writeU32(value: UInt)
 }
 
@@ -16,6 +17,7 @@ public interface BorshWriter {
  */
 public interface BorshReader {
     public fun read(bytes: ByteArray, offset: Int = 0, length: Int = bytes.size): Int
+
     public fun readU32(): UInt
 }
 

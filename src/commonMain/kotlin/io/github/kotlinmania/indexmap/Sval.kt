@@ -6,15 +6,25 @@ package io.github.kotlinmania.indexmap
  */
 public interface SvalStream {
     public fun mapBegin(len: Int?)
+
     public fun mapKeyBegin()
+
     public fun mapKeyEnd()
+
     public fun mapValueBegin()
+
     public fun mapValueEnd()
+
     public fun mapEnd()
+
     public fun seqBegin(len: Int?)
+
     public fun seqValueBegin()
+
     public fun seqValueEnd()
+
     public fun seqEnd()
+
     public fun value(v: Any?)
 }
 

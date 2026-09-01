@@ -18,6 +18,7 @@ public class Iter<K, V> internal constructor(
     private var backIndex: Int = entries.size,
 ) : Iterator<Pair<K, V>> {
     public interface Item
+
     public interface Output
 
     public companion object {
