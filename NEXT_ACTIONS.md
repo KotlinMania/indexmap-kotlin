@@ -180,10 +180,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `K`, `V`
 - **Tests:** 63/63 matched
 - **Provenance warning:** port-lint provenance header matched only after fallback normalization: `map/tests.rs` vs expected `map/tests.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:map/tests.rs` vs expected `map/tests.rs`
+- **Provenance warning:** port-lint provenance header matched only by basename: `tests:tests/tests.rs` vs expected `map/tests.rs`
 - **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:map/tests.rs` vs expected `map/tests.rs`
 - **Proposed provenance header:** `// port-lint: source map/tests.rs` (current: `// port-lint: source map/tests.rs`)
-- **Proposed provenance header:** `// port-lint: tests map/tests.rs` (current: `// port-lint: tests map/tests.rs`)
+- **Proposed provenance header:** `// port-lint: tests map/tests.rs` (current: `// port-lint: tests tests/tests.rs`)
 - **Proposed provenance header:** `// port-lint: tests map/tests.rs` (current: `// port-lint: tests map/tests.rs`)
 - **Lint issues:** 3
 
