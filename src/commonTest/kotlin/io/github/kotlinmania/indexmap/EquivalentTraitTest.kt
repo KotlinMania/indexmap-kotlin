@@ -7,7 +7,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class EquivalentTraitTest {
-    data class PairKey<A, B>(
+    data class Pair<A, B>(
         val first: A,
         val second: B,
     )
@@ -16,12 +16,12 @@ class EquivalentTraitTest {
     fun testLookup() {
         val map =
             indexmapOf(
-                PairKey("a", "b") to 1,
-                PairKey("a", "x") to 2,
+                Pair("a", "b") to 1,
+                Pair("a", "x") to 2,
             )
 
-        assertTrue(map.containsKey(PairKey("a", "b")))
-        assertFalse(map.containsKey(PairKey("b", "a")))
+        assertTrue(map.containsKey(Pair("a", "b")))
+        assertFalse(map.containsKey(Pair("b", "a")))
     }
 
     @Test
