@@ -1,4 +1,6 @@
 // port-lint: source serde.rs
+@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
+
 package io.github.kotlinmania.indexmap
 
 import kotlinx.serialization.KSerializer
@@ -8,6 +10,7 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlin.math.min
+import kotlin.native.HiddenFromObjC
 
 /**
  * Limit our preallocated capacity from a deserializer size hint.
@@ -24,6 +27,7 @@ internal fun cautiousCapacity(hint: Int?): Int {
 /**
  * Serializer for [IndexMap] using standard map serialization semantics.
  */
+@HiddenFromObjC
 public class IndexMapSerializer<K, V>(
     keySerializer: KSerializer<K>,
     valueSerializer: KSerializer<V>,
@@ -53,6 +57,7 @@ public class IndexMapSerializer<K, V>(
 /**
  * Serializer for [IndexSet] using standard set serialization semantics.
  */
+@HiddenFromObjC
 public class IndexSetSerializer<T>(
     elementSerializer: KSerializer<T>,
 ) : KSerializer<IndexSet<T>> {

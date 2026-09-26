@@ -1,4 +1,6 @@
 // port-lint: source map/serde_seq.rs
+@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
+
 package io.github.kotlinmania.indexmap.map
 
 import io.github.kotlinmania.indexmap.IndexMap
@@ -9,10 +11,12 @@ import kotlinx.serialization.builtins.PairSerializer
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlin.native.HiddenFromObjC
 
 /**
  * Functions and serializer to serialize and deserialize an [IndexMap] as an ordered sequence of pairs.
  */
+@HiddenFromObjC
 public class IndexMapSeqSerializer<K, V>(
     keySerializer: KSerializer<K>,
     valueSerializer: KSerializer<V>,
@@ -36,6 +40,7 @@ public class IndexMapSeqSerializer<K, V>(
     }
 }
 
+@HiddenFromObjC
 public fun <K, V> serialize(
     map: IndexMap<K, V>,
     keySerializer: KSerializer<K>,
@@ -45,6 +50,7 @@ public fun <K, V> serialize(
     IndexMapSeqSerializer(keySerializer, valueSerializer).serialize(encoder, map)
 }
 
+@HiddenFromObjC
 public fun <K, V> deserialize(
     decoder: Decoder,
     keySerializer: KSerializer<K>,
