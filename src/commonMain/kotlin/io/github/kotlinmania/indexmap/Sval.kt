@@ -64,3 +64,24 @@ public fun <T> IndexSet<T>.svalStream(
     }
     stream.seqEnd()
 }
+
+/**
+ * Streams the map structure and its key-value pairs to an [SvalStream].
+ */
+public fun <K, V> IndexMap<K, V>.stream(
+    stream: SvalStream,
+    streamKey: (SvalStream, K) -> Unit = { s, k -> s.value(k) },
+    streamValue: (SvalStream, V) -> Unit = { s, v -> s.value(v) },
+) {
+    svalStream(stream, streamKey, streamValue)
+}
+
+/**
+ * Streams the set structure and its elements to an [SvalStream].
+ */
+public fun <T> IndexSet<T>.stream(
+    stream: SvalStream,
+    streamValue: (SvalStream, T) -> Unit = { s, v -> s.value(v) },
+) {
+    svalStream(stream, streamValue)
+}

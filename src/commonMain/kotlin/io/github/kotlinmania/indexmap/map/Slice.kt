@@ -470,3 +470,23 @@ public fun <K : Comparable<K>, V> Slice<K, V>.isSorted(): Boolean =
  */
 public fun <K : Comparable<K>, V> Slice<K, V>.binarySearchKeys(key: K): SearchResult =
     binarySearchKeys(key, naturalOrder())
+
+internal fun <K, V> check(
+    vecSlice: List<Pair<K, V>>,
+    mapSlice: Slice<K, V>,
+    subSlice: Slice<K, V>,
+) {
+    kotlin.check(mapSlice == subSlice)
+    kotlin.check(vecSlice == mapSlice.toList())
+    kotlin.check(vecSlice.map { it.second } == mapSlice.values())
+}
+
+internal fun <K, V> checkMut(
+    vecSlice: List<Pair<K, V>>,
+    mapSlice: Slice<K, V>,
+    subSlice: Slice<K, V>,
+) {
+    kotlin.check(mapSlice == subSlice)
+    kotlin.check(vecSlice == mapSlice.toList())
+    kotlin.check(vecSlice.map { it.second } == mapSlice.values())
+}

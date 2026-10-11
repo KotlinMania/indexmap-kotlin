@@ -82,3 +82,53 @@ public class IndexSetSerializer<T>(
         return result
     }
 }
+
+/**
+ * Visitor to deserialize an [IndexMap].
+ */
+@HiddenFromObjC
+public class IndexMapVisitor<K, V> {
+    public fun expecting(): String = "a map"
+
+    public fun expecting(formatter: StringBuilder) {
+        formatter.append(expecting())
+    }
+
+    public fun visitMap(entries: Iterable<Pair<K, V>>): IndexMap<K, V> {
+        val map = IndexMap<K, V>()
+        for ((k, v) in entries) {
+            map.insert(k, v)
+        }
+        return map
+    }
+}
+
+/**
+ * Visitor to deserialize an [IndexSet].
+ */
+@HiddenFromObjC
+public class IndexSetVisitor<T> {
+    public fun expecting(): String = "a set"
+
+    public fun expecting(formatter: StringBuilder) {
+        formatter.append(expecting())
+    }
+
+    public fun visitSeq(elements: Iterable<T>): IndexSet<T> {
+        val set = IndexSet<T>()
+        for (item in elements) {
+            set.insert(item)
+        }
+        return set
+    }
+}
+
+/**
+ * Converts this [IndexMap] into an iterator deserializer representation.
+ */
+public fun <K, V> IndexMap<K, V>.intoDeserializer(): Iterator<Pair<K, V>> = iterator()
+
+/**
+ * Converts this [IndexSet] into an iterator deserializer representation.
+ */
+public fun <T> IndexSet<T>.intoDeserializer(): Iterator<T> = iterator()

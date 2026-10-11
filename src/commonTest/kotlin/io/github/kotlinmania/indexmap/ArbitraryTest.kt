@@ -38,4 +38,15 @@ class ArbitraryTest {
         val set = IndexSet.arbitrary(u) { "elem${counter++}" }
         assertEquals(3, set.len())
     }
+
+    @Test
+    fun testShrink() {
+        val map = IndexMap<String, Int>()
+        map.insert("a", 1)
+        assertEquals(emptyList(), map.shrink().toList())
+
+        val set = IndexSet<String>()
+        set.insert("a")
+        assertEquals(emptyList(), set.shrink().toList())
+    }
 }

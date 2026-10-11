@@ -55,4 +55,26 @@ class SerdeTest {
         assertEquals(10, deserialized.get("first"))
         assertEquals(20, deserialized.get("second"))
     }
+
+    @Test
+    fun testVisitorsAndIntoDeserializer() {
+        val mapVisitor = IndexMapVisitor<String, Int>()
+        assertEquals("a map", mapVisitor.expecting())
+        val map = mapVisitor.visitMap(listOf("k" to 1))
+        assertEquals(1, map.len())
+        assertEquals(listOf("k" to 1), map.intoDeserializer().asSequence().toList())
+
+        val setVisitor = IndexSetVisitor<String>()
+        assertEquals("a set", setVisitor.expecting())
+        val set = setVisitor.visitSeq(listOf("v"))
+        assertEquals(1, set.len())
+        assertEquals(listOf("v"), set.intoDeserializer().asSequence().toList())
+
+        val seqVisitor =
+            io.github.kotlinmania.indexmap.map
+                .SeqVisitor<String, Int>()
+        assertEquals("a sequenced map", seqVisitor.expecting())
+        val seqMap = seqVisitor.visitSeq(listOf("s" to 2))
+        assertEquals(1, seqMap.len())
+    }
 }

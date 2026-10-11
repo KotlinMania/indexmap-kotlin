@@ -102,4 +102,26 @@ class BorshTest {
             checkZst(true)
         }
     }
+
+    @Test
+    fun mapDeserializeReader() {
+        val originalMap = IndexMap<Int, Int>()
+        originalMap.insert(10, 20)
+        val writer = SimpleWriter()
+        originalMap.borshSerialize(writer, intSerializer, intSerializer)
+        val reader = SimpleReader(writer.toByteArray())
+        val deserialized = IndexMap.deserializeReader(reader, intDeserializer, intDeserializer)
+        assertEquals(originalMap, deserialized)
+    }
+
+    @Test
+    fun setDeserializeReader() {
+        val originalSet = IndexSet<Int>()
+        originalSet.insert(42)
+        val writer = SimpleWriter()
+        originalSet.borshSerialize(writer, intSerializer)
+        val reader = SimpleReader(writer.toByteArray())
+        val deserialized = IndexSet.deserializeReader(reader, intDeserializer)
+        assertEquals(originalSet, deserialized)
+    }
 }

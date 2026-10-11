@@ -15,6 +15,8 @@ class IterTest {
         val iter = Iter(set.map.entries)
         assertEquals(3, iter.len())
         assertFalse(iter.isEmpty())
+        val iterCopy = iter.intoIter()
+        assertEquals(3, iterCopy.len())
 
         assertEquals("a", iter.next())
         assertEquals(2, iter.len())
@@ -33,6 +35,8 @@ class IterTest {
         val iter = IntoIter(set.map.entries)
         assertEquals(3, iter.len())
         val clone = iter.clone()
+        val intoIterCopy = iter.intoIter()
+        assertEquals(3, intoIterCopy.len())
         assertEquals(listOf("a", "b", "c"), iter.asSlice().toList())
         assertEquals("a", clone.next())
         assertEquals("c", clone.nextBack())

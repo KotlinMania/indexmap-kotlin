@@ -56,3 +56,23 @@ public fun <K, V> deserialize(
     keySerializer: KSerializer<K>,
     valueSerializer: KSerializer<V>,
 ): IndexMap<K, V> = IndexMapSeqSerializer(keySerializer, valueSerializer).deserialize(decoder)
+
+/**
+ * Visitor to deserialize a sequenced [IndexMap].
+ */
+@HiddenFromObjC
+public class SeqVisitor<K, V> {
+    public fun expecting(): String = "a sequenced map"
+
+    public fun expecting(formatter: StringBuilder) {
+        formatter.append(expecting())
+    }
+
+    public fun visitSeq(entries: Iterable<Pair<K, V>>): IndexMap<K, V> {
+        val map = IndexMap<K, V>()
+        for ((k, v) in entries) {
+            map.insert(k, v)
+        }
+        return map
+    }
+}

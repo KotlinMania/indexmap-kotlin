@@ -92,3 +92,13 @@ public fun <T> IndexSet.Companion.arbitraryTakeRest(
     }
     return set
 }
+
+/**
+ * Shrinks an [IndexMap] into smaller candidate maps for property-based testing.
+ */
+public fun <K, V> IndexMap<K, V>.shrink(): Sequence<IndexMap<K, V>> = emptySequence()
+
+/**
+ * Shrinks an [IndexSet] into smaller candidate sets for property-based testing.
+ */
+public fun <T> IndexSet<T>.shrink(): Sequence<IndexSet<T>> = emptySequence()

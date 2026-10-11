@@ -6,6 +6,7 @@ package io.github.kotlinmania.indexmap.inner
 
 import io.github.kotlinmania.indexmap.Bucket
 import io.github.kotlinmania.indexmap.HashValue
+import io.github.kotlinmania.indexmap.map.IndexedEntry
 import kotlin.native.HiddenFromObjC
 
 /**
@@ -26,6 +27,9 @@ internal class OccupiedEntry<K, V> internal constructor(
             val i = map.getIndexOfRaw(hash, isMatch) ?: return null
             return OccupiedEntry(map, i, i)
         }
+
+        public fun <K, V> from(other: IndexedEntry<K, V>): OccupiedEntry<K, V> =
+            OccupiedEntry(Core(Indices(), other.intoCore().entries), other.index(), other.index())
     }
 
     public fun intoCore(): Core<K, V> = map
@@ -178,3 +182,9 @@ internal class VacantEntry<K, V> internal constructor(
         return oldKey to OccupiedEntry(map, index, index)
     }
 }
+
+internal fun <K, V> new(
+    map: Core<K, V>,
+    hash: HashValue,
+    key: K,
+): OccupiedEntry<K, V>? = OccupiedEntry.fromHash(map, hash) { it == key }
