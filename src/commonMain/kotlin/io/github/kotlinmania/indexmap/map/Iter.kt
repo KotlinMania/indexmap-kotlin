@@ -362,6 +362,10 @@ public class Keys<K, V> internal constructor(
 
     public fun clone(): Keys<K, V> = Keys(entries, index, backIndex)
 
+    public fun intoIter(): Keys<K, V> = clone()
+
+    public fun index(i: Int): K = get(i)
+
     public operator fun get(i: Int): K {
         val target = index + i
         require(target in index until backIndex) { "Index $i out of bounds for keys of length ${len()}" }
@@ -430,6 +434,10 @@ public class IntoKeys<K, V> internal constructor(
     public fun sizeHint(): Pair<Int, Int?> = len() to len()
 
     public fun clone(): IntoKeys<K, V> = IntoKeys(keys, index, backIndex)
+
+    public fun intoIter(): IntoKeys<K, V> = clone()
+
+    public fun index(i: Int): K = get(i)
 
     public operator fun get(i: Int): K {
         val target = index + i
@@ -500,6 +508,10 @@ public class Values<K, V> internal constructor(
 
     public fun clone(): Values<K, V> = Values(entries, index, backIndex)
 
+    public fun intoIter(): Values<K, V> = clone()
+
+    public fun index(i: Int): V = get(i)
+
     public operator fun get(i: Int): V {
         val target = index + i
         require(target in index until backIndex) { "Index $i out of bounds for values of length ${len()}" }
@@ -566,6 +578,8 @@ public class ValuesMut<K, V> internal constructor(
     public fun isEmpty(): Boolean = len() == 0
 
     public fun sizeHint(): Pair<Int, Int?> = len() to len()
+
+    public fun index(i: Int): V = get(i)
 
     public operator fun get(i: Int): V {
         val target = index + i
@@ -720,6 +734,8 @@ public class Splice<K, V> internal constructor(
             map.insert(key, value)
         }
     }
+
+    public fun drop(): Unit = close()
 
     public fun fmt(): String = toString()
 }

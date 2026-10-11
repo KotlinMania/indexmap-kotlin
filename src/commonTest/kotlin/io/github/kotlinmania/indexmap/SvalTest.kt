@@ -104,4 +104,19 @@ class SvalTest {
             )
         assertEquals(expected, stream.events)
     }
+
+    @Test
+    fun mapAndSetStreamMethod() {
+        val map = IndexMap<String, Int>()
+        map.insert("x", 1)
+        val streamMap = TestStream()
+        map.stream(streamMap)
+        assertEquals("mapBegin(1)", streamMap.events.first())
+
+        val set = IndexSet<String>()
+        set.insert("y")
+        val streamSet = TestStream()
+        set.stream(streamSet)
+        assertEquals("seqBegin(1)", streamSet.events.first())
+    }
 }

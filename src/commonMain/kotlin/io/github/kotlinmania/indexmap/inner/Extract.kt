@@ -41,4 +41,8 @@ internal class ExtractCore<K, V> internal constructor(
     }
 
     public fun remaining(): Int = (end - current).coerceAtLeast(0)
+
+    public fun drop() {
+        // Drop cleanup
+    }
 }

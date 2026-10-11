@@ -8,6 +8,10 @@ import io.github.kotlinmania.indexmap.Bucket
 import io.github.kotlinmania.indexmap.HashValue
 import kotlin.native.HiddenFromObjC
 
+internal typealias Entries<K, V> = MutableList<Bucket<K, V>>
+
+internal fun assertSendSync() {}
+
 internal class Indices(
     internal val items: MutableList<Int> = mutableListOf(),
     internal val hashes: MutableList<ULong> = mutableListOf(),

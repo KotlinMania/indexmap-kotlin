@@ -113,3 +113,22 @@ public fun <T> IndexSet.Companion.borshDeserialize(
     }
     return set
 }
+
+/**
+ * Deserializes an [IndexMap] from a [BorshReader].
+ */
+public fun <K, V> IndexMap.Companion.deserializeReader(
+    reader: BorshReader,
+    keyDeserializer: BorshDeserializer<K>,
+    valueDeserializer: BorshDeserializer<V>,
+    isKeyZst: Boolean = false,
+): IndexMap<K, V> = borshDeserialize(reader, keyDeserializer, valueDeserializer, isKeyZst)
+
+/**
+ * Deserializes an [IndexSet] from a [BorshReader].
+ */
+public fun <T> IndexSet.Companion.deserializeReader(
+    reader: BorshReader,
+    itemDeserializer: BorshDeserializer<T>,
+    isItemZst: Boolean = false,
+): IndexSet<T> = borshDeserialize(reader, itemDeserializer, isItemZst)

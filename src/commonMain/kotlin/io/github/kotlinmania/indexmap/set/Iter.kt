@@ -43,6 +43,8 @@ public class Iter<T> internal constructor(
 
     public fun clone(): Iter<T> = Iter(entries, index, backIndex)
 
+    public fun intoIter(): Iter<T> = clone()
+
     override fun hasNext(): Boolean = index < backIndex
 
     override fun next(): T {
@@ -112,6 +114,8 @@ public class IntoIter<T> internal constructor(
     public fun sizeHint(): Pair<Int, Int?> = len() to len()
 
     public fun clone(): IntoIter<T> = IntoIter(entries, index, backIndex)
+
+    public fun intoIter(): IntoIter<T> = clone()
 
     override fun hasNext(): Boolean = index < backIndex
 

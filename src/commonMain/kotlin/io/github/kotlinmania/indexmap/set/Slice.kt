@@ -371,3 +371,12 @@ public fun <T : Comparable<T>> Slice<T>.isSorted(): Boolean =
  */
 public fun <T : Comparable<T>> Slice<T>.binarySearch(target: T): SearchResult =
     binarySearch(target, naturalOrder())
+
+internal fun <T> check(
+    vecSlice: List<T>,
+    setSlice: Slice<T>,
+    subSlice: Slice<T>,
+) {
+    kotlin.check(setSlice == subSlice)
+    kotlin.check(vecSlice == setSlice.toList())
+}
