@@ -482,7 +482,6 @@ class SetTests {
         val setA = IndexSet.from(0 until 3)
         val setB = IndexSet.from(3 until 6)
         val setC = IndexSet.from(0 until 6)
-        val setD = IndexSet.from((3 until 9).reversed())
 
         assertEquals(setA, IndexSet.from(setA.intersection(setA)))
         assertEquals(setA, IndexSet.from(setA.union(setA)))

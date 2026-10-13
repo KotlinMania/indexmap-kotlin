@@ -73,7 +73,7 @@ public fun <K, V> IndexMap.Companion.borshDeserialize(
     checkZst(isKeyZst)
     val len = reader.readU32().toInt()
     val map = IndexMap.withCapacity<K, V>(len)
-    for (i in 0 until len) {
+    repeat(len) {
         val key = keyDeserializer.deserialize(reader)
         val value = valueDeserializer.deserialize(reader)
         map.insert(key, value)
@@ -107,7 +107,7 @@ public fun <T> IndexSet.Companion.borshDeserialize(
     checkZst(isItemZst)
     val len = reader.readU32().toInt()
     val set = IndexSet.withCapacity<T>(len)
-    for (i in 0 until len) {
+    repeat(len) {
         val item = itemDeserializer.deserialize(reader)
         set.insert(item)
     }

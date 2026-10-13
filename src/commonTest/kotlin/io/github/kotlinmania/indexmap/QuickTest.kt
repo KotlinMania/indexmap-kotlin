@@ -14,7 +14,7 @@ class QuickTest {
     @Test
     fun testContains() {
         val random = Random(42)
-        for (trial in 0 until 20) {
+        repeat(20) { _ ->
             val insert = List(random.nextInt(0, 50)) { random.nextInt(0, 100) }
             val map = IndexMap.new<Int, Unit>()
             for (key in insert) {
@@ -29,7 +29,7 @@ class QuickTest {
     @Test
     fun testContainsNot() {
         val random = Random(43)
-        for (trial in 0 until 20) {
+        repeat(20) { _ ->
             val insert = List(random.nextInt(0, 40)) { random.nextInt(0, 100) }
             val not = List(random.nextInt(0, 40)) { random.nextInt(0, 100) }
             val map = IndexMap.new<Int, Unit>()
@@ -46,7 +46,7 @@ class QuickTest {
     @Test
     fun testInsertRemove() {
         val random = Random(44)
-        for (trial in 0 until 20) {
+        repeat(20) { _ ->
             val insert = List(random.nextInt(0, 50)) { random.nextInt(0, 100) }
             val remove = List(random.nextInt(0, 30)) { random.nextInt(0, 100) }
             val map = IndexMap.new<Int, Unit>()
@@ -68,7 +68,7 @@ class QuickTest {
     @Test
     fun testInsertionOrder() {
         val random = Random(45)
-        for (trial in 0 until 20) {
+        repeat(20) { _ ->
             val insert = List(random.nextInt(0, 50)) { random.nextInt(0, 100) }
             val map = IndexMap.new<Int, Unit>()
             for (key in insert) {
@@ -82,7 +82,7 @@ class QuickTest {
     @Test
     fun testInsertSorted() {
         val random = Random(46)
-        for (trial in 0 until 20) {
+        repeat(20) { _ ->
             val count = random.nextInt(0, 30)
             val insert = List(count) { random.nextInt(0, 100) to random.nextInt(0, 1000) }
             val hmap = mutableMapOf<Int, Int>()
@@ -100,7 +100,7 @@ class QuickTest {
                     }
                 }
             }
-            val hsorted = hmap.entries.sortedBy { it.key }.map { it.key to it.value }
+            val hsorted = hmap.entries.sortedBy { e -> e.key }.map { e -> e.key to e.value }
             val mapEntries = map.asEntries()
             val map2Entries = map2.asEntries()
             assertEquals(hsorted, mapEntries)
@@ -111,7 +111,7 @@ class QuickTest {
     @Test
     fun testPop() {
         val random = Random(47)
-        for (trial in 0 until 20) {
+        repeat(20) { _ ->
             val insert = List(random.nextInt(0, 40)) { random.nextInt(0, 100) }
             val map = IndexMap.new<Int, Unit>()
             for (key in insert) {
@@ -142,7 +142,7 @@ class QuickTest {
     @Test
     fun testDrainFull() {
         val random = Random(48)
-        for (trial in 0 until 20) {
+        repeat(20) { _ ->
             val insert = List(random.nextInt(0, 40)) { random.nextInt(0, 100) }
             val map = IndexMap.new<Int, Unit>()
             for (key in insert) {
@@ -160,7 +160,7 @@ class QuickTest {
     @Test
     fun testShiftRemove() {
         val random = Random(49)
-        for (trial in 0 until 20) {
+        repeat(20) { _ ->
             val insert = List(random.nextInt(0, 40)) { random.nextInt(0, 100) }
             val remove = List(random.nextInt(0, 20)) { random.nextInt(0, 100) }
             val map = IndexMap.new<Int, Unit>()
@@ -171,7 +171,7 @@ class QuickTest {
                 map.shiftRemove(key)
             }
             val elements = insert.toSet() - remove.toSet()
-            val remainingInInsertOrder = insert.distinct().filter { elements.contains(it) }
+            val remainingInInsertOrder = insert.distinct().filter { key -> elements.contains(key) }
             assertEquals(remainingInInsertOrder, map.keys())
             assertEquals(elements.size, map.len())
         }
