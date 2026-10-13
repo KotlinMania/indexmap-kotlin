@@ -10,14 +10,14 @@ class ArbitraryTest {
     ) : Unstructured {
         override fun <T> arbitraryIter(generator: (Unstructured) -> T): Sequence<T> =
             sequence {
-                for (item in items) {
+                repeat(items.size) {
                     yield(generator(this@DummyUnstructured))
                 }
             }
 
         override fun <T> arbitraryTakeRestIter(generator: (Unstructured) -> T): Sequence<T> =
             sequence {
-                for (item in items) {
+                repeat(items.size) {
                     yield(generator(this@DummyUnstructured))
                 }
             }
