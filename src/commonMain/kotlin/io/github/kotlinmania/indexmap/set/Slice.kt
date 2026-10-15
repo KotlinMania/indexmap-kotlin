@@ -9,6 +9,10 @@ import io.github.kotlinmania.indexmap.IndexRange
 import io.github.kotlinmania.indexmap.RangeBounds
 import io.github.kotlinmania.indexmap.map.SearchResult
 import io.github.kotlinmania.indexmap.trySimplifyRange
+import io.github.kotlinmania.indexmap.wrapSerialize
+import io.github.kotlinmania.serde.SerdeResult
+import io.github.kotlinmania.serdecore.ser.Serialize
+import io.github.kotlinmania.serdecore.ser.Serializer
 import kotlin.native.HiddenFromObjC
 
 /**
@@ -22,12 +26,21 @@ public class Slice<T> internal constructor(
     private val entries: MutableList<Bucket<T, Unit>>,
     private val start: Int,
     private val endExclusive: Int,
-) : Iterable<T> {
+) : Iterable<T>,
+    Serialize {
     public interface IntoIter
 
     public interface Item
 
     public interface Output
+
+    override fun <Ok> serialize(serializer: Serializer<Ok>): SerdeResult<Ok> {
+        val mapped =
+            (start until endExclusive).map { i ->
+                wrapSerialize(entries[i].key)
+            }
+        return serializer.collectSeq(mapped)
+    }
 
     init {
         require(start in 0..entries.size) {

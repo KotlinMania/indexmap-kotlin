@@ -13,6 +13,9 @@ import io.github.kotlinmania.indexmap.set.MutableValues
 import io.github.kotlinmania.indexmap.set.Slice
 import io.github.kotlinmania.indexmap.set.SymmetricDifference
 import io.github.kotlinmania.indexmap.set.Union
+import io.github.kotlinmania.serde.SerdeResult
+import io.github.kotlinmania.serdecore.ser.Serialize
+import io.github.kotlinmania.serdecore.ser.Serializer
 import kotlin.native.HiddenFromObjC
 
 /**
@@ -27,8 +30,14 @@ import kotlin.native.HiddenFromObjC
 public class IndexSet<T> internal constructor(
     internal val map: IndexMap<T, Unit>,
 ) : Iterable<T>,
-    MutableValues<T> {
+    MutableValues<T>,
+    Serialize {
     public constructor() : this(IndexMap.new())
+
+    override fun <Ok> serialize(serializer: Serializer<Ok>): SerdeResult<Ok> {
+        val mapped = this.map { wrapSerialize(it) }
+        return serializer.collectSeq(mapped)
+    }
 
     public interface Bucket
 

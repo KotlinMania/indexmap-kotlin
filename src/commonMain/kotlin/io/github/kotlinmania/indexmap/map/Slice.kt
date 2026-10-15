@@ -9,6 +9,11 @@ import io.github.kotlinmania.indexmap.GetDisjointMutError
 import io.github.kotlinmania.indexmap.IndexRange
 import io.github.kotlinmania.indexmap.RangeBounds
 import io.github.kotlinmania.indexmap.trySimplifyRange
+import io.github.kotlinmania.indexmap.wrapSerialize
+import io.github.kotlinmania.serde.SerdeResult
+import io.github.kotlinmania.serde.serdeCatching
+import io.github.kotlinmania.serdecore.ser.Serialize
+import io.github.kotlinmania.serdecore.ser.Serializer
 import kotlin.native.HiddenFromObjC
 
 /**
@@ -51,12 +56,30 @@ public class Slice<K, V> internal constructor(
     private val entries: MutableList<Bucket<K, V>>,
     private val start: Int,
     private val endExclusive: Int,
-) : Iterable<Pair<K, V>> {
+) : Iterable<Pair<K, V>>,
+    Serialize {
     public interface IntoIter
 
     public interface Item
 
     public interface Output
+
+    override fun <Ok> serialize(serializer: Serializer<Ok>): SerdeResult<Ok> {
+        val mapped =
+            (start until endExclusive).map { i ->
+                val b = entries[i]
+                object : Serialize {
+                    override fun <OkTuple> serialize(serializer: Serializer<OkTuple>): SerdeResult<OkTuple> =
+                        serdeCatching {
+                            val tuple = serializer.serializeTuple(2).getOrThrow()
+                            tuple.serializeElement(wrapSerialize(b.key)).getOrThrow()
+                            tuple.serializeElement(wrapSerialize(b.value)).getOrThrow()
+                            tuple.end().getOrThrow()
+                        }
+                }
+            }
+        return serializer.collectSeq(mapped)
+    }
 
     init {
         require(start in 0..entries.size) {
