@@ -15,6 +15,9 @@ import io.github.kotlinmania.indexmap.map.RawEntryBuilder
 import io.github.kotlinmania.indexmap.map.RawEntryBuilderMut
 import io.github.kotlinmania.indexmap.map.SearchResult
 import io.github.kotlinmania.indexmap.map.Slice
+import io.github.kotlinmania.serde.SerdeResult
+import io.github.kotlinmania.serdecore.ser.Serialize
+import io.github.kotlinmania.serdecore.ser.Serializer
 import kotlin.native.HiddenFromObjC
 
 /**
@@ -30,8 +33,14 @@ public class IndexMap<K, V> private constructor(
     internal val entries: MutableList<Bucket<K, V>>,
 ) : Iterable<Pair<K, V>>,
     MutableKeys<K, V>,
-    RawEntryApiV1<K, V> {
+    RawEntryApiV1<K, V>,
+    Serialize {
     public constructor() : this(mutableListOf())
+
+    override fun <Ok> serialize(serializer: Serializer<Ok>): SerdeResult<Ok> {
+        val mapped = entries.map { wrapSerialize(it.key) to wrapSerialize(it.value) }
+        return serializer.collectMap(mapped)
+    }
 
     public interface Output
 
