@@ -12,7 +12,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class SerdeTest {
-
     @Test
     fun testVisitorsAndIntoDeserializer() {
         val mapVisitor = IndexMapVisitor<String, Int>()
