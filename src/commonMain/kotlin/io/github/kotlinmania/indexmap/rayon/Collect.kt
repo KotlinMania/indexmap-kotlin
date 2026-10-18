@@ -1,4 +1,3 @@
-// port-lint: source rayon/mod.rs
 package io.github.kotlinmania.indexmap.rayon
 
 // This form of intermediate collection is also how Rayon collects `HashMap`.
