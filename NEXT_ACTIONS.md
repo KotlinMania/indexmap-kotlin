@@ -4,14 +4,14 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 26/26 (100.0%)
-- **Function parity:** 653/706 matched (target 1228) — 92.5%
-- **Class/type parity:** 74/95 matched (target 132) — 77.9%
-- **Combined symbol parity:** 727/801 matched (target 1360) — 90.8%
-- **Average inline-code cosine:** 0.44 (function body across 25 matched files)
-- **Average documentation cosine:** 0.38 (doc text across 25 matched files)
-- **Cheat-zeroed Files:** 2
-- **Critical Issues:** 19 files with <0.60 function similarity
+- **Files Present:** 24/26 (92.3%)
+- **Function parity:** 637/690 matched (target 1226) — 92.3%
+- **Class/type parity:** 69/90 matched (target 120) — 76.7%
+- **Combined symbol parity:** 706/780 matched (target 1346) — 90.5%
+- **Average inline-code cosine:** 0.45 (function body across 24 matched files)
+- **Average documentation cosine:** 0.38 (doc text across 24 matched files)
+- **Cheat-zeroed Files:** 1
+- **Critical Issues:** 16 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
@@ -33,7 +33,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.39
 - **Dependents:** 5
 - **Priority Score:** 5026806.0
-- **Functions:** 62/64 matched (target 99)
+- **Functions:** 62/64 matched (target 101)
 - **Missing functions:** `check`, `check_mut`
 - **Types:** 4/4 matched (target 9)
 - **Missing types:** _none_
@@ -93,12 +93,12 @@ Every matched file is listed below with function and type symbol parity.
 ### 6. serde
 
 - **Target:** `indexmap.Serde`
-- **Similarity:** 0.36
+- **Similarity:** 0.63
 - **Dependents:** 0
-- **Priority Score:** 21106.4
-- **Functions:** 7/7 matched (target 17)
+- **Priority Score:** 21103.7
+- **Functions:** 7/7 matched (target 42)
 - **Missing functions:** _none_
-- **Types:** 2/4 matched (target 5)
+- **Types:** 2/4 matched
 - **Missing types:** `Value`, `Deserializer`
 
 ### 7. set.tests
@@ -119,7 +119,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.32
 - **Dependents:** 0
 - **Priority Score:** 13906.8
-- **Functions:** 34/35 matched (target 61)
+- **Functions:** 34/35 matched (target 62)
 - **Missing functions:** `check`
 - **Types:** 4/4 matched (target 5)
 - **Missing types:** _none_
@@ -143,7 +143,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.45
 - **Dependents:** 0
 - **Priority Score:** 11005.5
-- **Functions:** 108/108 matched (target 147)
+- **Functions:** 108/108 matched (target 148)
 - **Missing functions:** _none_
 - **Types:** 2/2 matched (target 3)
 - **Missing types:** _none_
@@ -151,10 +151,10 @@ Every matched file is listed below with function and type symbol parity.
 ### 11. map.serde_seq
 
 - **Target:** `map.SerdeSeq`
-- **Similarity:** 0.30
+- **Similarity:** 0.62
 - **Dependents:** 0
-- **Priority Score:** 10607.0
-- **Functions:** 4/4 matched (target 7)
+- **Priority Score:** 10603.8
+- **Functions:** 4/4 matched (target 12)
 - **Missing functions:** _none_
 - **Types:** 1/2 matched
 - **Missing types:** `Value`
@@ -165,7 +165,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Similarity:** 0.59
 - **Dependents:** 0
 - **Priority Score:** 10004.1
-- **Functions:** 97/97 matched (target 148)
+- **Functions:** 97/97 matched (target 149)
 - **Missing functions:** _none_
 - **Types:** 3/3 matched (target 4)
 - **Missing types:** _none_
@@ -215,18 +215,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 11/11 matched (target 12)
 - **Missing types:** _none_
 
-### 17. lib
-
-- **Target:** `indexmap.Lib`
-- **Similarity:** 0.71
-- **Dependents:** 0
-- **Priority Score:** 2002.9
-- **Functions:** 15/15 matched (target 36)
-- **Missing functions:** _none_
-- **Types:** 5/5 matched (target 11)
-- **Missing types:** _none_
-
-### 18. map.mutable
+### 17. map.mutable
 
 - **Target:** `map.Mutable`
 - **Similarity:** 0.37
@@ -237,7 +226,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 5/5 matched
 - **Missing types:** _none_
 
-### 19. set.mutable
+### 18. set.mutable
 
 - **Target:** `set.Mutable`
 - **Similarity:** 0.63
@@ -248,7 +237,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 3/3 matched
 - **Missing types:** _none_
 
-### 20. borsh
+### 19. borsh
 
 - **Target:** `indexmap.Borsh`
 - **Similarity:** 0.38
@@ -260,7 +249,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 2/2 matched
 
-### 21. inner.extract
+### 20. inner.extract
 
 - **Target:** `inner.Extract`
 - **Similarity:** 0.61
@@ -271,7 +260,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/1 matched
 - **Missing types:** _none_
 
-### 22. util
+### 21. util
 
 - **Target:** `indexmap.Util`
 - **Similarity:** 0.68
@@ -282,7 +271,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched (target 7)
 - **Missing types:** _none_
 
-### 23. arbitrary
+### 22. arbitrary
 
 - **Target:** `indexmap.Arbitrary`
 - **Similarity:** 0.29
@@ -293,18 +282,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched (target 6)
 - **Missing types:** _none_
 
-### 24. rayon.mod
-
-- **Target:** `rayon.Mod [STUB]`
-- **Similarity:** 0.00
-- **Dependents:** 0
-- **Priority Score:** 110.0
-- **Functions:** 1/1 matched
-- **Missing functions:** _none_
-- **Types:** 0/0 matched
-- **Missing types:** _none_
-
-### 25. sval
+### 23. sval
 
 - **Target:** `indexmap.Sval`
 - **Similarity:** 0.48
@@ -315,7 +293,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched (target 3)
 - **Missing types:** _none_
 
-### 26. macros
+### 24. macros
 
 - **Target:** `indexmap.Macros [ZERO]`
 - **Similarity:** 0.00
@@ -334,4 +312,18 @@ For each file to be considered "complete":
 - All tests ported
 - Documentation ported
 - port-lint header present
+
+## Reexport / Wiring Modules
+
+These files match `reexport_modules` patterns in `.ast_distance_config.json`. They are filtered out of
+normal priority and missing-file ladders because they are wiring
+modules, not direct logic ports. Consult them for call-site routing;
+do not treat them as the next implementation target by default.
+
+### Missing
+
+| Source | Expected target | Deps | Source path | Expected path |
+|--------|-----------------|------|-------------|---------------|
+| `lib` | `Lib` | 0 | `lib.rs` | `Lib.kt` |
+| `rayon.mod` | `rayon.Mod` | 0 | `rayon/mod.rs` | `rayon/Mod.kt` |
 
