@@ -1,0 +1,4 @@
+SELECTED SERDE SEQUENCE LOOP; not a complete file or visitor translation
+source_utf16=3669..3758; line=133; bindings={seq=access, values=values}; seed=seed
+bindings assert Serde SeqAccess, equivalent collection insert operations, and payload DeserializeSeed; enclosing serdeCatching propagates errors
+engines=proc-macro2-kotlin:0.1.7,syn-kotlin:0.4.0; runtime=serde-core:0.1.12

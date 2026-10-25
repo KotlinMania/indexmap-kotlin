@@ -1,0 +1,8 @@
+[package]
+name = "indexmap-sequence-oracle"
+version = "0.0.0"
+edition = "2021"
+[dependencies]
+indexmap = { path = "../../../tmp/indexmap", features = ["serde"] }
+serde = { version = "=1.0.228", features = ["derive"] }
+serde_test = "=1.0.176"

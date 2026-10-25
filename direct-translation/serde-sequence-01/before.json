@@ -1,0 +1,8 @@
+{
+  "head": "380ce5d1bbe0a400ba1aedd49d5871cc62bbe880",
+  "files": {
+    "src/commonMain/kotlin/io/github/kotlinmania/indexmap/Serde.kt": "c348fa702a82cc94f5fbd40c998ace950557c2f97020befca4d20da74b35abe2",
+    "src/commonMain/kotlin/io/github/kotlinmania/indexmap/map/SerdeSeq.kt": "8c8ca85a03fc9b880b61c189600a0748bceeca7668422ae7c690bd52fad42c20",
+    "src/commonTest/kotlin/io/github/kotlinmania/indexmap/SerdeTest.kt": "603351e1c0362049cb33c3112ec7dde88158e603e354dc3f2b70409b257bd161"
+  }
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "target": "src/commonMain/kotlin/io/github/kotlinmania/indexmap/Serde.kt",
+    "raw": "set/generated.kt",
+    "raw_sha256": "2dabc0b0364f7b1e1a0a01f7e5c7c8126fdc4f4e636da358b7e4f7a603eceee7",
+    "target_sha256": "adfc85d4a582fe5d491ba38c9c183fb37c23c6c2c5ace0ac91fc404f559831d5",
+    "integration": "indentation only; containing visitor not claimed generated"
+  },
+  {
+    "target": "src/commonMain/kotlin/io/github/kotlinmania/indexmap/map/SerdeSeq.kt",
+    "raw": "map/generated.kt",
+    "raw_sha256": "56d1167b52fd4ddeca95aa44191fa3aa7f09b7cff12ad2eb3438160f354abb93",
+    "target_sha256": "27c4722d24b7b506fe7be28b02de56444424589fde33a0248730ffba883c448b",
+    "integration": "indentation only; containing visitor not claimed generated"
+  }
+]
