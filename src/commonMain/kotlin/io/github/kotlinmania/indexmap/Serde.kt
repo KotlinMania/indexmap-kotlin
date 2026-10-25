@@ -127,8 +127,13 @@ public class IndexSetVisitor<T> : Visitor<IndexSet<T>> {
             val values = IndexSet.withCapacity<T>(capacity)
             val seed = SeedFromDeserialize(ed)
             while (true) {
-                val next = access.nextElementSeed(seed).getOrThrow() ?: break
-                values.insert(next)
+                when (val `__serdeNext0` = `access`.nextElementSeed(`seed`).getOrThrow()) {
+                    is io.github.kotlinmania.serdecore.de.SeqElement.Some -> {
+                        val `value` = `__serdeNext0`.value
+                        `values`.insert(`value`)
+                    }
+                    io.github.kotlinmania.serdecore.de.SeqElement.None -> break
+                }
             }
             values
         }

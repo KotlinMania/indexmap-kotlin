@@ -2,16 +2,68 @@
 package io.github.kotlinmania.indexmap
 
 import io.github.kotlinmania.indexmap.map.asSequenced
+import io.github.kotlinmania.serde.SerdeResult
+import io.github.kotlinmania.serdecore.de.Deserialize
+import io.github.kotlinmania.serdecore.de.Deserializer
 import io.github.kotlinmania.serdecore.de.I32Deserialize
 import io.github.kotlinmania.serdecore.de.StringDeserialize
+import io.github.kotlinmania.serdecore.de.nullableDeserialize
 import io.github.kotlinmania.serdetest.Token
 import io.github.kotlinmania.serdetest.assertDeTokens
+import io.github.kotlinmania.serdetest.assertDeTokensError
 import io.github.kotlinmania.serdetest.assertSerTokens
 import io.github.kotlinmania.serdetest.assertTokens
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class SerdeTest {
+    @Test
+    fun sequenceEndIsSeparateFromNullableSetElements() {
+        val expected = IndexSet.new<String?>()
+        expected.insert(null)
+        expected.insert("later")
+        assertDeTokens(
+            expected, indexSetDeserialize(nullableDeserialize(StringDeserialize)),
+            listOf(Token.Seq(3), Token.None, Token.Some, Token.Str("later"), Token.None, Token.SeqEnd),
+        )
+    }
+
+    @Test
+    fun sequencedMapPreservesNullablePayloadsAndDuplicateKeyOrder() {
+        val expected = IndexMap.new<String?, Int?>()
+        expected.insert(null, 9)
+        expected.insert("later", null)
+        val decoder = io.github.kotlinmania.indexmap.map.deserialize(
+            nullableDeserialize(StringDeserialize), nullableDeserialize(I32Deserialize),
+        )
+        val tokens = listOf(
+            Token.Seq(3),
+            Token.Tuple(2), Token.None, Token.Some, Token.I32(7), Token.TupleEnd,
+            Token.Tuple(2), Token.Some, Token.Str("later"), Token.None, Token.TupleEnd,
+            Token.Tuple(2), Token.None, Token.Some, Token.I32(9), Token.TupleEnd,
+            Token.SeqEnd,
+        )
+        assertDeTokens(expected, decoder, tokens)
+        val ordered = object : Deserialize<List<Pair<String?, Int?>>> {
+            override fun <D : Deserializer> deserialize(deserializer: D): SerdeResult<List<Pair<String?, Int?>>> =
+                decoder.deserialize(deserializer).map { it.toList() }
+        }
+        assertDeTokens(listOf(null to 9, "later" to null), ordered, tokens)
+    }
+
+    @Test
+    fun emptyAndInvalidSequencesKeepTheirSourceBehavior() {
+        assertDeTokens(IndexSet.new<Int>(), indexSetDeserialize(I32Deserialize), listOf(Token.Seq(0), Token.SeqEnd))
+        assertDeTokens(
+            IndexMap.new<String, Int>(), io.github.kotlinmania.indexmap.map.deserialize(StringDeserialize, I32Deserialize),
+            listOf(Token.Seq(0), Token.SeqEnd),
+        )
+        assertDeTokensError(
+            indexSetDeserialize(I32Deserialize), listOf(Token.Seq(2), Token.I32(1), Token.Str("bad")),
+            "invalid type: string \"bad\", expected i32",
+        )
+    }
+
     @Test
     fun testVisitorsAndIntoDeserializer() {
         val mapVisitor = IndexMapVisitor<String, Int>()

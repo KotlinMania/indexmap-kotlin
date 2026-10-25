@@ -911,10 +911,10 @@ kotlin {
         // package. The project.ffi.* switches decide whether they compile, the
         // same way they gate the C/JNI/N-API builds.
         if (!napiFfiEnabled) {
-            jsMain { kotlin.exclude("io/github/kotlinmania/template/**") }
+            jsMain { kotlin.exclude("io/github/kotlinmania/indexmap/**") }
         }
         if (!jvmFfiEnabled) {
-            jvmMain { kotlin.exclude("io/github/kotlinmania/template/internal/**") }
+            jvmMain { kotlin.exclude("io/github/kotlinmania/indexmap/internal/**") }
         }
         commonMain.dependencies {
             implementation(commonMainDependencyBundle)

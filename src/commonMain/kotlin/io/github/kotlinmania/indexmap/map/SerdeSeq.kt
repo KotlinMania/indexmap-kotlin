@@ -75,8 +75,13 @@ public class SeqVisitor<K, V> : Visitor<IndexMap<K, V>> {
             val map = IndexMap.withCapacity<K, V>(capacity)
             val pairSeed = SeedFromDeserialize(pairDeserialize(kd, vd))
             while (true) {
-                val next = access.nextElementSeed(pairSeed).getOrThrow() ?: break
-                map.insert(next.first, next.second)
+                when (val `__serdeNext0` = `access`.nextElementSeed(`pairSeed`).getOrThrow()) {
+                    is io.github.kotlinmania.serdecore.de.SeqElement.Some -> {
+                        val (`key`, `value`) = `__serdeNext0`.value
+                        `map`.insert(`key`, `value`)
+                    }
+                    io.github.kotlinmania.serdecore.de.SeqElement.None -> break
+                }
             }
             map
         }
