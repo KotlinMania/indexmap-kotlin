@@ -1,4 +1,4 @@
-=== Deep Analysis: tmp/indexmap/src (rust) -> src/commonMain/kotlin/io/github/kotlinmania/indexmap (kotlin) ===
+=== Deep Analysis: tmp/indexmap/src (rust) -> src/common/commonMain/kotlin/io/github/kotlinmania/indexmap (kotlin) ===
 
 Scanning source codebase (rust)...
 Codebase: tmp/indexmap/src (rust)
@@ -7,7 +7,7 @@ Codebase: tmp/indexmap/src (rust)
   Most depended: map.slice (5 dependents)
 
 Scanning target codebase (kotlin)...
-Codebase: src/commonMain/kotlin/io/github/kotlinmania/indexmap (kotlin)
+Codebase: src/common/commonMain/kotlin/io/github/kotlinmania/indexmap (kotlin)
   Files: 35
   Total imports: 173
   Most depended: map.Entry (2 dependents)
@@ -18,7 +18,7 @@ Computing AST similarities...
 === Codebase Comparison Report ===
 
 Source: tmp/indexmap/src (26 files)
-Target: src/commonMain/kotlin/io/github/kotlinmania/indexmap (35 files)
+Target: src/common/commonMain/kotlin/io/github/kotlinmania/indexmap (35 files)
 Scoring invariant: FnSim is required function body/parameter similarity. Class/type and symbol parity are reported beside it; whole-file shape is diagnostic only.
 
 Matched:   19 files
