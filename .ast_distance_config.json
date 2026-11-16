@@ -7,7 +7,7 @@
     "lang": "rust"
   },
   "target": {
-    "path": "src/commonMain/kotlin/io/github/kotlinmania/indexmap",
+    "path": "src/common/commonMain/kotlin/io/github/kotlinmania/indexmap",
     "lang": "kotlin"
   },
   "checks": {

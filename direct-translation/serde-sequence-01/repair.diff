@@ -1,0 +1,40 @@
+diff --git a/src/commonMain/kotlin/io/github/kotlinmania/indexmap/Serde.kt b/src/commonMain/kotlin/io/github/kotlinmania/indexmap/Serde.kt
+index 51e15ee..a376a4a 100644
+--- a/src/commonMain/kotlin/io/github/kotlinmania/indexmap/Serde.kt
++++ b/src/commonMain/kotlin/io/github/kotlinmania/indexmap/Serde.kt
+@@ -127,8 +127,13 @@ public class IndexSetVisitor<T> : Visitor<IndexSet<T>> {
+             val values = IndexSet.withCapacity<T>(capacity)
+             val seed = SeedFromDeserialize(ed)
+             while (true) {
+-                val next = access.nextElementSeed(seed).getOrThrow() ?: break
+-                values.insert(next)
++                when (val `__serdeNext0` = `access`.nextElementSeed(`seed`).getOrThrow()) {
++                    is io.github.kotlinmania.serdecore.de.SeqElement.Some -> {
++                        val `value` = `__serdeNext0`.value
++                        `values`.insert(`value`)
++                    }
++                    io.github.kotlinmania.serdecore.de.SeqElement.None -> break
++                }
+             }
+             values
+         }
+diff --git a/src/commonMain/kotlin/io/github/kotlinmania/indexmap/map/SerdeSeq.kt b/src/commonMain/kotlin/io/github/kotlinmania/indexmap/map/SerdeSeq.kt
+index e2727da..c3dc538 100644
+--- a/src/commonMain/kotlin/io/github/kotlinmania/indexmap/map/SerdeSeq.kt
++++ b/src/commonMain/kotlin/io/github/kotlinmania/indexmap/map/SerdeSeq.kt
+@@ -75,8 +75,13 @@ public class SeqVisitor<K, V> : Visitor<IndexMap<K, V>> {
+             val map = IndexMap.withCapacity<K, V>(capacity)
+             val pairSeed = SeedFromDeserialize(pairDeserialize(kd, vd))
+             while (true) {
+-                val next = access.nextElementSeed(pairSeed).getOrThrow() ?: break
+-                map.insert(next.first, next.second)
++                when (val `__serdeNext0` = `access`.nextElementSeed(`pairSeed`).getOrThrow()) {
++                    is io.github.kotlinmania.serdecore.de.SeqElement.Some -> {
++                        val (`key`, `value`) = `__serdeNext0`.value
++                        `map`.insert(`key`, `value`)
++                    }
++                    io.github.kotlinmania.serdecore.de.SeqElement.None -> break
++                }
+             }
+             map
+         }

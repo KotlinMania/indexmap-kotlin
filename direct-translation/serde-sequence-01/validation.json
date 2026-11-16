@@ -1,0 +1,57 @@
+{
+  "status": "passed; local publication succeeded",
+  "tests": {
+    "translator": {
+      "tests": 184,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "jvm": {
+      "tests": 260,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "macos": {
+      "tests": 260,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "rust_cases": [
+    "nullable-set:pass",
+    "nullable-map-duplicate:pass",
+    "empty-set:pass",
+    "empty-map:pass",
+    "decode-error:pass"
+  ],
+  "rust_source": "tmp/indexmap (original local source)",
+  "adoption": [
+    {
+      "target": "src/commonMain/kotlin/io/github/kotlinmania/indexmap/Serde.kt",
+      "raw": "set/generated.kt",
+      "raw_sha256": "2dabc0b0364f7b1e1a0a01f7e5c7c8126fdc4f4e636da358b7e4f7a603eceee7",
+      "target_sha256": "adfc85d4a582fe5d491ba38c9c183fb37c23c6c2c5ace0ac91fc404f559831d5",
+      "integration": "indentation only; containing visitor not claimed generated"
+    },
+    {
+      "target": "src/commonMain/kotlin/io/github/kotlinmania/indexmap/map/SerdeSeq.kt",
+      "raw": "map/generated.kt",
+      "raw_sha256": "56d1167b52fd4ddeca95aa44191fa3aa7f09b7cff12ad2eb3438160f354abb93",
+      "target_sha256": "27c4722d24b7b506fe7be28b02de56444424589fde33a0248730ffba883c448b",
+      "integration": "indentation only; containing visitor not claimed generated"
+    }
+  ],
+  "generator_sha256": "6a413d107139a72a42c68b277dd599dff3599e438b9def678de17a6bdd4fd8c3",
+  "android_native_arm64_compile": "passed in kotlin-validation-01.log",
+  "limits": [
+    "Two generated loop fragments, not complete visitor or source-file translation",
+    "Runtime tests executed on JVM and macOS; other targets compiled/published only",
+    "User-staged directory cleanup and config changes preserved"
+  ],
+  "publication": "IndexMap 0.1.5: publishToMavenLocal successful (167 tasks)",
+  "published_root_pom_sha256": "45874e2265e5cb4be40bb32e7e169c9b5ac1ab7961bac6086eb8ed319c500da5",
+  "generator_commit": "2f0e18e8fa3b8555c691c9c1ed675a0418a7216b"
+}

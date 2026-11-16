@@ -16,15 +16,15 @@ For every Rust crate this repo owns (under `tmp/`), this file lists every **cros
 
 | package | module | inbound use sites | distinct caller crates | distinct caller repos | codex sites |
 |---|---|---:|---:|---:|---:|
-| `indexmap` | `indexmap` | 72 | 12 | 11 | 2 |
+| `indexmap` | `indexmap` | 74 | 13 | 12 | 2 |
 
 ## `indexmap`
 
-### Inbound symbols (17 distinct, 72 total `use` sites)
+### Inbound symbols (18 distinct, 74 total `use` sites)
 
 Sorted by codex demand, then total demand. The first symbols are the priority queue for porting `indexmap`.
 
-#### `indexmap::IndexMap` — 13 site(s) (2 codex, 11 other, 9 caller crates)
+#### `indexmap::IndexMap` — 14 site(s) (2 codex, 12 other, 10 caller crates)
 
 - ✅ `codex-kotlin/codex-core` `src/state/turn.rs:4` — `use indexmap::IndexMap`
 - ✅ `codex-kotlin/codex-core` `src/tools/network_approval.rs:30` — `use indexmap::IndexMap`
@@ -34,11 +34,11 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 - `starlark-kotlin/allocative` `src/impls/indexmap.rs:6` — `use indexmap::IndexMap`
 - `starlark-kotlin/pagable` `src/impls/collections.rs:429` — `use indexmap::IndexMap`
 - `toml-kotlin/toml` `src/map.rs:26` — `use indexmap::IndexMap`
+- `tower-kotlin/tower` `src/ready_cache/cache.rs:7` — `use indexmap::IndexMap`
 - `ts-rs-kotlin/ts-rs` `tests/integration/indexmap.rs:3` — `use indexmap::IndexMap`
 - `zip-kotlin/zip` `src/read.rs:19` — `use indexmap::IndexMap`
 - `zip-kotlin/zip` `src/read.rs:44` — `use indexmap::IndexMap`
-- `zip-kotlin/zip` `src/read/stream.rs:6` — `use indexmap::IndexMap`
-- _… and 1 more site(s)._
+- _… and 2 more site(s)._
 
 #### `indexmap::map::MutableKeys` — 12 site(s) (0 codex, 12 other, 2 caller crates)
 
@@ -134,6 +134,10 @@ Sorted by codex demand, then total demand. The first symbols are the priority qu
 #### `indexmap2::indexset` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 
 - `schemars-kotlin/schemars` `tests/integration/indexmap.rs:2` — `use indexmap2::indexset`
+
+#### `indexmap::Equivalent` — 1 site(s) (0 codex, 1 other, 1 caller crates)
+
+- `tower-kotlin/tower` `src/ready_cache/cache.rs:6` — `pub_use indexmap::Equivalent`
 
 #### `indexmap::map::IndexMap` — 1 site(s) (0 codex, 1 other, 1 caller crates)
 

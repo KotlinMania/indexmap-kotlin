@@ -1,0 +1,2146 @@
+To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+Daemon will be stopped at the end of the build 
+
+> Configure project :
+w: file:///Volumes/stuff/Projects/kotlinmania/indexmap-kotlin/build.gradle.kts:451:5: Experimental API in the Kotlin Gradle Plugin: No stability guarantees can be provided. The API could get removed in the future without replacement
+w: file:///Volumes/stuff/Projects/kotlinmania/indexmap-kotlin/build.gradle.kts:452:9: Experimental API in the Kotlin Gradle Plugin: No stability guarantees can be provided. The API could get removed in the future without replacement
+w: file:///Volumes/stuff/Projects/kotlinmania/indexmap-kotlin/build.gradle.kts:452:9: Experimental API in the Kotlin Gradle Plugin: No stability guarantees can be provided. The API could get removed in the future without replacement
+w: file:///Volumes/stuff/Projects/kotlinmania/indexmap-kotlin/build.gradle.kts:453:13: Experimental API in the Kotlin Gradle Plugin: No stability guarantees can be provided. The API could get removed in the future without replacement
+w: file:///Volumes/stuff/Projects/kotlinmania/indexmap-kotlin/build.gradle.kts:453:13: Experimental API in the Kotlin Gradle Plugin: No stability guarantees can be provided. The API could get removed in the future without replacement
+w: file:///Volumes/stuff/Projects/kotlinmania/indexmap-kotlin/build.gradle.kts:454:17: Experimental API in the Kotlin Gradle Plugin: No stability guarantees can be provided. The API could get removed in the future without replacement
+w: file:///Volumes/stuff/Projects/kotlinmania/indexmap-kotlin/build.gradle.kts:454:17: Experimental API in the Kotlin Gradle Plugin: No stability guarantees can be provided. The API could get removed in the future without replacement
+w: file:///Volumes/stuff/Projects/kotlinmania/indexmap-kotlin/build.gradle.kts:455:21: Experimental API in the Kotlin Gradle Plugin: No stability guarantees can be provided. The API could get removed in the future without replacement
+w: file:///Volumes/stuff/Projects/kotlinmania/indexmap-kotlin/build.gradle.kts:455:21: Experimental API in the Kotlin Gradle Plugin: No stability guarantees can be provided. The API could get removed in the future without replacement
+w: file:///Volumes/stuff/Projects/kotlinmania/indexmap-kotlin/build.gradle.kts:456:21: Experimental API in the Kotlin Gradle Plugin: No stability guarantees can be provided. The API could get removed in the future without replacement
+w: file:///Volumes/stuff/Projects/kotlinmania/indexmap-kotlin/build.gradle.kts:456:21: Experimental API in the Kotlin Gradle Plugin: No stability guarantees can be provided. The API could get removed in the future without replacement
+w: file:///Volumes/stuff/Projects/kotlinmania/indexmap-kotlin/build.gradle.kts:457:21: Experimental API in the Kotlin Gradle Plugin: No stability guarantees can be provided. The API could get removed in the future without replacement
+w: file:///Volumes/stuff/Projects/kotlinmania/indexmap-kotlin/build.gradle.kts:457:21: Experimental API in the Kotlin Gradle Plugin: No stability guarantees can be provided. The API could get removed in the future without replacement
+
+> Task :kmpPartiallyResolvedDependenciesChecker
+> Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :jvmProcessResources NO-SOURCE
+> Task :processJvmMainResources SKIPPED
+> Task :jvmTestProcessResources NO-SOURCE
+> Task :processJvmTestResources SKIPPED
+> Task :downloadKotlinNativeDistribution UP-TO-DATE
+> Task :compileKotlinMacosArm64
+> Task :macosArm64ProcessResources NO-SOURCE
+> Task :macosArm64MainKlibrary
+> Task :compileKotlinJvm
+> Task :compileTestKotlinMacosArm64
+> Task :compileJvmMainJava NO-SOURCE
+> Task :jvmMainClasses
+> Task :jvmJar
+> Task :validateLocalSwiftPMDependencies
+> Task :computeLocalPackageDependencyInputFiles
+> Task :fingerprintSyntheticPackage
+> Task :generateSyntheticLinkageSwiftPMImportProjectForCinteropsAndLdDump SKIPPED
+> Task :serializeSwiftPMDependenciesMetadataForLockFiles
+> Task :generateUmbrellaPackageIdentifierBasedResolutionForDefault SKIPPED
+> Task :fetchUmbrellaPackageIdentifierForDefault SKIPPED
+> Task :syncPersistedPackageResolvedToSynthetic SKIPPED
+> Task :fetchSyntheticImportProjectPackages SKIPPED
+> Task :fingerprintXcodebuildMacosx
+> Task :dumpXcodebuildArgsMacosx SKIPPED
+> Task :convertSyntheticImportProjectIntoDefFileMacosx
+> Task :compileTestKotlinJvm
+> Task :linkDebugTestMacosArm64
+> Task :compileJvmTestJava NO-SOURCE
+> Task :jvmTestClasses
+
+> Task :jvmTest
+
+ArbitraryTest[jvm] > arbitrarySetCreation[jvm] STARTED
+
+ArbitraryTest[jvm] > arbitrarySetCreation[jvm] PASSED
+
+ArbitraryTest[jvm] > arbitraryMapCreation[jvm] STARTED
+
+ArbitraryTest[jvm] > arbitraryMapCreation[jvm] PASSED
+
+ArbitraryTest[jvm] > testShrink[jvm] STARTED
+
+ArbitraryTest[jvm] > testShrink[jvm] PASSED
+
+BorshTest[jvm] > setBorshRoundtrip[jvm] STARTED
+
+BorshTest[jvm] > setBorshRoundtrip[jvm] PASSED
+
+BorshTest[jvm] > setDeserializeReader[jvm] STARTED
+
+BorshTest[jvm] > setDeserializeReader[jvm] PASSED
+
+BorshTest[jvm] > mapBorshRoundtrip[jvm] STARTED
+
+BorshTest[jvm] > mapBorshRoundtrip[jvm] PASSED
+
+BorshTest[jvm] > zstCheckForbidden[jvm] STARTED
+
+BorshTest[jvm] > zstCheckForbidden[jvm] PASSED
+
+BorshTest[jvm] > mapDeserializeReader[jvm] STARTED
+
+BorshTest[jvm] > mapDeserializeReader[jvm] PASSED
+
+EquivalentTraitTest[jvm] > testStringStr[jvm] STARTED
+
+EquivalentTraitTest[jvm] > testStringStr[jvm] PASSED
+
+EquivalentTraitTest[jvm] > testLookup[jvm] STARTED
+
+EquivalentTraitTest[jvm] > testLookup[jvm] PASSED
+
+LibTest[jvm] > hashValueGetExposesUnderlyingRaw[jvm] STARTED
+
+LibTest[jvm] > hashValueGetExposesUnderlyingRaw[jvm] PASSED
+
+LibTest[jvm] > bucketAccessorsReturnFields[jvm] STARTED
+
+LibTest[jvm] > bucketAccessorsReturnFields[jvm] PASSED
+
+LibTest[jvm] > tryReserveErrorCapacityOverflowMessage[jvm] STARTED
+
+LibTest[jvm] > tryReserveErrorCapacityOverflowMessage[jvm] PASSED
+
+LibTest[jvm] > tryReserveErrorStdVariantPreservesUnderlyingDisplay[jvm] STARTED
+
+LibTest[jvm] > tryReserveErrorStdVariantPreservesUnderlyingDisplay[jvm] PASSED
+
+LibTest[jvm] > getDisjointMutErrorDisplay[jvm] STARTED
+
+LibTest[jvm] > getDisjointMutErrorDisplay[jvm] PASSED
+
+LibTest[jvm] > bucketCloneCopiesEveryField[jvm] STARTED
+
+LibTest[jvm] > bucketCloneCopiesEveryField[jvm] PASSED
+
+LibTest[jvm] > bucketCloneFromOverwritesEveryField[jvm] STARTED
+
+LibTest[jvm] > bucketCloneFromOverwritesEveryField[jvm] PASSED
+
+LibTest[jvm] > tryReserveErrorAllocErrorMessage[jvm] STARTED
+
+LibTest[jvm] > tryReserveErrorAllocErrorMessage[jvm] PASSED
+
+LibTest[jvm] > tryReserveErrorEqualityIsStructural[jvm] STARTED
+
+LibTest[jvm] > tryReserveErrorEqualityIsStructural[jvm] PASSED
+
+LibTest[jvm] > hashValueEqualityIsStructural[jvm] STARTED
+
+LibTest[jvm] > hashValueEqualityIsStructural[jvm] PASSED
+
+MacrosFullPathTest[jvm] > testCreateMap[jvm] STARTED
+
+MacrosFullPathTest[jvm] > testCreateMap[jvm] PASSED
+
+MacrosFullPathTest[jvm] > testCreateSet[jvm] STARTED
+
+MacrosFullPathTest[jvm] > testCreateSet[jvm] PASSED
+
+MapTest[jvm] > orderedEntryHelpersSearchSortAndPartition[jvm] STARTED
+
+MapTest[jvm] > orderedEntryHelpersSearchSortAndPartition[jvm] PASSED
+
+MapTest[jvm] > insertKeepsInsertionOrderAndUpdatesExistingValuesInPlace[jvm] STARTED
+
+MapTest[jvm] > insertKeepsInsertionOrderAndUpdatesExistingValuesInPlace[jvm] PASSED
+
+MapTest[jvm] > insertBeforeMovesExistingKeysAroundTheInsertionPoint[jvm] STARTED
+
+MapTest[jvm] > insertBeforeMovesExistingKeysAroundTheInsertionPoint[jvm] PASSED
+
+MapTest[jvm] > clearTruncateAndIndexLookupTrackCompactIndices[jvm] STARTED
+
+MapTest[jvm] > clearTruncateAndIndexLookupTrackCompactIndices[jvm] PASSED
+
+MapTest[jvm] > cloneDrainSplitSpliceAndAppendMirrorOrderedEntries[jvm] STARTED
+
+MapTest[jvm] > cloneDrainSplitSpliceAndAppendMirrorOrderedEntries[jvm] PASSED
+
+MapTest[jvm] > shiftAndSwapRemovalHaveDifferentOrderEffects[jvm] STARTED
+
+MapTest[jvm] > shiftAndSwapRemovalHaveDifferentOrderEffects[jvm] PASSED
+
+MapTest[jvm] > removalRetainReverseAndEntriesPreserveOrder[jvm] STARTED
+
+MapTest[jvm] > removalRetainReverseAndEntriesPreserveOrder[jvm] PASSED
+
+MapTest[jvm] > mapMutatingAccessorsAndSliceHelpersWork[jvm] STARTED
+
+MapTest[jvm] > mapMutatingAccessorsAndSliceHelpersWork[jvm] PASSED
+
+MapTest[jvm] > shiftInsertMovesExistingKeysToTheRequestedIndex[jvm] STARTED
+
+MapTest[jvm] > shiftInsertMovesExistingKeysToTheRequestedIndex[jvm] PASSED
+
+QuickTest[jvm] > testMapMoveIndex[jvm] STARTED
+
+QuickTest[jvm] > testMapMoveIndex[jvm] PASSED
+
+QuickTest[jvm] > testPop[jvm] STARTED
+
+QuickTest[jvm] > testPop[jvm] PASSED
+
+QuickTest[jvm] > testShiftRemove[jvm] STARTED
+
+QuickTest[jvm] > testShiftRemove[jvm] PASSED
+
+QuickTest[jvm] > testSort[jvm] STARTED
+
+QuickTest[jvm] > testSort[jvm] PASSED
+
+QuickTest[jvm] > testWithCapacity[jvm] STARTED
+
+QuickTest[jvm] > testWithCapacity[jvm] PASSED
+
+QuickTest[jvm] > testSetMoveIndex[jvm] STARTED
+
+QuickTest[jvm] > testSetMoveIndex[jvm] PASSED
+
+QuickTest[jvm] > testContainsNot[jvm] STARTED
+
+QuickTest[jvm] > testContainsNot[jvm] PASSED
+
+QuickTest[jvm] > testMapSwapIndices[jvm] STARTED
+
+QuickTest[jvm] > testMapSwapIndices[jvm] PASSED
+
+QuickTest[jvm] > testContains[jvm] STARTED
+
+QuickTest[jvm] > testContains[jvm] PASSED
+
+QuickTest[jvm] > testSetSwapIndices[jvm] STARTED
+
+QuickTest[jvm] > testSetSwapIndices[jvm] PASSED
+
+QuickTest[jvm] > testDrainFull[jvm] STARTED
+
+QuickTest[jvm] > testDrainFull[jvm] PASSED
+
+QuickTest[jvm] > testReverse[jvm] STARTED
+
+QuickTest[jvm] > testReverse[jvm] PASSED
+
+QuickTest[jvm] > testIndexing[jvm] STARTED
+
+QuickTest[jvm] > testIndexing[jvm] PASSED
+
+QuickTest[jvm] > testRetainOrdered[jvm] STARTED
+
+QuickTest[jvm] > testRetainOrdered[jvm] PASSED
+
+QuickTest[jvm] > testInsertionOrder[jvm] STARTED
+
+QuickTest[jvm] > testInsertionOrder[jvm] PASSED
+
+QuickTest[jvm] > testInsertRemove[jvm] STARTED
+
+QuickTest[jvm] > testInsertRemove[jvm] PASSED
+
+QuickTest[jvm] > testInsertSorted[jvm] STARTED
+
+QuickTest[jvm] > testInsertSorted[jvm] PASSED
+
+SerdeTest[jvm] > testIndexSetSerdeTokens[jvm] STARTED
+
+SerdeTest[jvm] > testIndexSetSerdeTokens[jvm] PASSED
+
+SerdeTest[jvm] > testSliceSerdeTokens[jvm] STARTED
+
+SerdeTest[jvm] > testSliceSerdeTokens[jvm] PASSED
+
+SerdeTest[jvm] > sequencedMapPreservesNullablePayloadsAndDuplicateKeyOrder[jvm] STARTED
+
+SerdeTest[jvm] > sequencedMapPreservesNullablePayloadsAndDuplicateKeyOrder[jvm] PASSED
+
+SerdeTest[jvm] > emptyAndInvalidSequencesKeepTheirSourceBehavior[jvm] STARTED
+
+SerdeTest[jvm] > emptyAndInvalidSequencesKeepTheirSourceBehavior[jvm] PASSED
+
+SerdeTest[jvm] > testSetSliceSerdeTokens[jvm] STARTED
+
+SerdeTest[jvm] > testSetSliceSerdeTokens[jvm] PASSED
+
+SerdeTest[jvm] > testIndexMapSeqSerdeTokens[jvm] STARTED
+
+SerdeTest[jvm] > testIndexMapSeqSerdeTokens[jvm] PASSED
+
+SerdeTest[jvm] > sequenceEndIsSeparateFromNullableSetElements[jvm] STARTED
+
+SerdeTest[jvm] > sequenceEndIsSeparateFromNullableSetElements[jvm] PASSED
+
+SerdeTest[jvm] > testVisitorsAndIntoDeserializer[jvm] STARTED
+
+SerdeTest[jvm] > testVisitorsAndIntoDeserializer[jvm] PASSED
+
+SerdeTest[jvm] > testIndexMapSerdeTokens[jvm] STARTED
+
+SerdeTest[jvm] > testIndexMapSerdeTokens[jvm] PASSED
+
+SetTest[jvm] > shiftInsertMovesExistingValuesToTheRequestedIndex[jvm] STARTED
+
+SetTest[jvm] > shiftInsertMovesExistingValuesToTheRequestedIndex[jvm] PASSED
+
+SetTest[jvm] > replaceDup[jvm] STARTED
+
+SetTest[jvm] > replaceDup[jvm] PASSED
+
+SetTest[jvm] > retainRangeSpliceAndSetOperationsPreserveExpectedOrder[jvm] STARTED
+
+SetTest[jvm] > retainRangeSpliceAndSetOperationsPreserveExpectedOrder[jvm] PASSED
+
+SetTest[jvm] > comparisons[jvm] STARTED
+
+SetTest[jvm] > comparisons[jvm] PASSED
+
+SetTest[jvm] > insertDup[jvm] STARTED
+
+SetTest[jvm] > insertDup[jvm] PASSED
+
+SetTest[jvm] > insertOrder[jvm] STARTED
+
+SetTest[jvm] > insertOrder[jvm] PASSED
+
+SetTest[jvm] > grow[jvm] STARTED
+
+SetTest[jvm] > grow[jvm] PASSED
+
+SetTest[jvm] > iterComparisons[jvm] STARTED
+
+SetTest[jvm] > iterComparisons[jvm] PASSED
+
+SetTest[jvm] > insertBeforeMovesExistingValuesAroundTheInsertionPoint[jvm] STARTED
+
+SetTest[jvm] > insertBeforeMovesExistingValuesAroundTheInsertionPoint[jvm] PASSED
+
+SetTest[jvm] > orderedHelpersSearchSortAndPartition[jvm] STARTED
+
+SetTest[jvm] > orderedHelpersSearchSortAndPartition[jvm] PASSED
+
+SetTest[jvm] > replaceOrder[jvm] STARTED
+
+SetTest[jvm] > replaceOrder[jvm] PASSED
+
+SetTest[jvm] > insertKeepsInsertionOrderAndRejectsDuplicates[jvm] STARTED
+
+SetTest[jvm] > insertKeepsInsertionOrderAndRejectsDuplicates[jvm] PASSED
+
+SetTest[jvm] > insertFull[jvm] STARTED
+
+SetTest[jvm] > insertFull[jvm] PASSED
+
+SetTest[jvm] > setSliceEntriesAndTakeMethodsWorkAsExpected[jvm] STARTED
+
+SetTest[jvm] > setSliceEntriesAndTakeMethodsWorkAsExpected[jvm] PASSED
+
+SetTest[jvm] > shiftAndSwapRemovalHaveDifferentOrderEffects[jvm] STARTED
+
+SetTest[jvm] > shiftAndSwapRemovalHaveDifferentOrderEffects[jvm] PASSED
+
+SetTest[jvm] > partialEqAndEq[jvm] STARTED
+
+SetTest[jvm] > partialEqAndEq[jvm] PASSED
+
+SetTest[jvm] > swapRemoveIndex[jvm] STARTED
+
+SetTest[jvm] > swapRemoveIndex[jvm] PASSED
+
+SetTest[jvm] > itWorks[jvm] STARTED
+
+SetTest[jvm] > itWorks[jvm] PASSED
+
+SvalTest[jvm] > mapAndSetStreamMethod[jvm] STARTED
+
+SvalTest[jvm] > mapAndSetStreamMethod[jvm] PASSED
+
+SvalTest[jvm] > mapStreamEvents[jvm] STARTED
+
+SvalTest[jvm] > mapStreamEvents[jvm] PASSED
+
+SvalTest[jvm] > setStreamEvents[jvm] STARTED
+
+SvalTest[jvm] > setStreamEvents[jvm] PASSED
+
+TestsTest[jvm] > testSort[jvm] STARTED
+
+TestsTest[jvm] > testSort[jvm] PASSED
+
+TestsTest[jvm] > testCreateMap[jvm] STARTED
+
+TestsTest[jvm] > testCreateMap[jvm] PASSED
+
+TestsTest[jvm] > testCreateSet[jvm] STARTED
+
+TestsTest[jvm] > testCreateSet[jvm] PASSED
+
+TestsTest[jvm] > testSortSet[jvm] STARTED
+
+TestsTest[jvm] > testSortSet[jvm] PASSED
+
+UtilTest[jvm] > sliceEqUsesCustomComparator[jvm] STARTED
+
+UtilTest[jvm] > sliceEqUsesCustomComparator[jvm] PASSED
+
+UtilTest[jvm] > trySimplifyRangeReturnsNullForInvalidBounds[jvm] STARTED
+
+UtilTest[jvm] > trySimplifyRangeReturnsNullForInvalidBounds[jvm] PASSED
+
+UtilTest[jvm] > simplifyRangeRejectsOutOfRangeStart[jvm] STARTED
+
+UtilTest[jvm] > simplifyRangeRejectsOutOfRangeStart[jvm] PASSED
+
+UtilTest[jvm] > simplifyRangeRejectsInvertedRange[jvm] STARTED
+
+UtilTest[jvm] > simplifyRangeRejectsInvertedRange[jvm] PASSED
+
+UtilTest[jvm] > simplifyRangeHandlesUnboundedAndIncludedBounds[jvm] STARTED
+
+UtilTest[jvm] > simplifyRangeHandlesUnboundedAndIncludedBounds[jvm] PASSED
+
+UtilTest[jvm] > simplifyRangeHandlesExcludedBounds[jvm] STARTED
+
+UtilTest[jvm] > simplifyRangeHandlesExcludedBounds[jvm] PASSED
+
+UtilTest[jvm] > thirdReturnsTupleTail[jvm] STARTED
+
+UtilTest[jvm] > thirdReturnsTupleTail[jvm] PASSED
+
+InnerTest[jvm] > coreBasicOperations[jvm] STARTED
+
+InnerTest[jvm] > coreBasicOperations[jvm] PASSED
+
+InnerTest[jvm] > entryAndExtractOperations[jvm] STARTED
+
+InnerTest[jvm] > entryAndExtractOperations[jvm] PASSED
+
+EntryTest[jvm] > mutableKeysRetainsAndExposesEntriesInOrder[jvm] STARTED
+
+EntryTest[jvm] > mutableKeysRetainsAndExposesEntriesInOrder[jvm] PASSED
+
+EntryTest[jvm] > mutableEntryKeyReplacesKeysWithoutChangingValues[jvm] STARTED
+
+EntryTest[jvm] > mutableEntryKeyReplacesKeysWithoutChangingValues[jvm] PASSED
+
+EntryTest[jvm] > entryUpdatesOccupiedAndInsertsVacant[jvm] STARTED
+
+EntryTest[jvm] > entryUpdatesOccupiedAndInsertsVacant[jvm] PASSED
+
+EntryTest[jvm] > indexedEntryRemovesAndMovesByIndex[jvm] STARTED
+
+EntryTest[jvm] > indexedEntryRemovesAndMovesByIndex[jvm] PASSED
+
+IterTest[jvm] > testKeysAndIntoKeys[jvm] STARTED
+
+IterTest[jvm] > testKeysAndIntoKeys[jvm] PASSED
+
+IterTest[jvm] > testDrain[jvm] STARTED
+
+IterTest[jvm] > testDrain[jvm] PASSED
+
+IterTest[jvm] > testIter[jvm] STARTED
+
+IterTest[jvm] > testIter[jvm] PASSED
+
+IterTest[jvm] > testValuesAndIntoValues[jvm] STARTED
+
+IterTest[jvm] > testValuesAndIntoValues[jvm] PASSED
+
+IterTest[jvm] > testIntoIter[jvm] STARTED
+
+IterTest[jvm] > testIntoIter[jvm] PASSED
+
+IterTest[jvm] > testIterMut[jvm] STARTED
+
+IterTest[jvm] > testIterMut[jvm] PASSED
+
+IterTest[jvm] > testSplice[jvm] STARTED
+
+IterTest[jvm] > testSplice[jvm] PASSED
+
+MapTests[jvm] > intoValues[jvm] STARTED
+
+MapTests[jvm] > intoValues[jvm] PASSED
+
+MapTests[jvm] > getRangeMut[jvm] STARTED
+
+MapTests[jvm] > getRangeMut[jvm] PASSED
+
+MapTests[jvm] > insertSortedBad[jvm] STARTED
+
+MapTests[jvm] > insertSortedBad[jvm] PASSED
+
+MapTests[jvm] > disjointMutSingleFail[jvm] STARTED
+
+MapTests[jvm] > disjointMutSingleFail[jvm] PASSED
+
+MapTests[jvm] > entryOrDefault[jvm] STARTED
+
+MapTests[jvm] > entryOrDefault[jvm] PASSED
+
+MapTests[jvm] > fromEntries[jvm] STARTED
+
+MapTests[jvm] > fromEntries[jvm] PASSED
+
+MapTests[jvm] > intoBoxedSlice[jvm] STARTED
+
+MapTests[jvm] > intoBoxedSlice[jvm] PASSED
+
+MapTests[jvm] > insertSortedBy[jvm] STARTED
+
+MapTests[jvm] > insertSortedBy[jvm] PASSED
+
+MapTests[jvm] > extend[jvm] STARTED
+
+MapTests[jvm] > extend[jvm] PASSED
+
+MapTests[jvm] > insert[jvm] STARTED
+
+MapTests[jvm] > insert[jvm] PASSED
+
+MapTests[jvm] > remove[jvm] STARTED
+
+MapTests[jvm] > remove[jvm] PASSED
+
+MapTests[jvm] > disjointIndicesMutFailDuplicate[jvm] STARTED
+
+MapTests[jvm] > disjointIndicesMutFailDuplicate[jvm] PASSED
+
+MapTests[jvm] > testBinarySearchBy[jvm] STARTED
+
+MapTests[jvm] > testBinarySearchBy[jvm] PASSED
+
+MapTests[jvm] > values[jvm] STARTED
+
+MapTests[jvm] > values[jvm] PASSED
+
+MapTests[jvm] > getIndexMut2[jvm] STARTED
+
+MapTests[jvm] > getIndexMut2[jvm] PASSED
+
+MapTests[jvm] > shiftInsert[jvm] STARTED
+
+MapTests[jvm] > shiftInsert[jvm] PASSED
+
+MapTests[jvm] > disjointMutSingleSuccess[jvm] STARTED
+
+MapTests[jvm] > disjointMutSingleSuccess[jvm] PASSED
+
+MapTests[jvm] > valuesMut[jvm] STARTED
+
+MapTests[jvm] > valuesMut[jvm] PASSED
+
+MapTests[jvm] > disjointMutMultiFailMissing[jvm] STARTED
+
+MapTests[jvm] > disjointMutMultiFailMissing[jvm] PASSED
+
+MapTests[jvm] > disjointMutMultiSuccess[jvm] STARTED
+
+MapTests[jvm] > disjointMutMultiSuccess[jvm] PASSED
+
+MapTests[jvm] > shiftInsertOob[jvm] STARTED
+
+MapTests[jvm] > shiftInsertOob[jvm] PASSED
+
+MapTests[jvm] > isSorted[jvm] STARTED
+
+MapTests[jvm] > isSorted[jvm] PASSED
+
+MapTests[jvm] > disjointMutMultiSuccessUnsizedKey[jvm] STARTED
+
+MapTests[jvm] > disjointMutMultiSuccessUnsizedKey[jvm] PASSED
+
+MapTests[jvm] > insertOrder[jvm] STARTED
+
+MapTests[jvm] > insertOrder[jvm] PASSED
+
+MapTests[jvm] > lastMut[jvm] STARTED
+
+MapTests[jvm] > lastMut[jvm] PASSED
+
+MapTests[jvm] > new[jvm] STARTED
+
+MapTests[jvm] > new[jvm] PASSED
+
+MapTests[jvm] > grow[jvm] STARTED
+
+MapTests[jvm] > grow[jvm] PASSED
+
+MapTests[jvm] > keys[jvm] STARTED
+
+MapTests[jvm] > keys[jvm] PASSED
+
+MapTests[jvm] > removeToEmpty[jvm] STARTED
+
+MapTests[jvm] > removeToEmpty[jvm] PASSED
+
+MapTests[jvm] > fromArray[jvm] STARTED
+
+MapTests[jvm] > fromArray[jvm] PASSED
+
+MapTests[jvm] > clear[jvm] STARTED
+
+MapTests[jvm] > clear[jvm] PASSED
+
+MapTests[jvm] > entry[jvm] STARTED
+
+MapTests[jvm] > entry[jvm] PASSED
+
+MapTests[jvm] > disjointIndicesMutSuccess[jvm] STARTED
+
+MapTests[jvm] > disjointIndicesMutSuccess[jvm] PASSED
+
+MapTests[jvm] > insertSortedByKey[jvm] STARTED
+
+MapTests[jvm] > insertSortedByKey[jvm] PASSED
+
+MapTests[jvm] > disjointMutMultiFailDuplicatePanic[jvm] STARTED
+
+MapTests[jvm] > disjointMutMultiFailDuplicatePanic[jvm] PASSED
+
+MapTests[jvm] > disjointMutEmptyMap[jvm] STARTED
+
+MapTests[jvm] > disjointMutEmptyMap[jvm] PASSED
+
+MapTests[jvm] > disjointMutMultiSuccessBorrowKey[jvm] STARTED
+
+MapTests[jvm] > disjointMutMultiSuccessBorrowKey[jvm] PASSED
+
+MapTests[jvm] > disjointMutEmptyParam[jvm] STARTED
+
+MapTests[jvm] > disjointMutEmptyParam[jvm] PASSED
+
+MapTests[jvm] > shiftShiftRemoveIndex[jvm] STARTED
+
+MapTests[jvm] > shiftShiftRemoveIndex[jvm] PASSED
+
+MapTests[jvm] > getIndexEntry[jvm] STARTED
+
+MapTests[jvm] > getIndexEntry[jvm] PASSED
+
+MapTests[jvm] > testMoveIndexOutOfBounds[jvm] STARTED
+
+MapTests[jvm] > testMoveIndexOutOfBounds[jvm] PASSED
+
+MapTests[jvm] > insertBeforeOob[jvm] STARTED
+
+MapTests[jvm] > insertBeforeOob[jvm] PASSED
+
+MapTests[jvm] > intoKeys[jvm] STARTED
+
+MapTests[jvm] > intoKeys[jvm] PASSED
+
+MapTests[jvm] > testBinarySearchByKey[jvm] STARTED
+
+MapTests[jvm] > testBinarySearchByKey[jvm] PASSED
+
+MapTests[jvm] > occupiedEntryKey[jvm] STARTED
+
+MapTests[jvm] > occupiedEntryKey[jvm] PASSED
+
+MapTests[jvm] > disjointIndicesMutEmpty[jvm] STARTED
+
+MapTests[jvm] > disjointIndicesMutEmpty[jvm] PASSED
+
+MapTests[jvm] > isSortedTrivial[jvm] STARTED
+
+MapTests[jvm] > isSortedTrivial[jvm] PASSED
+
+MapTests[jvm] > shiftRemoveFull[jvm] STARTED
+
+MapTests[jvm] > shiftRemoveFull[jvm] PASSED
+
+MapTests[jvm] > disjointIndicesMutFailOob[jvm] STARTED
+
+MapTests[jvm] > disjointIndicesMutFailOob[jvm] PASSED
+
+MapTests[jvm] > shrinkToFit[jvm] STARTED
+
+MapTests[jvm] > shrinkToFit[jvm] PASSED
+
+MapTests[jvm] > insertFull[jvm] STARTED
+
+MapTests[jvm] > insertFull[jvm] PASSED
+
+MapTests[jvm] > reserve[jvm] STARTED
+
+MapTests[jvm] > reserve[jvm] PASSED
+
+MapTests[jvm] > drainRange[jvm] STARTED
+
+MapTests[jvm] > drainRange[jvm] PASSED
+
+MapTests[jvm] > iterDefault[jvm] STARTED
+
+MapTests[jvm] > iterDefault[jvm] PASSED
+
+MapTests[jvm] > sortedUnstableBy[jvm] STARTED
+
+MapTests[jvm] > sortedUnstableBy[jvm] PASSED
+
+MapTests[jvm] > shiftRemoveEntry[jvm] STARTED
+
+MapTests[jvm] > shiftRemoveEntry[jvm] PASSED
+
+MapTests[jvm] > partialEqAndEq[jvm] STARTED
+
+MapTests[jvm] > partialEqAndEq[jvm] PASSED
+
+MapTests[jvm] > entryAndModify[jvm] STARTED
+
+MapTests[jvm] > entryAndModify[jvm] PASSED
+
+MapTests[jvm] > swapRemoveIndex[jvm] STARTED
+
+MapTests[jvm] > swapRemoveIndex[jvm] PASSED
+
+MapTests[jvm] > insert2[jvm] STARTED
+
+MapTests[jvm] > insert2[jvm] PASSED
+
+MapTests[jvm] > getRange[jvm] STARTED
+
+MapTests[jvm] > getRange[jvm] PASSED
+
+MapTests[jvm] > tryReserve[jvm] STARTED
+
+MapTests[jvm] > tryReserve[jvm] PASSED
+
+MapTests[jvm] > testPartitionPoint[jvm] STARTED
+
+MapTests[jvm] > testPartitionPoint[jvm] PASSED
+
+MapTests[jvm] > itWorks[jvm] STARTED
+
+MapTests[jvm] > itWorks[jvm] PASSED
+
+RawEntryV1Test[jvm] > rawOccupiedEntryMutInsertKeyAndDetails[jvm] STARTED
+
+RawEntryV1Test[jvm] > rawOccupiedEntryMutInsertKeyAndDetails[jvm] PASSED
+
+RawEntryV1Test[jvm] > rawOccupiedEntryMutModifiesAndRemoves[jvm] STARTED
+
+RawEntryV1Test[jvm] > rawOccupiedEntryMutModifiesAndRemoves[jvm] PASSED
+
+RawEntryV1Test[jvm] > rawVacantEntryMutShiftInsert[jvm] STARTED
+
+RawEntryV1Test[jvm] > rawVacantEntryMutShiftInsert[jvm] PASSED
+
+RawEntryV1Test[jvm] > rawEntryMutV1UpdatesOccupiedAndInsertsVacant[jvm] STARTED
+
+RawEntryV1Test[jvm] > rawEntryMutV1UpdatesOccupiedAndInsertsVacant[jvm] PASSED
+
+RawEntryV1Test[jvm] > rawEntryV1UpstreamDocTestParity[jvm] STARTED
+
+RawEntryV1Test[jvm] > rawEntryV1UpstreamDocTestParity[jvm] PASSED
+
+RawEntryV1Test[jvm] > assertSendSync[jvm] STARTED
+
+RawEntryV1Test[jvm] > assertSendSync[jvm] PASSED
+
+RawEntryV1Test[jvm] > rawEntryV1ReadsEntriesByHashOrKey[jvm] STARTED
+
+RawEntryV1Test[jvm] > rawEntryV1ReadsEntriesByHashOrKey[jvm] PASSED
+
+SliceTest[jvm] > sliceMutatingViewsAndDisjointAccess[jvm] STARTED
+
+SliceTest[jvm] > sliceMutatingViewsAndDisjointAccess[jvm] PASSED
+
+SliceTest[jvm] > sliceSplitFirst[jvm] STARTED
+
+SliceTest[jvm] > sliceSplitFirst[jvm] PASSED
+
+SliceTest[jvm] > sliceSplitLastBasic[jvm] STARTED
+
+SliceTest[jvm] > sliceSplitLastBasic[jvm] PASSED
+
+SliceTest[jvm] > sliceSearchAndPartition[jvm] STARTED
+
+SliceTest[jvm] > sliceSearchAndPartition[jvm] PASSED
+
+SliceTest[jvm] > sliceSplitLastMut[jvm] STARTED
+
+SliceTest[jvm] > sliceSplitLastMut[jvm] PASSED
+
+SliceTest[jvm] > sliceNew[jvm] STARTED
+
+SliceTest[jvm] > sliceNew[jvm] PASSED
+
+SliceTest[jvm] > indexMapSliceDelegates[jvm] STARTED
+
+SliceTest[jvm] > indexMapSliceDelegates[jvm] PASSED
+
+SliceTest[jvm] > sliceOwnedIteratorsAndComparisonHelpers[jvm] STARTED
+
+SliceTest[jvm] > sliceOwnedIteratorsAndComparisonHelpers[jvm] PASSED
+
+SliceTest[jvm] > sliceNewBasic[jvm] STARTED
+
+SliceTest[jvm] > sliceNewBasic[jvm] PASSED
+
+SliceTest[jvm] > sliceSplitLast[jvm] STARTED
+
+SliceTest[jvm] > sliceSplitLast[jvm] PASSED
+
+SliceTest[jvm] > sliceIndexBasic[jvm] STARTED
+
+SliceTest[jvm] > sliceIndexBasic[jvm] PASSED
+
+SliceTest[jvm] > sliceGetRange[jvm] STARTED
+
+SliceTest[jvm] > sliceGetRange[jvm] PASSED
+
+SliceTest[jvm] > sliceSplitAtChecked[jvm] STARTED
+
+SliceTest[jvm] > sliceSplitAtChecked[jvm] PASSED
+
+SliceTest[jvm] > sliceIndex[jvm] STARTED
+
+SliceTest[jvm] > sliceIndex[jvm] PASSED
+
+SliceTest[jvm] > sliceGetIndexMut[jvm] STARTED
+
+SliceTest[jvm] > sliceGetIndexMut[jvm] PASSED
+
+SliceTest[jvm] > sliceSplitFirstBasic[jvm] STARTED
+
+SliceTest[jvm] > sliceSplitFirstBasic[jvm] PASSED
+
+SliceTest[jvm] > sliceNewMut[jvm] STARTED
+
+SliceTest[jvm] > sliceNewMut[jvm] PASSED
+
+SliceTest[jvm] > sliceGetRangeBasic[jvm] STARTED
+
+SliceTest[jvm] > sliceGetRangeBasic[jvm] PASSED
+
+SliceTest[jvm] > sliceIndexMut[jvm] STARTED
+
+SliceTest[jvm] > sliceIndexMut[jvm] PASSED
+
+SliceTest[jvm] > sliceSplitFirstMut[jvm] STARTED
+
+SliceTest[jvm] > sliceSplitFirstMut[jvm] PASSED
+
+IterTest[jvm] > testDrain[jvm] STARTED
+
+IterTest[jvm] > testDrain[jvm] PASSED
+
+IterTest[jvm] > testIter[jvm] STARTED
+
+IterTest[jvm] > testIter[jvm] PASSED
+
+IterTest[jvm] > testSymmetricDifferenceAndUnion[jvm] STARTED
+
+IterTest[jvm] > testSymmetricDifferenceAndUnion[jvm] PASSED
+
+IterTest[jvm] > testDifferenceAndIntersection[jvm] STARTED
+
+IterTest[jvm] > testDifferenceAndIntersection[jvm] PASSED
+
+IterTest[jvm] > testIntoIter[jvm] STARTED
+
+IterTest[jvm] > testIntoIter[jvm] PASSED
+
+IterTest[jvm] > testSplice[jvm] STARTED
+
+IterTest[jvm] > testSplice[jvm] PASSED
+
+SetTests[jvm] > splitOff[jvm] STARTED
+
+SetTests[jvm] > splitOff[jvm] PASSED
+
+SetTests[jvm] > extend[jvm] STARTED
+
+SetTests[jvm] > extend[jvm] PASSED
+
+SetTests[jvm] > replaceDup[jvm] STARTED
+
+SetTests[jvm] > replaceDup[jvm] PASSED
+
+SetTests[jvm] > insert[jvm] STARTED
+
+SetTests[jvm] > insert[jvm] PASSED
+
+SetTests[jvm] > remove[jvm] STARTED
+
+SetTests[jvm] > remove[jvm] PASSED
+
+SetTests[jvm] > retain[jvm] STARTED
+
+SetTests[jvm] > retain[jvm] PASSED
+
+SetTests[jvm] > sortBy[jvm] STARTED
+
+SetTests[jvm] > sortBy[jvm] PASSED
+
+SetTests[jvm] > tryReserveExact[jvm] STARTED
+
+SetTests[jvm] > tryReserveExact[jvm] PASSED
+
+SetTests[jvm] > testBinarySearchBy[jvm] STARTED
+
+SetTests[jvm] > testBinarySearchBy[jvm] PASSED
+
+SetTests[jvm] > shiftInsert[jvm] STARTED
+
+SetTests[jvm] > shiftInsert[jvm] PASSED
+
+SetTests[jvm] > sortUnstableBy[jvm] STARTED
+
+SetTests[jvm] > sortUnstableBy[jvm] PASSED
+
+SetTests[jvm] > replace2[jvm] STARTED
+
+SetTests[jvm] > replace2[jvm] PASSED
+
+SetTests[jvm] > comparisons[jvm] STARTED
+
+SetTests[jvm] > comparisons[jvm] PASSED
+
+SetTests[jvm] > insertDup[jvm] STARTED
+
+SetTests[jvm] > insertDup[jvm] PASSED
+
+SetTests[jvm] > swapTake[jvm] STARTED
+
+SetTests[jvm] > swapTake[jvm] PASSED
+
+SetTests[jvm] > isSorted[jvm] STARTED
+
+SetTests[jvm] > isSorted[jvm] PASSED
+
+SetTests[jvm] > insertOrder[jvm] STARTED
+
+SetTests[jvm] > insertOrder[jvm] PASSED
+
+SetTests[jvm] > sortByKey[jvm] STARTED
+
+SetTests[jvm] > sortByKey[jvm] PASSED
+
+SetTests[jvm] > sortUnstable[jvm] STARTED
+
+SetTests[jvm] > sortUnstable[jvm] PASSED
+
+SetTests[jvm] > binarySearch[jvm] STARTED
+
+SetTests[jvm] > binarySearch[jvm] PASSED
+
+SetTests[jvm] > new[jvm] STARTED
+
+SetTests[jvm] > new[jvm] PASSED
+
+SetTests[jvm] > ops[jvm] STARTED
+
+SetTests[jvm] > ops[jvm] PASSED
+
+SetTests[jvm] > grow[jvm] STARTED
+
+SetTests[jvm] > grow[jvm] PASSED
+
+SetTests[jvm] > last[jvm] STARTED
+
+SetTests[jvm] > last[jvm] PASSED
+
+SetTests[jvm] > take[jvm] STARTED
+
+SetTests[jvm] > take[jvm] PASSED
+
+SetTests[jvm] > fromArray[jvm] STARTED
+
+SetTests[jvm] > fromArray[jvm] PASSED
+
+SetTests[jvm] > iterComparisons[jvm] STARTED
+
+SetTests[jvm] > iterComparisons[jvm] PASSED
+
+SetTests[jvm] > drain[jvm] STARTED
+
+SetTests[jvm] > drain[jvm] PASSED
+
+SetTests[jvm] > first[jvm] STARTED
+
+SetTests[jvm] > first[jvm] PASSED
+
+SetTests[jvm] > replaceFull[jvm] STARTED
+
+SetTests[jvm] > replaceFull[jvm] PASSED
+
+SetTests[jvm] > replaceOrder[jvm] STARTED
+
+SetTests[jvm] > replaceOrder[jvm] PASSED
+
+SetTests[jvm] > replaceChange[jvm] STARTED
+
+SetTests[jvm] > replaceChange[jvm] PASSED
+
+SetTests[jvm] > testBinarySearchByKey[jvm] STARTED
+
+SetTests[jvm] > testBinarySearchByKey[jvm] PASSED
+
+SetTests[jvm] > insertSorted[jvm] STARTED
+
+SetTests[jvm] > insertSorted[jvm] PASSED
+
+SetTests[jvm] > sortByCachedKey[jvm] STARTED
+
+SetTests[jvm] > sortByCachedKey[jvm] PASSED
+
+SetTests[jvm] > isSortedTrivial[jvm] STARTED
+
+SetTests[jvm] > isSortedTrivial[jvm] PASSED
+
+SetTests[jvm] > shiftRemoveFull[jvm] STARTED
+
+SetTests[jvm] > shiftRemoveFull[jvm] PASSED
+
+SetTests[jvm] > shiftTake[jvm] STARTED
+
+SetTests[jvm] > shiftTake[jvm] PASSED
+
+SetTests[jvm] > shrinkToFit[jvm] STARTED
+
+SetTests[jvm] > shrinkToFit[jvm] PASSED
+
+SetTests[jvm] > insertFull[jvm] STARTED
+
+SetTests[jvm] > insertFull[jvm] PASSED
+
+SetTests[jvm] > replace[jvm] STARTED
+
+SetTests[jvm] > replace[jvm] PASSED
+
+SetTests[jvm] > reserve[jvm] STARTED
+
+SetTests[jvm] > reserve[jvm] PASSED
+
+SetTests[jvm] > iterDefault[jvm] STARTED
+
+SetTests[jvm] > iterDefault[jvm] PASSED
+
+SetTests[jvm] > sortedUnstableBy[jvm] STARTED
+
+SetTests[jvm] > sortedUnstableBy[jvm] PASSED
+
+SetTests[jvm] > shiftRemoveIndex[jvm] STARTED
+
+SetTests[jvm] > shiftRemoveIndex[jvm] PASSED
+
+SetTests[jvm] > partialEqAndEq[jvm] STARTED
+
+SetTests[jvm] > partialEqAndEq[jvm] PASSED
+
+SetTests[jvm] > swapRemoveIndex[jvm] STARTED
+
+SetTests[jvm] > swapRemoveIndex[jvm] PASSED
+
+SetTests[jvm] > sortUnstableByKey[jvm] STARTED
+
+SetTests[jvm] > sortUnstableByKey[jvm] PASSED
+
+SetTests[jvm] > insert2[jvm] STARTED
+
+SetTests[jvm] > insert2[jvm] PASSED
+
+SetTests[jvm] > getRange[jvm] STARTED
+
+SetTests[jvm] > getRange[jvm] PASSED
+
+SetTests[jvm] > tryReserve[jvm] STARTED
+
+SetTests[jvm] > tryReserve[jvm] PASSED
+
+SetTests[jvm] > testPartitionPoint[jvm] STARTED
+
+SetTests[jvm] > testPartitionPoint[jvm] PASSED
+
+SetTests[jvm] > itWorks[jvm] STARTED
+
+SetTests[jvm] > itWorks[jvm] PASSED
+
+SliceTest[jvm] > sliceSplitFirst[jvm] STARTED
+
+SliceTest[jvm] > sliceSplitFirst[jvm] PASSED
+
+SliceTest[jvm] > sliceSearchAndPartition[jvm] STARTED
+
+SliceTest[jvm] > sliceSearchAndPartition[jvm] PASSED
+
+SliceTest[jvm] > sliceIndexTestFromRust[jvm] STARTED
+
+SliceTest[jvm] > sliceIndexTestFromRust[jvm] PASSED
+
+SliceTest[jvm] > sliceNew[jvm] STARTED
+
+SliceTest[jvm] > sliceNew[jvm] PASSED
+
+SliceTest[jvm] > sliceSplitLast[jvm] STARTED
+
+SliceTest[jvm] > sliceSplitLast[jvm] PASSED
+
+SliceTest[jvm] > sliceGetRange[jvm] STARTED
+
+SliceTest[jvm] > sliceGetRange[jvm] PASSED
+
+SliceTest[jvm] > sliceSplitAtChecked[jvm] STARTED
+
+SliceTest[jvm] > sliceSplitAtChecked[jvm] PASSED
+
+SliceTest[jvm] > sliceIndex[jvm] STARTED
+
+SliceTest[jvm] > sliceIndex[jvm] PASSED
+
+io.github.kotlinmania.indexmap.ArbitraryTest.arbitraryMapCreation[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.ArbitraryTest.arbitraryMapCreation[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.ArbitraryTest.arbitrarySetCreation[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.ArbitraryTest.arbitrarySetCreation[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.ArbitraryTest.testShrink[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.ArbitraryTest.testShrink[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.BorshTest.mapBorshRoundtrip[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.BorshTest.mapBorshRoundtrip[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.BorshTest.setBorshRoundtrip[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.BorshTest.setBorshRoundtrip[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.BorshTest.zstCheckForbidden[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.BorshTest.zstCheckForbidden[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.BorshTest.mapDeserializeReader[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.BorshTest.mapDeserializeReader[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.BorshTest.setDeserializeReader[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.BorshTest.setDeserializeReader[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.EquivalentTraitTest.testLookup[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.EquivalentTraitTest.testLookup[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.EquivalentTraitTest.testStringStr[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.EquivalentTraitTest.testStringStr[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.LibTest.hashValueGetExposesUnderlyingRaw[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.LibTest.hashValueGetExposesUnderlyingRaw[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.LibTest.hashValueEqualityIsStructural[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.LibTest.hashValueEqualityIsStructural[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.LibTest.bucketAccessorsReturnFields[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.LibTest.bucketAccessorsReturnFields[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.LibTest.bucketCloneCopiesEveryField[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.LibTest.bucketCloneCopiesEveryField[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.LibTest.bucketCloneFromOverwritesEveryField[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.LibTest.bucketCloneFromOverwritesEveryField[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.LibTest.tryReserveErrorStdVariantPreservesUnderlyingDisplay[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.LibTest.tryReserveErrorStdVariantPreservesUnderlyingDisplay[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.LibTest.tryReserveErrorCapacityOverflowMessage[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.LibTest.tryReserveErrorCapacityOverflowMessage[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.LibTest.tryReserveErrorAllocErrorMessage[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.LibTest.tryReserveErrorAllocErrorMessage[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.LibTest.tryReserveErrorEqualityIsStructural[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.LibTest.tryReserveErrorEqualityIsStructural[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.LibTest.getDisjointMutErrorDisplay[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.LibTest.getDisjointMutErrorDisplay[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.MacrosFullPathTest.testCreateMap[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.MacrosFullPathTest.testCreateMap[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.MacrosFullPathTest.testCreateSet[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.MacrosFullPathTest.testCreateSet[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.MapTest.insertKeepsInsertionOrderAndUpdatesExistingValuesInPlace[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.MapTest.insertKeepsInsertionOrderAndUpdatesExistingValuesInPlace[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.MapTest.insertBeforeMovesExistingKeysAroundTheInsertionPoint[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.MapTest.insertBeforeMovesExistingKeysAroundTheInsertionPoint[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.MapTest.shiftInsertMovesExistingKeysToTheRequestedIndex[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.MapTest.shiftInsertMovesExistingKeysToTheRequestedIndex[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.MapTest.shiftAndSwapRemovalHaveDifferentOrderEffects[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.MapTest.shiftAndSwapRemovalHaveDifferentOrderEffects[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.MapTest.clearTruncateAndIndexLookupTrackCompactIndices[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.MapTest.clearTruncateAndIndexLookupTrackCompactIndices[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.MapTest.orderedEntryHelpersSearchSortAndPartition[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.MapTest.orderedEntryHelpersSearchSortAndPartition[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.MapTest.removalRetainReverseAndEntriesPreserveOrder[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.MapTest.removalRetainReverseAndEntriesPreserveOrder[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.MapTest.cloneDrainSplitSpliceAndAppendMirrorOrderedEntries[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.MapTest.cloneDrainSplitSpliceAndAppendMirrorOrderedEntries[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.MapTest.mapMutatingAccessorsAndSliceHelpersWork[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.MapTest.mapMutatingAccessorsAndSliceHelpersWork[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testContains[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testContains[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testContainsNot[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testContainsNot[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testInsertRemove[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testInsertRemove[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testInsertionOrder[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testInsertionOrder[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testInsertSorted[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testInsertSorted[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testPop[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testPop[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testWithCapacity[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testWithCapacity[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testDrainFull[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testDrainFull[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testShiftRemove[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testShiftRemove[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testIndexing[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testIndexing[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testSetSwapIndices[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testSetSwapIndices[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testMapSwapIndices[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testMapSwapIndices[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testSetMoveIndex[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testSetMoveIndex[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testMapMoveIndex[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testMapMoveIndex[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testRetainOrdered[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testRetainOrdered[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testSort[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testSort[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.QuickTest.testReverse[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.QuickTest.testReverse[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SerdeTest.sequenceEndIsSeparateFromNullableSetElements[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SerdeTest.sequenceEndIsSeparateFromNullableSetElements[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SerdeTest.sequencedMapPreservesNullablePayloadsAndDuplicateKeyOrder[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SerdeTest.sequencedMapPreservesNullablePayloadsAndDuplicateKeyOrder[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SerdeTest.emptyAndInvalidSequencesKeepTheirSourceBehavior[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SerdeTest.emptyAndInvalidSequencesKeepTheirSourceBehavior[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SerdeTest.testVisitorsAndIntoDeserializer[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SerdeTest.testVisitorsAndIntoDeserializer[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SerdeTest.testIndexMapSerdeTokens[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SerdeTest.testIndexMapSerdeTokens[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SerdeTest.testIndexSetSerdeTokens[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SerdeTest.testIndexSetSerdeTokens[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SerdeTest.testIndexMapSeqSerdeTokens[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SerdeTest.testIndexMapSeqSerdeTokens[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SerdeTest.testSliceSerdeTokens[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SerdeTest.testSliceSerdeTokens[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SerdeTest.testSetSliceSerdeTokens[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SerdeTest.testSetSliceSerdeTokens[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.insertKeepsInsertionOrderAndRejectsDuplicates[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.insertKeepsInsertionOrderAndRejectsDuplicates[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.insertBeforeMovesExistingValuesAroundTheInsertionPoint[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.insertBeforeMovesExistingValuesAroundTheInsertionPoint[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.shiftInsertMovesExistingValuesToTheRequestedIndex[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.shiftInsertMovesExistingValuesToTheRequestedIndex[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.shiftAndSwapRemovalHaveDifferentOrderEffects[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.shiftAndSwapRemovalHaveDifferentOrderEffects[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.orderedHelpersSearchSortAndPartition[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.orderedHelpersSearchSortAndPartition[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.retainRangeSpliceAndSetOperationsPreserveExpectedOrder[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.retainRangeSpliceAndSetOperationsPreserveExpectedOrder[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.setSliceEntriesAndTakeMethodsWorkAsExpected[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.setSliceEntriesAndTakeMethodsWorkAsExpected[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.itWorks[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.itWorks[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.insertFull[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.insertFull[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.insertDup[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.insertDup[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.insertOrder[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.insertOrder[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.replaceOrder[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.replaceOrder[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.replaceDup[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.replaceDup[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.grow[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.grow[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.swapRemoveIndex[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.swapRemoveIndex[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.partialEqAndEq[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.partialEqAndEq[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.comparisons[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.comparisons[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SetTest.iterComparisons[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SetTest.iterComparisons[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SvalTest.mapStreamEvents[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SvalTest.mapStreamEvents[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SvalTest.setStreamEvents[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SvalTest.setStreamEvents[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.SvalTest.mapAndSetStreamMethod[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.SvalTest.mapAndSetStreamMethod[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.TestsTest.testSort[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.TestsTest.testSort[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.TestsTest.testSortSet[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.TestsTest.testSortSet[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.TestsTest.testCreateMap[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.TestsTest.testCreateMap[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.TestsTest.testCreateSet[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.TestsTest.testCreateSet[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.UtilTest.thirdReturnsTupleTail[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.UtilTest.thirdReturnsTupleTail[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.UtilTest.simplifyRangeHandlesUnboundedAndIncludedBounds[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.UtilTest.simplifyRangeHandlesUnboundedAndIncludedBounds[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.UtilTest.simplifyRangeHandlesExcludedBounds[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.UtilTest.simplifyRangeHandlesExcludedBounds[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.UtilTest.simplifyRangeRejectsOutOfRangeStart[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.UtilTest.simplifyRangeRejectsOutOfRangeStart[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.UtilTest.simplifyRangeRejectsInvertedRange[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.UtilTest.simplifyRangeRejectsInvertedRange[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.UtilTest.trySimplifyRangeReturnsNullForInvalidBounds[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.UtilTest.trySimplifyRangeReturnsNullForInvalidBounds[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.UtilTest.sliceEqUsesCustomComparator[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.UtilTest.sliceEqUsesCustomComparator[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.inner.InnerTest.coreBasicOperations[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.inner.InnerTest.coreBasicOperations[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.inner.InnerTest.entryAndExtractOperations[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.inner.InnerTest.entryAndExtractOperations[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.EntryTest.entryUpdatesOccupiedAndInsertsVacant[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.EntryTest.entryUpdatesOccupiedAndInsertsVacant[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.EntryTest.mutableKeysRetainsAndExposesEntriesInOrder[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.EntryTest.mutableKeysRetainsAndExposesEntriesInOrder[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.EntryTest.mutableEntryKeyReplacesKeysWithoutChangingValues[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.EntryTest.mutableEntryKeyReplacesKeysWithoutChangingValues[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.EntryTest.indexedEntryRemovesAndMovesByIndex[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.EntryTest.indexedEntryRemovesAndMovesByIndex[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.IterTest.testIter[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.IterTest.testIter[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.IterTest.testIterMut[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.IterTest.testIterMut[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.IterTest.testIntoIter[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.IterTest.testIntoIter[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.IterTest.testKeysAndIntoKeys[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.IterTest.testKeysAndIntoKeys[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.IterTest.testValuesAndIntoValues[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.IterTest.testValuesAndIntoValues[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.IterTest.testDrain[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.IterTest.testDrain[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.IterTest.testSplice[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.IterTest.testSplice[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.itWorks[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.itWorks[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.new[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.new[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.insert[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.insert[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.insertFull[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.insertFull[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.insert2[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.insert2[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.insertOrder[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.insertOrder[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.shiftInsert[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.shiftInsert[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.insertSortedBad[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.insertSortedBad[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.grow[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.grow[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.reserve[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.reserve[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.tryReserve[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.tryReserve[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.shrinkToFit[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.shrinkToFit[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.remove[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.remove[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.removeToEmpty[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.removeToEmpty[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.swapRemoveIndex[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.swapRemoveIndex[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.partialEqAndEq[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.partialEqAndEq[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.extend[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.extend[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.entry[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.entry[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.entryAndModify[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.entryAndModify[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.entryOrDefault[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.entryOrDefault[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.occupiedEntryKey[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.occupiedEntryKey[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.getIndexEntry[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.getIndexEntry[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.fromEntries[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.fromEntries[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.keys[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.keys[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.intoKeys[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.intoKeys[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.values[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.values[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.valuesMut[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.valuesMut[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.intoValues[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.intoValues[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.drainRange[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.drainRange[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.fromArray[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.fromArray[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.iterDefault[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.iterDefault[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.getIndexMut2[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.getIndexMut2[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.shiftShiftRemoveIndex[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.shiftShiftRemoveIndex[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.shiftRemoveEntry[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.shiftRemoveEntry[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.shiftRemoveFull[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.shiftRemoveFull[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.sortedUnstableBy[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.sortedUnstableBy[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.intoBoxedSlice[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.intoBoxedSlice[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.lastMut[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.lastMut[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.insertBeforeOob[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.insertBeforeOob[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.clear[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.clear[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.getRange[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.getRange[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.getRangeMut[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.getRangeMut[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.shiftInsertOob[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.shiftInsertOob[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.testBinarySearchBy[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.testBinarySearchBy[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.testBinarySearchByKey[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.testBinarySearchByKey[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.testPartitionPoint[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.testPartitionPoint[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.testMoveIndexOutOfBounds[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.testMoveIndexOutOfBounds[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutEmptyMap[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutEmptyMap[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutEmptyParam[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutEmptyParam[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutSingleFail[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutSingleFail[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutSingleSuccess[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutSingleSuccess[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutMultiSuccess[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutMultiSuccess[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutMultiSuccessUnsizedKey[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutMultiSuccessUnsizedKey[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutMultiSuccessBorrowKey[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutMultiSuccessBorrowKey[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutMultiFailMissing[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutMultiFailMissing[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutMultiFailDuplicatePanic[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointMutMultiFailDuplicatePanic[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointIndicesMutFailOob[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointIndicesMutFailOob[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointIndicesMutEmpty[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointIndicesMutEmpty[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointIndicesMutSuccess[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointIndicesMutSuccess[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointIndicesMutFailDuplicate[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.disjointIndicesMutFailDuplicate[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.insertSortedByKey[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.insertSortedByKey[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.insertSortedBy[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.insertSortedBy[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.isSorted[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.isSorted[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.MapTests.isSortedTrivial[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.MapTests.isSortedTrivial[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.RawEntryV1Test.rawEntryV1ReadsEntriesByHashOrKey[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.RawEntryV1Test.rawEntryV1ReadsEntriesByHashOrKey[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.RawEntryV1Test.rawEntryMutV1UpdatesOccupiedAndInsertsVacant[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.RawEntryV1Test.rawEntryMutV1UpdatesOccupiedAndInsertsVacant[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.RawEntryV1Test.rawOccupiedEntryMutModifiesAndRemoves[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.RawEntryV1Test.rawOccupiedEntryMutModifiesAndRemoves[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.RawEntryV1Test.rawEntryV1UpstreamDocTestParity[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.RawEntryV1Test.rawEntryV1UpstreamDocTestParity[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.RawEntryV1Test.rawOccupiedEntryMutInsertKeyAndDetails[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.RawEntryV1Test.rawOccupiedEntryMutInsertKeyAndDetails[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.RawEntryV1Test.rawVacantEntryMutShiftInsert[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.RawEntryV1Test.rawVacantEntryMutShiftInsert[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.RawEntryV1Test.assertSendSync[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.RawEntryV1Test.assertSendSync[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceNewBasic[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceNewBasic[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceIndexBasic[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceIndexBasic[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceGetRangeBasic[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceGetRangeBasic[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSplitFirstBasic[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSplitFirstBasic[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSplitLastBasic[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSplitLastBasic[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSplitAtChecked[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSplitAtChecked[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSearchAndPartition[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSearchAndPartition[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceOwnedIteratorsAndComparisonHelpers[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceOwnedIteratorsAndComparisonHelpers[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceMutatingViewsAndDisjointAccess[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceMutatingViewsAndDisjointAccess[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.indexMapSliceDelegates[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.indexMapSliceDelegates[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceIndex[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceIndex[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceIndexMut[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceIndexMut[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceNew[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceNew[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceNewMut[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceNewMut[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceGetIndexMut[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceGetIndexMut[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSplitFirst[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSplitFirst[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSplitFirstMut[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSplitFirstMut[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSplitLast[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSplitLast[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSplitLastMut[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceSplitLastMut[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceGetRange[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.map.SliceTest.sliceGetRange[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.IterTest.testIter[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.IterTest.testIter[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.IterTest.testIntoIter[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.IterTest.testIntoIter[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.IterTest.testDifferenceAndIntersection[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.IterTest.testDifferenceAndIntersection[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.IterTest.testSymmetricDifferenceAndUnion[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.IterTest.testSymmetricDifferenceAndUnion[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.IterTest.testDrain[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.IterTest.testDrain[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.IterTest.testSplice[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.IterTest.testSplice[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.itWorks[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.itWorks[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.new[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.new[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.insert[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.insert[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.insertFull[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.insertFull[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.insert2[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.insert2[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.insertDup[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.insertDup[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.insertOrder[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.insertOrder[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.shiftInsert[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.shiftInsert[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.replace[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.replace[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.replaceFull[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.replaceFull[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.replace2[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.replace2[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.replaceDup[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.replaceDup[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.replaceOrder[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.replaceOrder[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.replaceChange[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.replaceChange[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.grow[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.grow[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.reserve[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.reserve[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.tryReserve[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.tryReserve[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.shrinkToFit[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.shrinkToFit[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.remove[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.remove[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.swapRemoveIndex[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.swapRemoveIndex[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.partialEqAndEq[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.partialEqAndEq[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.extend[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.extend[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.comparisons[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.comparisons[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.iterComparisons[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.iterComparisons[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.ops[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.ops[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.fromArray[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.fromArray[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.iterDefault[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.iterDefault[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.take[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.take[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.swapTake[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.swapTake[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.sortUnstable[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.sortUnstable[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.tryReserveExact[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.tryReserveExact[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.shiftRemoveFull[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.shiftRemoveFull[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.shiftRemoveIndex[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.shiftRemoveIndex[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.sortUnstableBy[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.sortUnstableBy[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.sortBy[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.sortBy[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.drain[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.drain[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.splitOff[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.splitOff[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.retain[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.retain[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.first[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.first[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.sortByKey[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.sortByKey[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.sortUnstableByKey[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.sortUnstableByKey[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.sortByCachedKey[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.sortByCachedKey[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.insertSorted[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.insertSorted[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.binarySearch[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.binarySearch[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.sortedUnstableBy[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.sortedUnstableBy[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.last[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.last[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.getRange[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.getRange[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.shiftTake[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.shiftTake[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.testBinarySearchBy[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.testBinarySearchBy[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.testBinarySearchByKey[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.testBinarySearchByKey[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.testPartitionPoint[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.testPartitionPoint[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.isSorted[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.isSorted[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SetTests.isSortedTrivial[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SetTests.isSortedTrivial[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceNew[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceNew[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceIndex[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceIndex[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceGetRange[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceGetRange[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceSplitFirst[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceSplitFirst[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceSplitLast[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceSplitLast[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceSplitAtChecked[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceSplitAtChecked[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceSearchAndPartition[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceSearchAndPartition[macosArm64] PASSED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceIndexTestFromRust[macosArm64] STARTED
+
+io.github.kotlinmania.indexmap.set.SliceTest.sliceIndexTestFromRust[macosArm64] PASSED
+
+> Task :macosArm64Test
+> Task :compileKotlinAndroidNativeArm64
+Kotlin build report is written to file:///Volumes/stuff/Projects/kotlinmania/indexmap-kotlin/build/reports/kotlin-build/indexmap-kotlin-build-2026-10-24-20-56-24-0.txt
+
+[Incubating] Problems report is available at: file:///Volumes/stuff/Projects/kotlinmania/indexmap-kotlin/build/reports/problems/problems-report.html
+
+Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+
+You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+
+For more on this, please refer to https://docs.gradle.org/9.8.2/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+
+BUILD SUCCESSFUL in 35s
+17 actionable tasks: 16 executed, 1 up-to-date
