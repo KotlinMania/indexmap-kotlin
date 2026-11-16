@@ -36,64 +36,6 @@ public interface QuickcheckArbitrary<T> {
 }
 
 /**
- * Constructs an [IndexMap] from an arbitrary unstructured source.
- */
-public fun <K, V> IndexMap.Companion.arbitrary(
-    u: Unstructured,
-    keyGen: (Unstructured) -> K,
-    valueGen: (Unstructured) -> V,
-): IndexMap<K, V> {
-    val map = IndexMap<K, V>()
-    for (entry in u.arbitraryIter { keyGen(it) to valueGen(it) }) {
-        map.insert(entry.first, entry.second)
-    }
-    return map
-}
-
-/**
- * Constructs an [IndexMap] by consuming the rest of an arbitrary unstructured source.
- */
-public fun <K, V> IndexMap.Companion.arbitraryTakeRest(
-    u: Unstructured,
-    keyGen: (Unstructured) -> K,
-    valueGen: (Unstructured) -> V,
-): IndexMap<K, V> {
-    val map = IndexMap<K, V>()
-    for (entry in u.arbitraryTakeRestIter { keyGen(it) to valueGen(it) }) {
-        map.insert(entry.first, entry.second)
-    }
-    return map
-}
-
-/**
- * Constructs an [IndexSet] from an arbitrary unstructured source.
- */
-public fun <T> IndexSet.Companion.arbitrary(
-    u: Unstructured,
-    itemGen: (Unstructured) -> T,
-): IndexSet<T> {
-    val set = IndexSet<T>()
-    for (item in u.arbitraryIter(itemGen)) {
-        set.insert(item)
-    }
-    return set
-}
-
-/**
- * Constructs an [IndexSet] by consuming the rest of an arbitrary unstructured source.
- */
-public fun <T> IndexSet.Companion.arbitraryTakeRest(
-    u: Unstructured,
-    itemGen: (Unstructured) -> T,
-): IndexSet<T> {
-    val set = IndexSet<T>()
-    for (item in u.arbitraryTakeRestIter(itemGen)) {
-        set.insert(item)
-    }
-    return set
-}
-
-/**
  * Shrinks an [IndexMap] into smaller candidate maps for property-based testing.
  */
 public fun <K, V> IndexMap<K, V>.shrink(): Sequence<IndexMap<K, V>> = emptySequence()

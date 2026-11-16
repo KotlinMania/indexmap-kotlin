@@ -64,6 +64,34 @@ public class IndexSet<T> internal constructor(
 
         public fun <T> fromIter(values: Iterable<T>): IndexSet<T> =
             from(values)
+
+        /**
+         * Constructs an [IndexSet] from an arbitrary unstructured source.
+         */
+        public fun <T> arbitrary(
+            u: Unstructured,
+            itemGen: (Unstructured) -> T,
+        ): IndexSet<T> {
+            val set = IndexSet<T>()
+            for (item in u.arbitraryIter(itemGen)) {
+                set.insert(item)
+            }
+            return set
+        }
+
+        /**
+         * Constructs an [IndexSet] by consuming the rest of an arbitrary unstructured source.
+         */
+        public fun <T> arbitraryTakeRest(
+            u: Unstructured,
+            itemGen: (Unstructured) -> T,
+        ): IndexSet<T> {
+            val set = IndexSet<T>()
+            for (item in u.arbitraryTakeRestIter(itemGen)) {
+                set.insert(item)
+            }
+            return set
+        }
     }
 
     /** Return the number of values in the set. */

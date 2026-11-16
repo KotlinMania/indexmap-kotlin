@@ -65,6 +65,36 @@ public class IndexMap<K, V> private constructor(
 
         public fun <K, V> fromIter(entries: Iterable<Pair<K, V>>): IndexMap<K, V> =
             from(entries)
+
+        /**
+         * Constructs an [IndexMap] from an arbitrary unstructured source.
+         */
+        public fun <K, V> arbitrary(
+            u: Unstructured,
+            keyGen: (Unstructured) -> K,
+            valueGen: (Unstructured) -> V,
+        ): IndexMap<K, V> {
+            val map = IndexMap<K, V>()
+            for (entry in u.arbitraryIter { keyGen(it) to valueGen(it) }) {
+                map.insert(entry.first, entry.second)
+            }
+            return map
+        }
+
+        /**
+         * Constructs an [IndexMap] by consuming the rest of an arbitrary unstructured source.
+         */
+        public fun <K, V> arbitraryTakeRest(
+            u: Unstructured,
+            keyGen: (Unstructured) -> K,
+            valueGen: (Unstructured) -> V,
+        ): IndexMap<K, V> {
+            val map = IndexMap<K, V>()
+            for (entry in u.arbitraryTakeRestIter { keyGen(it) to valueGen(it) }) {
+                map.insert(entry.first, entry.second)
+            }
+            return map
+        }
     }
 
     /** Return the number of key-value pairs in the map. */
