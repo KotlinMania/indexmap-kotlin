@@ -11,7 +11,6 @@ ktlintEngine = "1.8.0"
 kotlinxBenchmark = "0.5.0"
 serde = "0.1.12"
 serdeTest = "0.1.2"
-itertools = "0.2.0"
 
 androidxTestRunner = "1.7.0"
 
@@ -34,7 +33,6 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.
 collections-immutable = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "collectionsImmutable" }
 serde-kotlin = { module = "io.github.kotlinmania:serde-kotlin", version.ref = "serde" }
 serde-test-kotlin = { module = "io.github.kotlinmania:serde-test-kotlin", version.ref = "serdeTest" }
-itertools-kotlin = { module = "io.github.kotlinmania:itertools-kotlin", version.ref = "itertools" }
 
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidxTestRunner" }
 
@@ -50,5 +48,4 @@ indexmap-commonMainApi = [
 ]
 indexmap-commonTest = [
   "serde-test-kotlin",
-  "itertools-kotlin",
 ]
